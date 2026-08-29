@@ -1606,12 +1606,9 @@ let db =
 
 
 
-let auth =
-  JSON.parse(
-    localStorage.getItem(AUTH_KEY)
-    ||
-    'null'
-  );
+let auth = null;
+
+let firebaseAuth = null;
 
 
 
@@ -5003,7 +5000,14 @@ if(
 
 boot();
 
-</script>
+<script type="module">
 
+import {
+  auth as firebaseAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut
+} from './firebase.js';
+  
 </body>
 </html>
