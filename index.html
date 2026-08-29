@@ -4670,65 +4670,71 @@ async function loadFromSheets(){
    LOGIN
 ===================================================== */
 
-function login(){
+async function login(){
 
   const email =
-    document.getElementById(
-      'loginEmail'
-    ).value
-    .trim()
-    .toLowerCase();
-
-
+    document.getElementById('loginEmail')
+      .value.trim().toLowerCase();
 
   const pass =
-    document.getElementById(
-      'loginPassword'
-    ).value;
+    document.getElementById('loginPassword')
+      .value;
 
-
-
-  if(
-    !email
-    ||
-    !pass
-  ){
-
+  if(!email || !pass){
     return loginMsg(
       'Email dan password diperlukan.'
+    );
+  }
+
+  try{
+
+    const result =
+      await signInWithEmailAndPassword(
+        firebaseAuthInstance,
+        email,
+        pass
+      );
+
+    auth = {
+      uid: result.user.uid,
+      email: result.user.email
+    };
+
+    localStorage.setItem(
+      AUTH_KEY,
+      JSON.stringify(auth)
+    );
+
+    boot();
+
+  }catch(error){
+
+    console.error(error);
+
+    loginMsg(
+      'Login gagal: ' + error.message
     );
 
   }
 
+}
 
 
 /* =====================================================
    REGISTER
 ===================================================== */
 
-function registerUser(){
+async function registerUser(){
 
   const email =
-    document.getElementById(
-      'loginEmail'
-    ).value
-    .trim()
-    .toLowerCase();
-
-
+    document.getElementById('loginEmail')
+      .value.trim().toLowerCase();
 
   const pass =
-    document.getElementById(
-      'loginPassword'
-    ).value;
+    document.getElementById('loginPassword')
+      .value;
 
-
-
-  if(
-    !email
-    ||
-    pass.length < 6
-  ){
+  if(!email || pass.length < 6){
 
     return loginMsg(
       'Masukkan email dan password sekurang-kurangnya 6 aksara.'
@@ -4736,63 +4742,38 @@ function registerUser(){
 
   }
 
+  try{
 
+    const result =
+      await createUserWithEmailAndPassword(
+        firebaseAuthInstance,
+        email,
+        pass
+      );
 
-  const users =
-    JSON.parse(
-      localStorage.getItem(
-        'reno_users_v1'
-      )
-      ||
-      '{}'
+    auth = {
+      uid: result.user.uid,
+      email: result.user.email
+    };
+
+    localStorage.setItem(
+      AUTH_KEY,
+      JSON.stringify(auth)
     );
 
+    boot();
 
+  }catch(error){
 
-  if(
-    users[email]
-  ){
+    console.error(error);
 
-    return loginMsg(
-      'Account sudah wujud.'
+    loginMsg(
+      'Register gagal: ' + error.message
     );
 
   }
 
-
-
-  users[email] = {
-    password:pass
-  };
-
-
-
-  localStorage.setItem(
-    'reno_users_v1',
-    JSON.stringify(users)
-  );
-
-
-
-  auth = {
-    email
-  };
-
-
-
-  localStorage.setItem(
-    AUTH_KEY,
-    JSON.stringify(auth)
-  );
-
-
-
-  boot();
-
 }
-
-
-
 /* =====================================================
    DEMO
 ===================================================== */
