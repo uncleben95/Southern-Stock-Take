@@ -4983,9 +4983,15 @@ boot();
 
 import {
   auth as firebaseAuthInstance,
+  db as dbFirebase,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  signOut
+  signOut,
+  doc,
+  setDoc,
+  getDoc,
+  onSnapshot,
+  serverTimestamp
 } from './firebase.js';
   
 </body>
