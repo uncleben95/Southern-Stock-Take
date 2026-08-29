@@ -1623,7 +1623,7 @@ let settings =
    BASIC
 ===================================================== */
 
-function save(){
+async function save(){
 
   localStorage.setItem(
     KEY,
@@ -1632,8 +1632,37 @@ function save(){
 
   renderAll();
 
-}
+  if(firebaseAuthInstance.currentUser){
 
+    try{
+
+      await setDoc(
+        doc(
+          dbFirebase,
+          'users',
+          firebaseAuthInstance.currentUser.uid
+        ),
+        {
+          products: db.products || [],
+          movements: db.movements || [],
+          stocktakes: db.stocktakes || [],
+          updatedAt: serverTimestamp()
+        },
+        { merge:true }
+      );
+
+      console.log('Firestore sync OK');
+
+    }catch(error){
+
+      console.error(
+        'Firestore sync failed:',
+        error
+      );
+
+    }
+  }
+}
 
 
 function esc(v){
