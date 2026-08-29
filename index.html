@@ -4707,52 +4707,6 @@ function login(){
 
 
 
-  const users =
-    JSON.parse(
-      localStorage.getItem(
-        'reno_users_v1'
-      )
-      ||
-      '{}'
-    );
-
-
-
-  if(
-    users[email]
-    &&
-    users[email].password === pass
-  ){
-
-    auth = {
-      email
-    };
-
-
-
-    localStorage.setItem(
-      AUTH_KEY,
-      JSON.stringify(auth)
-    );
-
-
-
-    boot();
-
-  }
-
-  else{
-
-    loginMsg(
-      'Login gagal.'
-    );
-
-  }
-
-}
-
-
-
 /* =====================================================
    REGISTER
 ===================================================== */
