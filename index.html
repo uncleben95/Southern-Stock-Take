@@ -2,10 +2,20 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta name="theme-color" content="#101828">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RenoCal">
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+
 <title>RenoCal Stock Take</title>
 
 <style>
+
 :root{
   --bg:#f5f7fb;
   --card:#fff;
@@ -17,6 +27,7 @@
   --danger:#d92d20;
   --success:#079455;
   --warning:#dc6803;
+  --dark:#101828;
   --shadow:0 8px 30px rgba(16,24,40,.07);
   --radius:16px;
 }
@@ -44,10 +55,18 @@ button{
   border:0;
 }
 
+.hidden{
+  display:none!important;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
 .topbar{
-  background:#101828;
+  background:var(--dark);
   color:#fff;
-  padding:18px 24px;
+  padding:14px 18px;
   position:sticky;
   top:0;
   z-index:20;
@@ -56,10 +75,12 @@ button{
 .topbar-inner{
   max-width:1450px;
   margin:auto;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
+
+  gap:12px;
 }
 
 .brand{
@@ -71,11 +92,15 @@ button{
 .logo{
   width:42px;
   height:42px;
+
   border-radius:12px;
+
   background:#fff;
   color:#101828;
+
   display:grid;
   place-items:center;
+
   font-weight:900;
 }
 
@@ -88,25 +113,64 @@ button{
   color:#98a2b3;
 }
 
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.user-chip{
+  font-size:12px;
+  color:#d0d5dd;
+}
+
+.sync-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  display:inline-block;
+  background:#98a2b3;
+}
+
+.sync-dot.online{
+  background:#12b76a;
+}
+
+.sync-dot.error{
+  background:#f04438;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
 .container{
   max-width:1450px;
-  margin:24px auto;
-  padding:0 18px;
+  margin:20px auto;
+  padding:0 14px;
 }
+
+/* =========================
+   TABS
+========================= */
 
 .tabs{
   display:flex;
   gap:8px;
   overflow:auto;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
 .tab{
   background:#fff;
   border:1px solid var(--line);
-  padding:11px 16px;
+
+  padding:10px 14px;
+
   border-radius:10px;
+
   color:#475467;
+
   white-space:nowrap;
 }
 
@@ -116,6 +180,10 @@ button{
   color:#fff;
 }
 
+/* =========================
+   PANELS
+========================= */
+
 .panel{
   display:none;
 }
@@ -124,22 +192,39 @@ button{
   display:block;
 }
 
+/* =========================
+   GRID
+========================= */
+
 .grid{
   display:grid;
   gap:16px;
 }
 
 .cards{
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
 }
+
+/* =========================
+   CARD
+========================= */
 
 .card{
   background:var(--card);
+
   border:1px solid var(--line);
+
   border-radius:var(--radius);
+
   box-shadow:var(--shadow);
+
   padding:18px;
 }
+
+/* =========================
+   STATS
+========================= */
 
 .stat-label{
   font-size:13px;
@@ -149,21 +234,29 @@ button{
 .stat{
   font-size:28px;
   font-weight:800;
+
   margin-top:7px;
 }
 
 .stat-note{
   font-size:12px;
   color:var(--muted);
+
   margin-top:4px;
 }
+
+/* =========================
+   SECTION
+========================= */
 
 .section-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:12px;
-  margin:24px 0 12px;
+
+  margin:22px 0 12px;
 }
 
 .section-head h2{
@@ -171,11 +264,18 @@ button{
   margin:0;
 }
 
+/* =========================
+   BUTTONS
+========================= */
+
 .btn{
   padding:10px 14px;
+
   border-radius:10px;
+
   background:#eef2f6;
   color:#344054;
+
   font-weight:700;
 }
 
@@ -193,22 +293,43 @@ button{
   color:var(--danger);
 }
 
+.btn.success{
+  background:#ecfdf3;
+  color:#027a48;
+}
+
+.btn.warning{
+  background:#fffaeb;
+  color:#b54708;
+}
+
 .btn.small{
   padding:7px 10px;
   font-size:12px;
 }
 
+/* =========================
+   FORM
+========================= */
+
 .form-grid{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+
   gap:12px;
 }
 
 .field label{
   display:block;
+
   font-size:12px;
+
   color:#475467;
+
   font-weight:700;
+
   margin-bottom:6px;
 }
 
@@ -216,53 +337,93 @@ button{
 .field select,
 .field textarea{
   width:100%;
+
   border:1px solid #d0d5dd;
+
   border-radius:9px;
+
   padding:10px 11px;
+
   background:#fff;
+
   outline:none;
 }
 
 .field input:focus,
-.field select:focus{
+.field select:focus,
+.field textarea:focus{
   border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(31,78,216,.1);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(31,78,216,.1);
 }
 
-.actions{
+/* =========================
+   TOOLBAR
+========================= */
+
+.toolbar{
   display:flex;
-  gap:8px;
+
+  gap:10px;
+
+  flex-wrap:wrap;
+
   align-items:end;
 }
 
+.toolbar .field{
+  min-width:160px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
 .table-wrap{
   overflow:auto;
+
   border:1px solid var(--line);
+
   border-radius:12px;
+
   background:#fff;
 }
 
 table{
   border-collapse:collapse;
+
   width:100%;
+
   min-width:850px;
 }
 
 th,
 td{
   padding:11px 12px;
-  border-bottom:1px solid var(--line);
+
+  border-bottom:
+    1px solid var(--line);
+
   text-align:left;
+
   font-size:13px;
+
   white-space:nowrap;
 }
 
 th{
   background:#f8fafc;
+
   color:#475467;
+
   font-size:12px;
+
   position:sticky;
+
   top:0;
+
   z-index:1;
 }
 
@@ -270,11 +431,19 @@ tr:last-child td{
   border-bottom:0;
 }
 
+/* =========================
+   BADGES
+========================= */
+
 .badge{
   display:inline-flex;
+
   padding:4px 8px;
+
   border-radius:99px;
+
   font-size:11px;
+
   font-weight:800;
 }
 
@@ -293,72 +462,16 @@ tr:last-child td{
   color:#475467;
 }
 
+/* =========================
+   TEXT
+========================= */
+
 .empty{
   text-align:center;
+
   padding:35px;
+
   color:var(--muted);
-}
-
-.toolbar{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
-}
-
-.toolbar .field{
-  min-width:160px;
-}
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(16,24,40,.55);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:50;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.modal-box{
-  background:#fff;
-  width:min(700px,100%);
-  border-radius:18px;
-  padding:22px;
-  max-height:90vh;
-  overflow:auto;
-}
-
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
-}
-
-.modal-head h3{
-  margin:0;
-}
-
-.close{
-  background:#f2f4f7;
-  border-radius:8px;
-  width:34px;
-  height:34px;
-}
-
-.notice{
-  padding:12px 14px;
-  border-radius:10px;
-  background:#eff8ff;
-  color:#175cd3;
-  font-size:13px;
-  margin-bottom:14px;
 }
 
 .danger-text{
@@ -371,14 +484,178 @@ tr:last-child td{
   font-weight:700;
 }
 
+.warning-text{
+  color:var(--warning);
+  font-weight:700;
+}
+
+/* =========================
+   NOTICE
+========================= */
+
+.notice{
+  padding:12px 14px;
+
+  border-radius:10px;
+
+  background:#eff8ff;
+
+  color:#175cd3;
+
+  font-size:13px;
+
+  margin-bottom:14px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  position:fixed;
+
+  inset:0;
+
+  background:
+    rgba(16,24,40,.55);
+
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:20px;
+
+  z-index:50;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  background:#fff;
+
+  width:min(760px,100%);
+
+  border-radius:18px;
+
+  padding:22px;
+
+  max-height:90vh;
+
+  overflow:auto;
+}
+
+.modal-head{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:18px;
+}
+
+.modal-head h3{
+  margin:0;
+}
+
+.close{
+  background:#f2f4f7;
+
+  border-radius:8px;
+
+  width:34px;
+  height:34px;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login{
+  min-height:100vh;
+
+  display:grid;
+
+  place-items:center;
+
+  padding:20px;
+
+  background:var(--bg);
+}
+
+.login-box{
+  width:min(430px,100%);
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:20px;
+
+  padding:28px;
+
+  box-shadow:var(--shadow);
+}
+
+.login-logo{
+  width:58px;
+  height:58px;
+
+  border-radius:16px;
+
+  background:var(--dark);
+
+  color:#fff;
+
+  display:grid;
+
+  place-items:center;
+
+  font-weight:900;
+
+  margin-bottom:16px;
+}
+
+.login h2{
+  margin:0 0 6px;
+}
+
+.login p{
+  color:var(--muted);
+
+  font-size:13px;
+}
+
+.login .field{
+  margin:12px 0;
+}
+
+.login-actions{
+  display:grid;
+
+  gap:8px;
+
+  margin-top:16px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
 @media(max-width:900px){
 
   .cards{
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
   }
 
   .form-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
   }
 
 }
@@ -386,11 +663,11 @@ tr:last-child td{
 @media(max-width:600px){
 
   .topbar{
-    padding:14px;
+    padding:12px;
   }
 
   .container{
-    padding:0 10px;
+    padding:0 9px;
   }
 
   .cards{
@@ -409,667 +686,944 @@ tr:last-child td{
     font-size:22px;
   }
 
+  .brand small{
+    display:none;
+  }
+
+  .top-actions .user-chip{
+    display:none;
+  }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<header class="topbar">
 
-  <div class="topbar-inner">
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
-    <div class="brand">
+<div id="loginView" class="login hidden">
 
-      <div class="logo">
-        ST
-      </div>
+  <div class="login-box">
 
-      <div>
-        <h1>Stock Take Manager</h1>
-        <small>Daily movement → monthly stock balance</small>
-      </div>
-
+    <div class="login-logo">
+      RC
     </div>
 
-    <button class="btn" onclick="openProductModal()">
-      ＋ Product
-    </button>
+    <h2>
+      RenoCal Stock Take
+    </h2>
 
-  </div>
-
-</header>
-
-
-<main class="container">
-
-  <!-- TABS -->
-
-  <div class="tabs">
-
-    <button
-      class="tab active"
-      onclick="showTab('dashboard',this)">
-      Dashboard
-    </button>
-
-    <button
-      class="tab"
-      onclick="showTab('products',this)">
-      Products
-    </button>
-
-    <button
-      class="tab"
-      onclick="showTab('movement',this)">
-      Daily Movement
-    </button>
-
-    <button
-      class="tab"
-      onclick="showTab('stocktake',this)">
-      Monthly Stock Take
-    </button>
-
-    <button
-      class="tab"
-      onclick="showTab('export',this)">
-      Google Sheets
-    </button>
-
-  </div>
+    <p>
+      Login untuk akses stock database.
+    </p>
 
 
-  <!-- DASHBOARD -->
+    <div class="field">
 
-  <section id="dashboard" class="panel active">
+      <label>
+        Email
+      </label>
 
-    <div class="grid cards">
-
-      <div class="card">
-
-        <div class="stat-label">
-          Total Products
-        </div>
-
-        <div class="stat" id="dProducts">
-          0
-        </div>
-
-        <div class="stat-note">
-          Items registered
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="stat-label">
-          Current Stock
-        </div>
-
-        <div class="stat" id="dStock">
-          0
-        </div>
-
-        <div class="stat-note">
-          System balance
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="stat-label">
-          Sold This Month
-        </div>
-
-        <div class="stat" id="dSold">
-          0
-        </div>
-
-        <div class="stat-note" id="dMonth"></div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="stat-label">
-          Stock Variance
-        </div>
-
-        <div class="stat" id="dVariance">
-          0
-        </div>
-
-        <div class="stat-note">
-          Latest physical count
-        </div>
-
-      </div>
+      <input
+        id="loginEmail"
+        type="email"
+        autocomplete="username"
+        placeholder="email@example.com">
 
     </div>
 
 
-    <div class="section-head">
+    <div class="field">
 
-      <h2>
-        Low / Negative Stock
-      </h2>
+      <label>
+        Password
+      </label>
 
-      <button
-        class="btn small"
-        onclick="renderDashboard()">
-        Refresh
-      </button>
-
-    </div>
-
-
-    <div
-      class="card table-wrap"
-      id="lowStock">
-    </div>
-
-
-    <div class="section-head">
-
-      <h2>
-        Recent Movement
-      </h2>
+      <input
+        id="loginPassword"
+        type="password"
+        autocomplete="current-password"
+        placeholder="Minimum 6 aksara">
 
     </div>
 
 
-    <div
-      class="card table-wrap"
-      id="recentMovement">
-    </div>
-
-  </section>
-
-
-  <!-- PRODUCTS -->
-
-  <section id="products" class="panel">
-
-    <div class="section-head">
-
-      <h2>
-        Product Master
-      </h2>
+    <div class="login-actions">
 
       <button
         class="btn primary"
-        onclick="openProductModal()">
-        ＋ Add Product
+        onclick="login()">
+
+        Login
+
       </button>
 
-    </div>
-
-
-    <div class="card">
-
-      <div class="toolbar">
-
-        <div class="field">
-
-          <label>
-            Search
-          </label>
-
-          <input
-            id="productSearch"
-            oninput="renderProducts()"
-            placeholder="SKU / product name...">
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Category
-          </label>
-
-          <select
-            id="productCategory"
-            onchange="renderProducts()">
-
-            <option value="">
-              All categories
-            </option>
-
-          </select>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div
-      class="card table-wrap"
-      style="margin-top:16px"
-      id="productsTable">
-    </div>
-
-  </section>
-
-
-  <!-- DAILY MOVEMENT -->
-
-  <section id="movement" class="panel">
-
-    <div class="section-head">
-
-      <h2>
-        Daily Stock Movement
-      </h2>
 
       <button
-        class="btn primary"
-        onclick="openMovementModal()">
-        ＋ Record Movement
+        class="btn"
+        onclick="registerUser()">
+
+        Create Account
+
       </button>
 
-    </div>
-
-
-    <div class="notice">
-
-      <b>Formula:</b>
-
-      Current Balance = Opening Stock + Stock In − Stock Out.
-
-      Every daily sale should be recorded as
-      <b>Stock Out</b>.
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="toolbar">
-
-        <div class="field">
-
-          <label>
-            Month
-          </label>
-
-          <input
-            type="month"
-            id="movementMonth"
-            onchange="renderMovement()">
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Product
-          </label>
-
-          <select
-            id="movementProductFilter"
-            onchange="renderMovement()">
-
-            <option value="">
-              All products
-            </option>
-
-          </select>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div
-      class="card table-wrap"
-      style="margin-top:16px"
-      id="movementTable">
-    </div>
-
-  </section>
-
-
-  <!-- MONTHLY STOCK TAKE -->
-
-  <section id="stocktake" class="panel">
-
-    <div class="section-head">
-
-      <h2>
-        Monthly Physical Stock Take
-      </h2>
 
       <button
-        class="btn primary"
-        onclick="openStockTakeModal()">
-        ＋ Enter Count
+        class="btn"
+        onclick="demoLogin()">
+
+        Use Local Demo
+
       </button>
 
     </div>
 
 
-    <div class="notice">
-
-      Masukkan jumlah fizikal yang betul-betul
-      dikira di warehouse.
-
-      Sistem akan bandingkan dengan
-      <b>System Balance</b> dan kira
-      <b>Variance</b>.
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="toolbar">
-
-        <div class="field">
-
-          <label>
-            Stock Take Month
-          </label>
-
-          <input
-            type="month"
-            id="takeMonth"
-            onchange="renderStockTake()">
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div
-      class="card table-wrap"
-      style="margin-top:16px"
-      id="stockTakeTable">
-    </div>
-
-  </section>
-
-
-  <!-- EXPORT -->
-
-  <section id="export" class="panel">
-
-    <div class="section-head">
-
-      <h2>
-        Google Sheets / Export
-      </h2>
-
-    </div>
-
-
-    <div
-      class="grid"
-      style="grid-template-columns:repeat(2,minmax(0,1fr))">
-
-
-      <div class="card">
-
-        <h3>
-          1. Export CSV
-        </h3>
-
-        <p style="color:var(--muted);font-size:13px">
-
-          CSV boleh terus upload ke Google Sheets.
-
-          Setiap jenis data akan jadi fail
-          berasingan.
-
-        </p>
-
-
-        <div class="toolbar">
-
-          <button
-            class="btn primary"
-            onclick="exportCSV('products')">
-            Products CSV
-          </button>
-
-          <button
-            class="btn primary"
-            onclick="exportCSV('movement')">
-            Movement CSV
-          </button>
-
-          <button
-            class="btn primary"
-            onclick="exportCSV('stocktake')">
-            Stock Take CSV
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>
-          2. Backup / Restore
-        </h3>
-
-        <p style="color:var(--muted);font-size:13px">
-
-          Backup semua data browser sebelum
-          tukar phone atau clear browser data.
-
-        </p>
-
-
-        <div class="toolbar">
-
-          <button
-            class="btn"
-            onclick="backupJSON()">
-            Download Backup
-          </button>
-
-
-          <label
-            class="btn"
-            for="restoreFile">
-            Restore Backup
-          </label>
-
-
-          <input
-            id="restoreFile"
-            type="file"
-            accept=".json"
-            hidden
-            onchange="restoreJSON(event)">
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div
-      class="card"
-      style="margin-top:16px">
-
-      <h3>
-        Struktur Google Sheets yang dicadangkan
-      </h3>
-
-      <p style="color:var(--muted);font-size:13px">
-
-        Buat 3 tab:
-
-        <b>Products</b>,
-
-        <b>Daily Movement</b>,
-
-        dan
-
-        <b>Monthly Stock Take</b>.
-
-        CSV di atas boleh dimasukkan ke setiap tab.
-
-      </p>
-
-
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-
-            <tr>
-
-              <th>
-                Tab
-              </th>
-
-              <th>
-                Kegunaan
-              </th>
-
-              <th>
-                Data utama
-              </th>
-
-            </tr>
-
-          </thead>
-
-
-          <tbody>
-
-            <tr>
-
-              <td>
-                Products
-              </td>
-
-              <td>
-                Master barang
-              </td>
-
-              <td>
-                SKU, Product, Category, Unit,
-                Opening Stock
-              </td>
-
-            </tr>
-
-
-            <tr>
-
-              <td>
-                Daily Movement
-              </td>
-
-              <td>
-                Rekod harian
-              </td>
-
-              <td>
-                Date, SKU, Stock In, Stock Out,
-                Note
-              </td>
-
-            </tr>
-
-
-            <tr>
-
-              <td>
-                Monthly Stock Take
-              </td>
-
-              <td>
-                Kiraan fizikal
-              </td>
-
-              <td>
-                Month, SKU, System Balance,
-                Physical Count, Variance
-              </td>
-
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-
-  </section>
-
-</main>
-
-
-<!-- MODAL -->
-
-<div
-  class="modal"
-  id="modal">
-
-  <div class="modal-box">
-
-    <div class="modal-head">
-
-      <h3 id="modalTitle"></h3>
-
-      <button
-        class="close"
-        onclick="closeModal()">
-        ×
-      </button>
-
-    </div>
-
-
-    <div id="modalBody"></div>
+    <p id="loginMsg"></p>
 
   </div>
 
 </div>
 
 
+
+<!-- =====================================================
+     APP
+===================================================== -->
+
+<div
+  id="appView"
+  class="hidden">
+
+
+<header class="topbar">
+
+  <div class="topbar-inner">
+
+
+    <div class="brand">
+
+      <div class="logo">
+        RC
+      </div>
+
+
+      <div>
+
+        <h1>
+          RenoCal Stock Take
+        </h1>
+
+        <small>
+          Daily movement → monthly stock balance
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <div class="top-actions">
+
+      <span
+        class="user-chip"
+        id="userChip">
+      </span>
+
+
+      <span
+        class="sync-dot"
+        id="syncDot">
+      </span>
+
+
+      <button
+        class="btn"
+        onclick="openProductModal()">
+
+        ＋ Product
+
+      </button>
+
+
+      <button
+        class="btn"
+        onclick="logout()">
+
+        Logout
+
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<main class="container">
+
+
+<!-- =====================================================
+     TABS
+===================================================== -->
+
+<div class="tabs">
+
+
+<button
+  class="tab active"
+  onclick="showTab('dashboard',this)">
+
+  Dashboard
+
+</button>
+
+
+<button
+  class="tab"
+  onclick="showTab('products',this)">
+
+  Products
+
+</button>
+
+
+<button
+  class="tab"
+  onclick="showTab('movement',this)">
+
+  Daily Movement
+
+</button>
+
+
+<button
+  class="tab"
+  onclick="showTab('stocktake',this)">
+
+  Monthly Stock Take
+
+</button>
+
+
+<button
+  class="tab"
+  onclick="showTab('export',this)">
+
+  Google Sheets / Backup
+
+</button>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section
+  id="dashboard"
+  class="panel active">
+
+
+<div class="grid cards">
+
+
+<div class="card">
+
+  <div class="stat-label">
+    Total Products
+  </div>
+
+  <div
+    class="stat"
+    id="dProducts">
+    0
+  </div>
+
+  <div class="stat-note">
+    Items registered
+  </div>
+
+</div>
+
+
+<div class="card">
+
+  <div class="stat-label">
+    Current Stock
+  </div>
+
+  <div
+    class="stat"
+    id="dStock">
+    0
+  </div>
+
+  <div class="stat-note">
+    System balance
+  </div>
+
+</div>
+
+
+<div class="card">
+
+  <div class="stat-label">
+    Sold This Month
+  </div>
+
+  <div
+    class="stat"
+    id="dSold">
+    0
+  </div>
+
+  <div
+    class="stat-note"
+    id="dMonth">
+  </div>
+
+</div>
+
+
+<div class="card">
+
+  <div class="stat-label">
+    Stock Variance
+  </div>
+
+  <div
+    class="stat"
+    id="dVariance">
+    0
+  </div>
+
+  <div class="stat-note">
+    Latest physical count
+  </div>
+
+</div>
+
+
+</div>
+
+
+
+<div class="section-head">
+
+  <h2>
+    Low / Negative Stock
+  </h2>
+
+  <button
+    class="btn small"
+    onclick="renderDashboard()">
+
+    Refresh
+
+  </button>
+
+</div>
+
+
+<div
+  class="card table-wrap"
+  id="lowStock">
+</div>
+
+
+
+<div class="section-head">
+
+  <h2>
+    Recent Movement
+  </h2>
+
+</div>
+
+
+<div
+  class="card table-wrap"
+  id="recentMovement">
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
+
+<section
+  id="products"
+  class="panel">
+
+
+<div class="section-head">
+
+  <h2>
+    Product Master
+  </h2>
+
+
+  <button
+    class="btn primary"
+    onclick="openProductModal()">
+
+    ＋ Add Product
+
+  </button>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="toolbar">
+
+
+<div class="field">
+
+<label>
+Search
+</label>
+
+<input
+  id="productSearch"
+  oninput="renderProducts()"
+  placeholder="SKU / product name...">
+
+</div>
+
+
+
+<div class="field">
+
+<label>
+Category
+</label>
+
+<select
+  id="productCategory"
+  onchange="renderProducts()">
+
+<option value="">
+All categories
+</option>
+
+</select>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<div
+  class="card table-wrap"
+  style="margin-top:16px"
+  id="productsTable">
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     DAILY MOVEMENT
+===================================================== -->
+
+<section
+  id="movement"
+  class="panel">
+
+
+<div class="section-head">
+
+<h2>
+Daily Stock Movement
+</h2>
+
+
+<button
+  class="btn primary"
+  onclick="openMovementModal()">
+
+＋ Record Movement
+
+</button>
+
+</div>
+
+
+
+<div class="notice">
+
+<b>Formula:</b>
+
+Current Balance =
+Opening Stock +
+Stock In −
+Stock Out.
+
+Every sale should be recorded as
+<b>Stock Out</b>.
+
+</div>
+
+
+
+<div class="card">
+
+<div class="toolbar">
+
+
+<div class="field">
+
+<label>
+Month
+</label>
+
+<input
+  type="month"
+  id="movementMonth"
+  onchange="renderMovement">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Product
+</label>
+
+<select
+  id="movementProductFilter"
+  onchange="renderMovement()">
+
+<option value="">
+All products
+</option>
+
+</select>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<div
+  class="card table-wrap"
+  style="margin-top:16px"
+  id="movementTable">
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     STOCK TAKE
+===================================================== -->
+
+<section
+  id="stocktake"
+  class="panel">
+
+
+<div class="section-head">
+
+<h2>
+Monthly Physical Stock Take
+</h2>
+
+
+<button
+  class="btn primary"
+  onclick="openStockTakeModal()">
+
+＋ Enter Count
+
+</button>
+
+</div>
+
+
+
+<div class="notice">
+
+Masukkan jumlah fizikal sebenar.
+
+Sistem akan bandingkan dengan
+<b>System Balance</b>
+dan kira
+<b>Variance</b>.
+
+</div>
+
+
+
+<div class="card">
+
+<div class="toolbar">
+
+<div class="field">
+
+<label>
+Stock Take Month
+</label>
+
+<input
+  type="month"
+  id="takeMonth"
+  onchange="renderStockTake()">
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div
+  class="card table-wrap"
+  style="margin-top:16px"
+  id="stockTakeTable">
+</div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     EXPORT
+===================================================== -->
+
+<section
+  id="export"
+  class="panel">
+
+
+<div class="section-head">
+
+<h2>
+Google Sheets / Export / Backup
+</h2>
+
+</div>
+
+
+
+<div
+  class="grid"
+  style="grid-template-columns:repeat(2,minmax(0,1fr))">
+
+
+<!-- CSV -->
+
+<div class="card">
+
+<h3>
+CSV Export
+</h3>
+
+<p style="color:var(--muted);font-size:13px">
+
+CSV boleh upload terus ke
+Google Sheets.
+
+</p>
+
+
+<div class="toolbar">
+
+<button
+  class="btn primary"
+  onclick="exportCSV('products')">
+
+Products CSV
+
+</button>
+
+
+<button
+  class="btn primary"
+  onclick="exportCSV('movement')">
+
+Movement CSV
+
+</button>
+
+
+<button
+  class="btn primary"
+  onclick="exportCSV('stocktake')">
+
+Stock Take CSV
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- BACKUP -->
+
+<div class="card">
+
+<h3>
+Backup / Restore
+</h3>
+
+<p style="color:var(--muted);font-size:13px">
+
+Backup semua data sebelum
+tukar phone atau clear browser.
+
+</p>
+
+
+<div class="toolbar">
+
+
+<button
+  class="btn"
+  onclick="backupJSON()">
+
+Download Backup
+
+</button>
+
+
+<label
+  class="btn"
+  for="restoreFile">
+
+Restore Backup
+
+</label>
+
+
+<input
+  id="restoreFile"
+  type="file"
+  accept=".json"
+  hidden
+  onchange="restoreJSON(event)">
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- GOOGLE SHEETS -->
+
+<div
+  class="card"
+  style="margin-top:16px">
+
+
+<h3>
+Cloud Google Sheets Sync
+</h3>
+
+
+<p
+  style="color:var(--muted);font-size:13px">
+
+Masukkan URL Google Apps Script
+Web App.
+
+</p>
+
+
+<div class="field">
+
+<label>
+Google Apps Script Web App URL
+</label>
+
+<input
+  id="sheetsUrl"
+  placeholder="https://script.google.com/macros/s/.../exec">
+
+</div>
+
+
+
+<div
+  class="toolbar"
+  style="margin-top:10px">
+
+
+<button
+  class="btn primary"
+  onclick="saveSheetsUrl()">
+
+Save URL
+
+</button>
+
+
+<button
+  class="btn success"
+  onclick="syncToSheets()">
+
+Sync Now
+
+</button>
+
+
+<button
+  class="btn"
+  onclick="loadFromSheets()">
+
+Pull From Sheets
+
+</button>
+
+
+</div>
+
+
+<p
+  id="syncMsg"
+  style="font-size:12px;color:var(--muted)">
+</p>
+
+
+</div>
+
+
+</section>
+
+
+</main>
+
+</div>
+
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+  class="modal"
+  id="modal">
+
+
+<div class="modal-box">
+
+
+<div class="modal-head">
+
+
+<h3 id="modalTitle"></h3>
+
+
+<button
+  class="close"
+  onclick="closeModal()">
+
+×
+
+</button>
+
+
+</div>
+
+
+<div id="modalBody"></div>
+
+
+</div>
+
+</div>
+
+
+
 <script>
 
-/* =========================================
+/* =====================================================
    DATABASE
-========================================= */
+===================================================== */
 
-const KEY = 'reno_stock_take_v1';
-
-let db = JSON.parse(
-  localStorage.getItem(KEY) ||
-  '{"products":[],"movements":[],"stocktakes":[]}'
-);
+const KEY =
+  'reno_stock_take_v2';
 
 
-/* =========================================
-   BASIC FUNCTIONS
-========================================= */
+const AUTH_KEY =
+  'reno_auth_v1';
+
+
+const SETTINGS_KEY =
+  'reno_settings_v1';
+
+
+
+let db =
+  JSON.parse(
+    localStorage.getItem(KEY)
+    ||
+    '{"products":[],"movements":[],"stocktakes":[]}'
+  );
+
+
+
+let auth =
+  JSON.parse(
+    localStorage.getItem(AUTH_KEY)
+    ||
+    'null'
+  );
+
+
+
+let settings =
+  JSON.parse(
+    localStorage.getItem(SETTINGS_KEY)
+    ||
+    '{}'
+  );
+
+
+
+/* =====================================================
+   BASIC
+===================================================== */
 
 function save(){
 
@@ -1083,21 +1637,24 @@ function save(){
 }
 
 
+
 function esc(v){
 
-  return String(v ?? '').replace(
-    /[&<>"']/g,
+  return String(v ?? '')
+    .replace(
+      /[&<>"']/g,
 
-    m => ({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#039;'
-    }[m])
-  );
+      m => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#039;'
+      }[m])
+    );
 
 }
+
 
 
 function today(){
@@ -1109,6 +1666,7 @@ function today(){
 }
 
 
+
 function monthNow(){
 
   return new Date()
@@ -1118,15 +1676,18 @@ function monthNow(){
 }
 
 
+
 function uid(){
 
-  return Date.now().toString(36)
+  return Date.now()
+    .toString(36)
     +
     Math.random()
       .toString(36)
       .slice(2,7);
 
 }
+
 
 
 function money(v){
@@ -1142,70 +1703,98 @@ function money(v){
 }
 
 
-/* =========================================
-   TAB
-========================================= */
 
-function showTab(id,btn){
+/* =====================================================
+   PRODUCT
+===================================================== */
 
-  document
-    .querySelectorAll('.panel')
-    .forEach(
-      x => x.classList.remove('active')
-    );
+function product(id){
 
-  document
-    .querySelectorAll('.tab')
-    .forEach(
-      x => x.classList.remove('active')
-    );
-
-  document
-    .getElementById(id)
-    .classList.add('active');
-
-  btn.classList.add('active');
-
-  renderAll();
+  return db.products.find(
+    x => x.id === id
+  );
 
 }
 
 
-/* =========================================
-   STOCK BALANCE
-========================================= */
 
-function balance(pid,upto=null){
+function productName(id){
 
   const p =
-    db.products.find(
-      x => x.id === pid
-    );
+    product(id);
 
-  if(!p) return 0;
+  return p
+    ? p.name
+    : 'Unknown';
+
+}
+
+
+
+function productSku(id){
+
+  const p =
+    product(id);
+
+  return p
+    ? p.sku
+    : '-';
+
+}
+
+
+
+/* =====================================================
+   BALANCE
+===================================================== */
+
+function balance(
+  pid,
+  upto=null
+){
+
+  const p =
+    product(pid);
+
+  if(!p)
+    return 0;
+
 
   let b =
-    Number(p.opening || 0);
+    Number(
+      p.opening || 0
+    );
 
 
-  db.movements.forEach(m => {
+  db.movements.forEach(
+    m => {
 
-    if(
-      m.productId === pid &&
-      (!upto || m.date <= upto)
-    ){
+      if(
+        m.productId === pid
+        &&
+        (
+          !upto
+          ||
+          m.date <= upto
+        )
+      ){
 
-      b += Number(m.in || 0);
-      b -= Number(m.out || 0);
+        b +=
+          Number(m.in || 0);
+
+        b -=
+          Number(m.out || 0);
+
+      }
 
     }
-
-  });
+  );
 
 
   return b;
 
 }
+
 
 
 function monthRange(m){
@@ -1218,39 +1807,55 @@ function monthRange(m){
 }
 
 
-function productName(id){
 
-  const p =
-    db.products.find(
-      x => x.id === id
+/* =====================================================
+   TABS
+===================================================== */
+
+function showTab(
+  id,
+  btn
+){
+
+  document
+    .querySelectorAll('.panel')
+    .forEach(
+      x =>
+        x.classList.remove('active')
     );
 
-  return p
-    ? p.name
-    : 'Unknown';
+
+  document
+    .querySelectorAll('.tab')
+    .forEach(
+      x =>
+        x.classList.remove('active')
+    );
+
+
+  document
+    .getElementById(id)
+    .classList.add('active');
+
+
+  btn.classList.add('active');
+
+
+  renderAll();
 
 }
 
 
-function productSku(id){
 
-  const p =
-    db.products.find(
-      x => x.id === id
-    );
-
-  return p
-    ? p.sku
-    : '-';
-
-}
-
-
-/* =========================================
-   RENDER ALL
-========================================= */
+/* =====================================================
+   RENDER
+===================================================== */
 
 function renderAll(){
+
+  if(!auth)
+    return;
+
 
   renderDashboard();
 
@@ -1265,9 +1870,10 @@ function renderAll(){
 }
 
 
-/* =========================================
+
+/* =====================================================
    DASHBOARD
-========================================= */
+===================================================== */
 
 function renderDashboard(){
 
@@ -1275,6 +1881,7 @@ function renderDashboard(){
     'dProducts'
   ).textContent =
     db.products.length;
+
 
 
   document.getElementById(
@@ -1289,19 +1896,25 @@ function renderDashboard(){
     );
 
 
-  const m = monthNow();
+
+  const m =
+    monthNow();
+
 
   const [
     a,
     b
-  ] = monthRange(m);
+  ] =
+    monthRange(m);
+
 
 
   const sold =
     db.movements
       .filter(
         x =>
-          x.date >= a &&
+          x.date >= a
+          &&
           x.date <= b
       )
       .reduce(
@@ -1311,10 +1924,12 @@ function renderDashboard(){
       );
 
 
+
   document.getElementById(
     'dSold'
   ).textContent =
     money(sold);
+
 
 
   document.getElementById(
@@ -1323,15 +1938,17 @@ function renderDashboard(){
     m;
 
 
+
   const latest =
     db.stocktakes
       .slice()
       .sort(
         (a,b) =>
-          b.month.localeCompare(a.month)
-          ||
-          b.created.localeCompare(a.created)
+          b.created.localeCompare(
+            a.created
+          )
       )[0];
+
 
 
   document.getElementById(
@@ -1340,6 +1957,7 @@ function renderDashboard(){
     latest
       ? money(latest.variance)
       : '0';
+
 
 
   /* LOW STOCK */
@@ -1353,7 +1971,8 @@ function renderDashboard(){
         })
       )
       .filter(
-        x => x.b <= 0
+        x =>
+          x.b <= 0
       )
       .sort(
         (a,b) =>
@@ -1361,9 +1980,11 @@ function renderDashboard(){
       );
 
 
+
   document.getElementById(
     'lowStock'
   ).innerHTML =
+
     lows.length
 
     ?
@@ -1403,12 +2024,11 @@ function renderDashboard(){
                   ${esc(x.p.name)}
                 </td>
 
-                <td
-                  class="${
-                    x.b < 0
-                      ? 'danger-text'
-                      : ''
-                  }">
+                <td class="${
+                  x.b < 0
+                    ? 'danger-text'
+                    : ''
+                }">
 
                   ${money(x.b)}
                   ${esc(x.p.unit)}
@@ -1449,18 +2069,24 @@ function renderDashboard(){
     </div>`;
 
 
-  /* RECENT MOVEMENT */
+
+  /* RECENT */
 
   const recent =
     db.movements
       .slice()
       .sort(
         (a,b) =>
-          b.date.localeCompare(a.date)
+          b.date.localeCompare(
+            a.date
+          )
           ||
-          b.created.localeCompare(a.created)
+          b.created.localeCompare(
+            a.created
+          )
       )
       .slice(0,10);
+
 
 
   document.getElementById(
@@ -1478,10 +2104,15 @@ function renderDashboard(){
         <tr>
 
           <th>Date</th>
+
           <th>SKU</th>
+
           <th>Product</th>
+
           <th>In</th>
+
           <th>Out</th>
+
           <th>Note</th>
 
         </tr>
@@ -1550,9 +2181,10 @@ function renderDashboard(){
 }
 
 
-/* =========================================
+
+/* =====================================================
    PRODUCTS
-========================================= */
+===================================================== */
 
 function renderProducts(){
 
@@ -1560,14 +2192,20 @@ function renderProducts(){
     (
       document.getElementById(
         'productSearch'
-      )?.value || ''
+      )?.value
+      ||
+      ''
     ).toLowerCase();
+
 
 
   const c =
     document.getElementById(
       'productCategory'
-    )?.value || '';
+    )?.value
+    ||
+    '';
+
 
 
   const rows =
@@ -1575,10 +2213,13 @@ function renderProducts(){
       p =>
 
         (
-          !q ||
+          !q
+          ||
           (
-            p.sku +
-            ' ' +
+            p.sku
+            +
+            ' '
+            +
             p.name
           )
           .toLowerCase()
@@ -1588,10 +2229,12 @@ function renderProducts(){
         &&
 
         (
-          !c ||
+          !c
+          ||
           p.category === c
         )
     );
+
 
 
   document.getElementById(
@@ -1609,12 +2252,19 @@ function renderProducts(){
         <tr>
 
           <th>SKU</th>
+
           <th>Product</th>
+
           <th>Category</th>
+
           <th>Unit</th>
+
           <th>Opening</th>
+
           <th>Balance</th>
+
           <th>Rack</th>
+
           <th>Action</th>
 
         </tr>
@@ -1676,6 +2326,7 @@ function renderProducts(){
 
                   </button>
 
+
                   <button
                     class="btn small danger"
                     onclick="deleteProduct('${p.id}')">
@@ -1709,9 +2360,10 @@ function renderProducts(){
 }
 
 
-/* =========================================
+
+/* =====================================================
    FILTER
-========================================= */
+===================================================== */
 
 function fillFilters(){
 
@@ -1719,10 +2371,14 @@ function fillFilters(){
     [
       ...new Set(
         db.products
-          .map(p => p.category)
+          .map(
+            p => p.category
+          )
           .filter(Boolean)
       )
-    ].sort();
+    ]
+    .sort();
+
 
 
   const cat =
@@ -1735,18 +2391,23 @@ function fillFilters(){
     cat.value;
 
 
+
   cat.innerHTML =
     '<option value="">All categories</option>'
     +
     cats
       .map(
         x =>
-          `<option>${esc(x)}</option>`
+          `<option value="${esc(x)}">
+            ${esc(x)}
+          </option>`
       )
       .join('');
 
 
-  cat.value = old;
+  cat.value =
+    old;
+
 
 
   const sel =
@@ -1759,85 +2420,103 @@ function fillFilters(){
     sel.value;
 
 
+
   sel.innerHTML =
     '<option value="">All products</option>'
     +
     db.products
       .map(
-        p => `
-
-          <option value="${p.id}">
-
+        p =>
+          `<option value="${p.id}">
             ${esc(p.sku)}
             —
             ${esc(p.name)}
-
-          </option>
-
-        `
+          </option>`
       )
       .join('');
 
 
-  sel.value = old2;
+  sel.value =
+    old2;
 
 }
 
 
-/* =========================================
-   DAILY MOVEMENT
-========================================= */
+
+/* =====================================================
+   MOVEMENT
+===================================================== */
 
 function renderMovement(){
 
-  const m =
+  const el =
     document.getElementById(
       'movementMonth'
-    )?.value || monthNow();
+    );
+
+
+  const m =
+    el?.value
+    ||
+    monthNow();
+
+
+
+  if(
+    el
+    &&
+    !el.value
+  ){
+
+    el.value =
+      m;
+
+  }
+
 
 
   const pid =
     document.getElementById(
       'movementProductFilter'
-    )?.value || '';
+    )?.value
+    ||
+    '';
 
-
-  if(
-    document.getElementById(
-      'movementMonth'
-    )
-    &&
-    !document.getElementById(
-      'movementMonth'
-    ).value
-  ){
-
-    document.getElementById(
-      'movementMonth'
-    ).value = m;
-
-  }
 
 
   const [
     a,
     b
-  ] = monthRange(m);
+  ] =
+    monthRange(m);
+
 
 
   const rows =
     db.movements
       .filter(
         x =>
-          x.date >= a &&
-          x.date <= b &&
-          (!pid ||
-           x.productId === pid)
+          x.date >= a
+          &&
+          x.date <= b
+          &&
+          (
+            !pid
+            ||
+            x.productId === pid
+          )
       )
       .sort(
         (a,b) =>
-          b.date.localeCompare(a.date)
+          b.date.localeCompare(
+            a.date
+          )
+          ||
+          b.created.localeCompare(
+            a.created
+          )
       );
+
 
 
   document.getElementById(
@@ -1855,11 +2534,17 @@ function renderMovement(){
         <tr>
 
           <th>Date</th>
+
           <th>SKU</th>
+
           <th>Product</th>
+
           <th>Stock In</th>
+
           <th>Stock Out / Sold</th>
+
           <th>Note</th>
+
           <th></th>
 
         </tr>
@@ -1910,6 +2595,15 @@ function renderMovement(){
                 <td>
 
                   <button
+                    class="btn small"
+                    onclick="editMovement('${x.id}')">
+
+                    Edit
+
+                  </button>
+
+
+                  <button
                     class="btn small danger"
                     onclick="deleteMovement('${x.id}')">
 
@@ -1940,39 +2634,46 @@ function renderMovement(){
 }
 
 
-/* =========================================
+
+/* =====================================================
    STOCK TAKE
-========================================= */
+===================================================== */
 
 function renderStockTake(){
 
-  const m =
+  const el =
     document.getElementById(
       'takeMonth'
-    )?.value || monthNow();
+    );
+
+
+  const m =
+    el?.value
+    ||
+    monthNow();
+
 
 
   if(
-    document.getElementById(
-      'takeMonth'
-    )
+    el
     &&
-    !document.getElementById(
-      'takeMonth'
-    ).value
+    !el.value
   ){
 
-    document.getElementById(
-      'takeMonth'
-    ).value = m;
+    el.value =
+      m;
 
   }
 
 
+
   const rows =
-    db.stocktakes.filter(
-      x => x.month === m
-    );
+    db.stocktakes
+      .filter(
+        x =>
+          x.month === m
+      );
+
 
 
   document.getElementById(
@@ -1990,12 +2691,19 @@ function renderStockTake(){
         <tr>
 
           <th>Month</th>
+
           <th>SKU</th>
+
           <th>Product</th>
+
           <th>System Balance</th>
+
           <th>Physical Count</th>
+
           <th>Variance</th>
+
           <th>Note</th>
+
           <th></th>
 
         </tr>
@@ -2041,15 +2749,14 @@ function renderStockTake(){
                   </b>
                 </td>
 
-                <td
-                  class="${
-                    x.variance < 0
-                      ? 'danger-text'
-                      :
-                      x.variance > 0
-                        ? 'success-text'
-                        : ''
-                  }">
+                <td class="${
+                  x.variance < 0
+                    ? 'danger-text'
+                    :
+                    x.variance > 0
+                      ? 'success-text'
+                      : ''
+                }">
 
                   <b>
 
@@ -2059,7 +2766,9 @@ function renderStockTake(){
                         : ''
                     }
 
-                    ${money(x.variance)}
+                    ${money(
+                      x.variance
+                    )}
 
                   </b>
 
@@ -2070,6 +2779,15 @@ function renderStockTake(){
                 </td>
 
                 <td>
+
+                  <button
+                    class="btn small"
+                    onclick="editStockTake('${x.id}')">
+
+                    Edit
+
+                  </button>
+
 
                   <button
                     class="btn small danger"
@@ -2095,16 +2813,18 @@ function renderStockTake(){
 
     `<div class="empty">
 
-      Belum ada kiraan fizikal untuk ${m}.
+      Belum ada kiraan fizikal
+      untuk ${m}.
 
     </div>`;
 
 }
 
 
-/* =========================================
+
+/* =====================================================
    MODAL
-========================================= */
+===================================================== */
 
 function openModal(
   title,
@@ -2113,12 +2833,16 @@ function openModal(
 
   document.getElementById(
     'modalTitle'
-  ).textContent = title;
+  ).textContent =
+    title;
+
 
 
   document.getElementById(
     'modalBody'
-  ).innerHTML = body;
+  ).innerHTML =
+    body;
+
 
 
   document.getElementById(
@@ -2126,6 +2850,7 @@ function openModal(
   ).classList.add('show');
 
 }
+
 
 
 function closeModal(){
@@ -2137,16 +2862,17 @@ function closeModal(){
 }
 
 
-/* =========================================
-   PRODUCT MODAL
-========================================= */
 
-function openProductModal(id=''){
+/* =====================================================
+   PRODUCT MODAL
+===================================================== */
+
+function openProductModal(
+  id=''
+){
 
   const p =
-    db.products.find(
-      x => x.id === id
-    )
+    product(id)
     ||
     {
       sku:'',
@@ -2158,15 +2884,18 @@ function openProductModal(id=''){
     };
 
 
+
   openModal(
 
     id
       ? 'Edit Product'
       : 'Add Product',
 
+
     `
 
       <div class="form-grid">
+
 
         <div class="field">
 
@@ -2181,6 +2910,7 @@ function openProductModal(id=''){
         </div>
 
 
+
         <div class="field">
 
           <label>
@@ -2192,6 +2922,7 @@ function openProductModal(id=''){
             value="${esc(p.name)}">
 
         </div>
+
 
 
         <div class="field">
@@ -2208,6 +2939,7 @@ function openProductModal(id=''){
         </div>
 
 
+
         <div class="field">
 
           <label>
@@ -2216,39 +2948,33 @@ function openProductModal(id=''){
 
           <select id="fUnit">
 
-            <option
-              ${p.unit==='pcs'?'selected':''}>
-              pcs
-            </option>
-
-            <option
-              ${p.unit==='box'?'selected':''}>
-              box
-            </option>
-
-            <option
-              ${p.unit==='roll'?'selected':''}>
-              roll
-            </option>
-
-            <option
-              ${p.unit==='sheet'?'selected':''}>
-              sheet
-            </option>
-
-            <option
-              ${p.unit==='set'?'selected':''}>
-              set
-            </option>
-
-            <option
-              ${p.unit==='unit'?'selected':''}>
-              unit
-            </option>
+            ${
+              [
+                'pcs',
+                'box',
+                'roll',
+                'sheet',
+                'set',
+                'unit'
+              ]
+              .map(
+                u =>
+                  `
+                  <option
+                    ${p.unit === u
+                      ? 'selected'
+                      : ''}>
+                    ${u}
+                  </option>
+                  `
+              )
+              .join('')
+            }
 
           </select>
 
         </div>
+
 
 
         <div class="field">
@@ -2266,6 +2992,7 @@ function openProductModal(id=''){
         </div>
 
 
+
         <div class="field">
 
           <label>
@@ -2279,7 +3006,9 @@ function openProductModal(id=''){
 
         </div>
 
+
       </div>
+
 
 
       <div
@@ -2290,6 +3019,7 @@ function openProductModal(id=''){
           gap:8px
         ">
 
+
         <button
           class="btn"
           onclick="closeModal()">
@@ -2297,6 +3027,7 @@ function openProductModal(id=''){
           Cancel
 
         </button>
+
 
 
         <button
@@ -2307,17 +3038,20 @@ function openProductModal(id=''){
 
         </button>
 
+
       </div>
 
     `
+
   );
 
 }
 
 
-/* =========================================
+
+/* =====================================================
    SAVE PRODUCT
-========================================= */
+===================================================== */
 
 function saveProduct(id){
 
@@ -2327,19 +3061,26 @@ function saveProduct(id){
     ).value.trim();
 
 
+
   const name =
     document.getElementById(
       'fName'
     ).value.trim();
 
 
-  if(!sku || !name){
+
+  if(
+    !sku
+    ||
+    !name
+  ){
 
     return alert(
       'SKU dan Product Name wajib diisi.'
     );
 
   }
+
 
 
   const duplicate =
@@ -2353,6 +3094,7 @@ function saveProduct(id){
     );
 
 
+
   if(duplicate){
 
     return alert(
@@ -2360,6 +3102,7 @@ function saveProduct(id){
     );
 
   }
+
 
 
   const data = {
@@ -2382,7 +3125,9 @@ function saveProduct(id){
       Number(
         document.getElementById(
           'fOpening'
-        ).value || 0
+        ).value
+        ||
+        0
       ),
 
     rack:
@@ -2393,12 +3138,11 @@ function saveProduct(id){
   };
 
 
+
   if(id){
 
     Object.assign(
-      db.products.find(
-        p => p.id === id
-      ),
+      product(id),
       data
     );
 
@@ -2417,6 +3161,7 @@ function saveProduct(id){
   }
 
 
+
   closeModal();
 
   save();
@@ -2424,27 +3169,31 @@ function saveProduct(id){
 }
 
 
-/* =========================================
+
+/* =====================================================
    DELETE PRODUCT
-========================================= */
+===================================================== */
 
 function deleteProduct(id){
 
   if(
     db.movements.some(
-      x => x.productId === id
+      x =>
+        x.productId === id
     )
     ||
     db.stocktakes.some(
-      x => x.productId === id
+      x =>
+        x.productId === id
     )
   ){
 
     return alert(
-      'Product ini sudah ada dalam rekod. Jangan delete; edit sahaja.'
+      'Product ini sudah ada dalam rekod. Edit sahaja.'
     );
 
   }
+
 
 
   if(
@@ -2455,7 +3204,8 @@ function deleteProduct(id){
 
     db.products =
       db.products.filter(
-        x => x.id !== id
+        x =>
+          x.id !== id
       );
 
     save();
@@ -2465,56 +3215,55 @@ function deleteProduct(id){
 }
 
 
-/* =========================================
-   MOVEMENT MODAL
-========================================= */
 
-function openMovementModal(){
+/* =====================================================
+   MOVEMENT FORM
+===================================================== */
 
-  if(!db.products.length){
+function movementForm(
+  x={}
+){
 
-    return alert(
-      'Tambah product dahulu.'
-    );
+  return `
 
-  }
-
-
-  openModal(
-
-    'Record Daily Movement',
-
-    `
-
-      <div class="form-grid">
-
-        <div class="field">
-
-          <label>
-            Date *
-          </label>
-
-          <input
-            id="mDate"
-            type="date"
-            value="${today()}">
-
-        </div>
+    <div class="form-grid">
 
 
-        <div class="field">
+      <div class="field">
 
-          <label>
-            Product *
-          </label>
+        <label>
+          Date *
+        </label>
 
-          <select id="mProduct">
+        <input
+          id="mDate"
+          type="date"
+          value="${x.date || today()}">
 
-            ${
-              db.products.map(
+      </div>
+
+
+
+      <div class="field">
+
+        <label>
+          Product *
+        </label>
+
+        <select id="mProduct">
+
+          ${
+            db.products
+              .map(
                 p => `
 
-                  <option value="${p.id}">
+                  <option
+                    value="${p.id}"
+                    ${
+                      p.id === x.productId
+                        ? 'selected'
+                        : ''
+                    }>
 
                     ${esc(p.sku)}
                     —
@@ -2523,120 +3272,190 @@ function openMovementModal(){
                   </option>
 
                 `
-              ).join('')
-            }
+              )
+              .join('')
+          }
 
-          </select>
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Stock In / Received
-          </label>
-
-          <input
-            id="mIn"
-            type="number"
-            min="0"
-            step="0.01"
-            value="0">
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Stock Out / Sold
-          </label>
-
-          <input
-            id="mOut"
-            type="number"
-            min="0"
-            step="0.01"
-            value="0">
-
-        </div>
+        </select>
 
       </div>
 
 
-      <div
-        class="field"
-        style="margin-top:12px">
+
+      <div class="field">
 
         <label>
-          Note
+          Stock In / Received
         </label>
 
         <input
-          id="mNote"
-          placeholder="Contoh: Sale INV-1023 / Receive supplier">
+          id="mIn"
+          type="number"
+          min="0"
+          step="0.01"
+          value="${x.in || 0}">
 
       </div>
 
 
-      <div
-        style="
-          margin-top:18px;
-          display:flex;
-          justify-content:flex-end;
-          gap:8px
-        ">
 
-        <button
-          class="btn"
-          onclick="closeModal()">
+      <div class="field">
 
-          Cancel
+        <label>
+          Stock Out / Sold
+        </label>
 
-        </button>
-
-
-        <button
-          class="btn primary"
-          onclick="saveMovement()">
-
-          Save Movement
-
-        </button>
+        <input
+          id="mOut"
+          type="number"
+          min="0"
+          step="0.01"
+          value="${x.out || 0}">
 
       </div>
 
-    `
+
+    </div>
+
+
+
+    <div
+      class="field"
+      style="margin-top:12px">
+
+      <label>
+        Note
+      </label>
+
+      <input
+        id="mNote"
+        value="${esc(x.note || '')}"
+        placeholder="Sale INV-1023 / Receive supplier">
+
+    </div>
+
+
+
+    <div
+      style="
+        margin-top:18px;
+        display:flex;
+        justify-content:flex-end;
+        gap:8px
+      ">
+
+
+      <button
+        class="btn"
+        onclick="closeModal()">
+
+        Cancel
+
+      </button>
+
+
+
+      <button
+        class="btn primary"
+        onclick="saveMovement('${x.id || ''}')">
+
+        Save Movement
+
+      </button>
+
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =====================================================
+   OPEN MOVEMENT
+===================================================== */
+
+function openMovementModal(){
+
+  if(
+    !db.products.length
+  ){
+
+    return alert(
+      'Tambah product dahulu.'
+    );
+
+  }
+
+
+
+  openModal(
+    'Record Daily Movement',
+    movementForm()
   );
 
 }
 
 
-/* =========================================
-   SAVE MOVEMENT
-========================================= */
 
-function saveMovement(){
+/* =====================================================
+   EDIT MOVEMENT
+===================================================== */
+
+function editMovement(id){
+
+  const x =
+    db.movements.find(
+      m =>
+        m.id === id
+    );
+
+
+  if(x){
+
+    openModal(
+      'Edit Daily Movement',
+      movementForm(x)
+    );
+
+  }
+
+}
+
+
+
+/* =====================================================
+   SAVE MOVEMENT
+===================================================== */
+
+function saveMovement(id){
 
   const inn =
     Number(
       document.getElementById(
         'mIn'
-      ).value || 0
+      ).value
+      ||
+      0
     );
+
 
 
   const out =
     Number(
       document.getElementById(
         'mOut'
-      ).value || 0
+      ).value
+      ||
+      0
     );
 
 
+
   if(
-    inn === 0 &&
+    inn === 0
+    &&
     out === 0
   ){
 
@@ -2647,9 +3466,8 @@ function saveMovement(){
   }
 
 
-  db.movements.push({
 
-    id:uid(),
+  const data = {
 
     date:
       document.getElementById(
@@ -2663,7 +3481,7 @@ function saveMovement(){
 
     in:inn,
 
-    out:out,
+    out,
 
     note:
       document.getElementById(
@@ -2673,7 +3491,34 @@ function saveMovement(){
     created:
       new Date().toISOString()
 
-  });
+  };
+
+
+
+  if(id){
+
+    Object.assign(
+      db.movements.find(
+        x =>
+          x.id === id
+      ),
+      data
+    );
+
+  }
+
+  else{
+
+    db.movements.push({
+
+      id:uid(),
+
+      ...data
+
+    });
+
+  }
+
 
 
   closeModal();
@@ -2683,9 +3528,10 @@ function saveMovement(){
 }
 
 
-/* =========================================
+
+/* =====================================================
    DELETE MOVEMENT
-========================================= */
+===================================================== */
 
 function deleteMovement(id){
 
@@ -2697,7 +3543,8 @@ function deleteMovement(id){
 
     db.movements =
       db.movements.filter(
-        x => x.id !== id
+        x =>
+          x.id !== id
       );
 
     save();
@@ -2707,22 +3554,18 @@ function deleteMovement(id){
 }
 
 
-/* =========================================
-   STOCK TAKE MODAL
-========================================= */
 
-function openStockTakeModal(){
+/* =====================================================
+   STOCK TAKE FORM
+===================================================== */
 
-  if(!db.products.length){
-
-    return alert(
-      'Tambah product dahulu.'
-    );
-
-  }
-
+function stockTakeForm(
+  x={}
+){
 
   const m =
+    x.month
+    ||
     document.getElementById(
       'takeMonth'
     ).value
@@ -2730,41 +3573,47 @@ function openStockTakeModal(){
     monthNow();
 
 
-  openModal(
 
-    'Monthly Physical Stock Take',
+  return `
 
-    `
-
-      <div class="form-grid">
-
-        <div class="field">
-
-          <label>
-            Month *
-          </label>
-
-          <input
-            id="sMonth"
-            type="month"
-            value="${m}">
-
-        </div>
+    <div class="form-grid">
 
 
-        <div class="field">
+      <div class="field">
 
-          <label>
-            Product *
-          </label>
+        <label>
+          Month *
+        </label>
 
-          <select id="sProduct">
+        <input
+          id="sMonth"
+          type="month"
+          value="${m}">
 
-            ${
-              db.products.map(
+      </div>
+
+
+
+      <div class="field">
+
+        <label>
+          Product *
+        </label>
+
+        <select id="sProduct">
+
+          ${
+            db.products
+              .map(
                 p => `
 
-                  <option value="${p.id}">
+                  <option
+                    value="${p.id}"
+                    ${
+                      p.id === x.productId
+                        ? 'selected'
+                        : ''
+                    }>
 
                     ${esc(p.sku)}
                     —
@@ -2773,120 +3622,213 @@ function openStockTakeModal(){
                   </option>
 
                 `
-              ).join('')
-            }
+              )
+              .join('')
+          }
 
-          </select>
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            System Balance
-          </label>
-
-          <input
-            id="sSystem"
-            readonly>
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Physical Count *
-          </label>
-
-          <input
-            id="sPhysical"
-            type="number"
-            step="0.01"
-            min="0"
-            value="0">
-
-        </div>
+        </select>
 
       </div>
 
 
-      <div
-        class="field"
-        style="margin-top:12px">
+
+      <div class="field">
 
         <label>
-          Note
+          System Balance
         </label>
 
         <input
-          id="sNote"
-          placeholder="Contoh: Damaged / missing / recount">
+          id="sSystem"
+          readonly>
 
       </div>
 
 
-      <div
-        style="
-          margin-top:18px;
-          display:flex;
-          justify-content:flex-end;
-          gap:8px
-        ">
 
-        <button
-          class="btn"
-          onclick="closeModal()">
+      <div class="field">
 
-          Cancel
+        <label>
+          Physical Count *
+        </label>
 
-        </button>
-
-
-        <button
-          class="btn primary"
-          onclick="saveStockTake()">
-
-          Save Count
-
-        </button>
+        <input
+          id="sPhysical"
+          type="number"
+          step="0.01"
+          min="0"
+          value="${x.physical ?? 0}">
 
       </div>
 
-    `
+
+    </div>
+
+
+
+    <div
+      class="field"
+      style="margin-top:12px">
+
+      <label>
+        Note
+      </label>
+
+      <input
+        id="sNote"
+        value="${esc(x.note || '')}"
+        placeholder="Damaged / missing / recount">
+
+    </div>
+
+
+
+    <div
+      style="
+        margin-top:18px;
+        display:flex;
+        justify-content:flex-end;
+        gap:8px
+      ">
+
+
+      <button
+        class="btn"
+        onclick="closeModal()">
+
+        Cancel
+
+      </button>
+
+
+
+      <button
+        class="btn primary"
+        onclick="saveStockTake('${x.id || ''}')">
+
+        Save Count
+
+      </button>
+
+
+    </div>
+
+  `;
+
+}
+
+
+
+/* =====================================================
+   OPEN STOCK TAKE
+===================================================== */
+
+function openStockTakeModal(){
+
+  if(
+    !db.products.length
+  ){
+
+    return alert(
+      'Tambah product dahulu.'
+    );
+
+  }
+
+
+
+  openModal(
+    'Monthly Physical Stock Take',
+    stockTakeForm()
   );
 
 
-  const upd = () => {
 
-    document.getElementById(
-      'sSystem'
-    ).value =
+  setupStockTakeCalculation();
 
-      balance(
+}
 
+
+
+/* =====================================================
+   EDIT STOCK TAKE
+===================================================== */
+
+function editStockTake(id){
+
+  const x =
+    db.stocktakes.find(
+      s =>
+        s.id === id
+    );
+
+
+  if(!x)
+    return;
+
+
+
+  openModal(
+    'Edit Monthly Stock Take',
+    stockTakeForm(x)
+  );
+
+
+
+  setupStockTakeCalculation();
+
+}
+
+
+
+/* =====================================================
+   STOCK TAKE CALC
+===================================================== */
+
+function setupStockTakeCalculation(){
+
+  const upd =
+    () => {
+
+      const pid =
         document.getElementById(
           'sProduct'
-        ).value,
+        ).value;
 
+
+
+      const month =
         document.getElementById(
           'sMonth'
-        ).value + '-31'
+        ).value;
 
-      );
 
-  };
+
+      document.getElementById(
+        'sSystem'
+      ).value =
+
+        balance(
+          pid,
+          month + '-31'
+        );
+
+    };
+
 
 
   document.getElementById(
     'sProduct'
-  ).onchange = upd;
+  ).onchange =
+    upd;
+
 
 
   document.getElementById(
     'sMonth'
-  ).onchange = upd;
+  ).onchange =
+    upd;
+
 
 
   upd();
@@ -2894,16 +3836,18 @@ function openStockTakeModal(){
 }
 
 
-/* =========================================
-   SAVE STOCK TAKE
-========================================= */
 
-function saveStockTake(){
+/* =====================================================
+   SAVE STOCK TAKE
+===================================================== */
+
+function saveStockTake(id){
 
   const m =
     document.getElementById(
       'sMonth'
     ).value;
+
 
 
   const pid =
@@ -2912,12 +3856,16 @@ function saveStockTake(){
     ).value;
 
 
+
   const physical =
     Number(
       document.getElementById(
         'sPhysical'
-      ).value || 0
+      ).value
+      ||
+      0
     );
+
 
 
   const system =
@@ -2927,16 +3875,10 @@ function saveStockTake(){
     );
 
 
+
   const variance =
     physical - system;
 
-
-  const old =
-    db.stocktakes.find(
-      x =>
-        x.month === m &&
-        x.productId === pid
-    );
 
 
   const data = {
@@ -2962,10 +3904,14 @@ function saveStockTake(){
   };
 
 
-  if(old){
+
+  if(id){
 
     Object.assign(
-      old,
+      db.stocktakes.find(
+        x =>
+          x.id === id
+      ),
       data
     );
 
@@ -2973,15 +3919,39 @@ function saveStockTake(){
 
   else{
 
-    db.stocktakes.push({
+    const old =
+      db.stocktakes.find(
+        x =>
+          x.month === m
+          &&
+          x.productId === pid
+      );
 
-      id:uid(),
 
-      ...data
 
-    });
+    if(old){
+
+      Object.assign(
+        old,
+        data
+      );
+
+    }
+
+    else{
+
+      db.stocktakes.push({
+
+        id:uid(),
+
+        ...data
+
+      });
+
+    }
 
   }
+
 
 
   closeModal();
@@ -2991,9 +3961,10 @@ function saveStockTake(){
 }
 
 
-/* =========================================
+
+/* =====================================================
    DELETE STOCK TAKE
-========================================= */
+===================================================== */
 
 function deleteStockTake(id){
 
@@ -3005,7 +3976,8 @@ function deleteStockTake(id){
 
     db.stocktakes =
       db.stocktakes.filter(
-        x => x.id !== id
+        x =>
+          x.id !== id
       );
 
     save();
@@ -3015,16 +3987,19 @@ function deleteStockTake(id){
 }
 
 
-/* =========================================
-   CSV EXPORT
-========================================= */
+
+/* =====================================================
+   CSV
+===================================================== */
 
 function csv(
   rows,
   filename
 ){
 
-  if(!rows.length){
+  if(
+    !rows.length
+  ){
 
     return alert(
       'Tiada data untuk export.'
@@ -3033,14 +4008,22 @@ function csv(
   }
 
 
+
   const headers =
-    Object.keys(rows[0]);
+    Object.keys(
+      rows[0]
+    );
+
 
 
   const quote =
     v =>
       `"${String(v ?? '')
-        .replace(/"/g,'""')}"`;
+        .replace(
+          /"/g,
+          '""'
+        )}"`;
+
 
 
   const text =
@@ -3048,18 +4031,26 @@ function csv(
     +
     [
       headers,
+
       ...rows.map(
         r =>
           headers.map(
-            h => r[h]
+            h =>
+              r[h]
           )
       )
+
     ]
+
     .map(
       r =>
-        r.map(quote).join(',')
+        r.map(
+          quote
+        ).join(',')
     )
+
     .join('\n');
+
 
 
   const blob =
@@ -3072,10 +4063,12 @@ function csv(
     );
 
 
+
   const a =
     document.createElement(
       'a'
     );
+
 
 
   a.href =
@@ -3084,27 +4077,37 @@ function csv(
     );
 
 
+
   a.download =
     filename;
+
 
 
   a.click();
 
 
-  URL.revokeObjectURL(
-    a.href
+
+  setTimeout(
+    () =>
+      URL.revokeObjectURL(
+        a.href
+      ),
+    1000
   );
 
 }
 
 
-/* =========================================
-   EXPORT TYPES
-========================================= */
+
+/* =====================================================
+   EXPORT
+===================================================== */
 
 function exportCSV(type){
 
-  if(type === 'products'){
+  if(
+    type === 'products'
+  ){
 
     csv(
 
@@ -3119,7 +4122,8 @@ function exportCSV(type){
 
           Unit:p.unit,
 
-          Opening_Stock:p.opening,
+          Opening_Stock:
+            p.opening,
 
           Rack:p.rack,
 
@@ -3136,7 +4140,10 @@ function exportCSV(type){
   }
 
 
-  if(type === 'movement'){
+
+  if(
+    type === 'movement'
+  ){
 
     csv(
 
@@ -3171,7 +4178,10 @@ function exportCSV(type){
   }
 
 
-  if(type === 'stocktake'){
+
+  if(
+    type === 'stocktake'
+  ){
 
     csv(
 
@@ -3213,9 +4223,10 @@ function exportCSV(type){
 }
 
 
-/* =========================================
+
+/* =====================================================
    BACKUP
-========================================= */
+===================================================== */
 
 function backupJSON(){
 
@@ -3235,10 +4246,12 @@ function backupJSON(){
     );
 
 
+
   const a =
     document.createElement(
       'a'
     );
+
 
 
   a.href =
@@ -3247,23 +4260,31 @@ function backupJSON(){
     );
 
 
+
   a.download =
-    'stock_take_backup.json';
+    'renocal_stock_take_backup.json';
+
 
 
   a.click();
 
 
-  URL.revokeObjectURL(
-    a.href
+
+  setTimeout(
+    () =>
+      URL.revokeObjectURL(
+        a.href
+      ),
+    1000
   );
 
 }
 
 
-/* =========================================
+
+/* =====================================================
    RESTORE
-========================================= */
+===================================================== */
 
 function restoreJSON(e){
 
@@ -3271,54 +4292,67 @@ function restoreJSON(e){
     e.target.files[0];
 
 
-  if(!file) return;
+  if(!file)
+    return;
+
 
 
   const r =
     new FileReader();
 
 
-  r.onload = () => {
 
-    try{
+  r.onload =
+    () => {
 
-      const x =
-        JSON.parse(
-          r.result
+      try{
+
+        const x =
+          JSON.parse(
+            r.result
+          );
+
+
+
+        if(
+          !x.products
+          ||
+          !x.movements
+          ||
+          !x.stocktakes
+        ){
+
+          throw 0;
+
+        }
+
+
+
+        db =
+          x;
+
+
+
+        save();
+
+
+
+        alert(
+          'Backup berjaya dipulihkan.'
         );
-
-
-      if(
-        !x.products ||
-        !x.movements ||
-        !x.stocktakes
-      ){
-
-        throw 0;
 
       }
 
+      catch{
 
-      db = x;
+        alert(
+          'Fail backup tidak sah.'
+        );
 
-      save();
+      }
 
+    };
 
-      alert(
-        'Backup berjaya dipulihkan.'
-      );
-
-    }
-
-    catch{
-
-      alert(
-        'Fail backup tidak sah.'
-      );
-
-    }
-
-  };
 
 
   r.readAsText(file);
@@ -3326,21 +4360,660 @@ function restoreJSON(e){
 }
 
 
-/* =========================================
-   INITIALIZE
-========================================= */
 
-document.getElementById(
-  'movementMonth'
-).value = monthNow();
+/* =====================================================
+   GOOGLE SHEETS SETTINGS
+===================================================== */
+
+function saveSheetsUrl(){
+
+  settings.sheetsUrl =
+    document.getElementById(
+      'sheetsUrl'
+    ).value.trim();
 
 
-document.getElementById(
-  'takeMonth'
-).value = monthNow();
+
+  localStorage.setItem(
+    SETTINGS_KEY,
+    JSON.stringify(settings)
+  );
 
 
-renderAll();
+
+  setSync(
+    'online',
+    'URL saved'
+  );
+
+}
+
+
+
+/* =====================================================
+   SYNC STATUS
+===================================================== */
+
+function setSync(
+  state,
+  msg=''
+){
+
+  const dot =
+    document.getElementById(
+      'syncDot'
+    );
+
+
+  dot.className =
+    'sync-dot '
+    +
+    (
+      state === 'online'
+        ? 'online'
+        :
+        state === 'error'
+          ? 'error'
+          : ''
+    );
+
+
+
+  const s =
+    document.getElementById(
+      'syncMsg'
+    );
+
+
+  if(s)
+    s.textContent =
+      msg;
+
+}
+
+
+
+/* =====================================================
+   GOOGLE SHEETS PUSH
+===================================================== */
+
+async function syncToSheets(){
+
+  if(
+    !settings.sheetsUrl
+  ){
+
+    return alert(
+      'Masukkan Google Apps Script Web App URL dahulu.'
+    );
+
+  }
+
+
+
+  try{
+
+    setSync(
+      '',
+      'Syncing...'
+    );
+
+
+
+    const response =
+      await fetch(
+        settings.sheetsUrl,
+        {
+          method:'POST',
+
+          headers:{
+            'Content-Type':
+              'text/plain;charset=utf-8'
+          },
+
+          body:
+            JSON.stringify({
+              action:'save',
+              db:db
+            })
+        }
+      );
+
+
+
+    const result =
+      await response.json();
+
+
+
+    if(
+      !result.ok
+    ){
+
+      throw new Error(
+        result.error
+        ||
+        'Sync failed'
+      );
+
+    }
+
+
+
+    setSync(
+      'online',
+      'Sync berjaya pada '
+      +
+      new Date()
+        .toLocaleString(
+          'ms-MY'
+        )
+    );
+
+
+
+  }
+
+  catch(error){
+
+    setSync(
+      'error',
+      'Sync gagal: '
+      +
+      error.message
+    );
+
+
+
+    alert(
+      'Sync gagal. Semak URL dan deployment Google Apps Script.'
+    );
+
+  }
+
+}
+
+
+
+/* =====================================================
+   GOOGLE SHEETS PULL
+===================================================== */
+
+async function loadFromSheets(){
+
+  if(
+    !settings.sheetsUrl
+  ){
+
+    return alert(
+      'Masukkan Google Apps Script Web App URL dahulu.'
+    );
+
+  }
+
+
+
+  if(
+    !confirm(
+      'Pull akan menggantikan data local dengan data Google Sheets. Teruskan?'
+    )
+  ){
+
+    return;
+
+  }
+
+
+
+  try{
+
+    setSync(
+      '',
+      'Pulling...'
+    );
+
+
+
+    const response =
+      await fetch(
+        settings.sheetsUrl
+        +
+        '?action=load'
+      );
+
+
+
+    const result =
+      await response.json();
+
+
+
+    if(
+      !result.ok
+    ){
+
+      throw new Error(
+        result.error
+        ||
+        'Load failed'
+      );
+
+    }
+
+
+
+    if(
+      !result.db
+    ){
+
+      throw new Error(
+        'Database kosong'
+      );
+
+    }
+
+
+
+    db =
+      result.db;
+
+
+
+    localStorage.setItem(
+      KEY,
+      JSON.stringify(db)
+    );
+
+
+
+    renderAll();
+
+
+
+    setSync(
+      'online',
+      'Data berjaya dipull dari Google Sheets'
+    );
+
+
+
+    alert(
+      'Data cloud berjaya dimuatkan.'
+    );
+
+
+
+  }
+
+  catch(error){
+
+    setSync(
+      'error',
+      'Pull gagal: '
+      +
+      error.message
+    );
+
+
+
+    alert(
+      'Pull gagal: '
+      +
+      error.message
+    );
+
+  }
+
+}
+
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function login(){
+
+  const email =
+    document.getElementById(
+      'loginEmail'
+    ).value
+    .trim()
+    .toLowerCase();
+
+
+
+  const pass =
+    document.getElementById(
+      'loginPassword'
+    ).value;
+
+
+
+  if(
+    !email
+    ||
+    !pass
+  ){
+
+    return loginMsg(
+      'Email dan password diperlukan.'
+    );
+
+  }
+
+
+
+  const users =
+    JSON.parse(
+      localStorage.getItem(
+        'reno_users_v1'
+      )
+      ||
+      '{}'
+    );
+
+
+
+  if(
+    users[email]
+    &&
+    users[email].password === pass
+  ){
+
+    auth = {
+      email
+    };
+
+
+
+    localStorage.setItem(
+      AUTH_KEY,
+      JSON.stringify(auth)
+    );
+
+
+
+    boot();
+
+  }
+
+  else{
+
+    loginMsg(
+      'Login gagal.'
+    );
+
+  }
+
+}
+
+
+
+/* =====================================================
+   REGISTER
+===================================================== */
+
+function registerUser(){
+
+  const email =
+    document.getElementById(
+      'loginEmail'
+    ).value
+    .trim()
+    .toLowerCase();
+
+
+
+  const pass =
+    document.getElementById(
+      'loginPassword'
+    ).value;
+
+
+
+  if(
+    !email
+    ||
+    pass.length < 6
+  ){
+
+    return loginMsg(
+      'Masukkan email dan password sekurang-kurangnya 6 aksara.'
+    );
+
+  }
+
+
+
+  const users =
+    JSON.parse(
+      localStorage.getItem(
+        'reno_users_v1'
+      )
+      ||
+      '{}'
+    );
+
+
+
+  if(
+    users[email]
+  ){
+
+    return loginMsg(
+      'Account sudah wujud.'
+    );
+
+  }
+
+
+
+  users[email] = {
+    password:pass
+  };
+
+
+
+  localStorage.setItem(
+    'reno_users_v1',
+    JSON.stringify(users)
+  );
+
+
+
+  auth = {
+    email
+  };
+
+
+
+  localStorage.setItem(
+    AUTH_KEY,
+    JSON.stringify(auth)
+  );
+
+
+
+  boot();
+
+}
+
+
+
+/* =====================================================
+   DEMO
+===================================================== */
+
+function demoLogin(){
+
+  auth = {
+    email:'local-demo'
+  };
+
+
+
+  localStorage.setItem(
+    AUTH_KEY,
+    JSON.stringify(auth)
+  );
+
+
+
+  boot();
+
+}
+
+
+
+/* =====================================================
+   LOGIN MESSAGE
+===================================================== */
+
+function loginMsg(x){
+
+  document.getElementById(
+    'loginMsg'
+  ).textContent =
+    x;
+
+}
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+  auth =
+    null;
+
+
+
+  localStorage.removeItem(
+    AUTH_KEY
+  );
+
+
+
+  boot();
+
+}
+
+
+
+/* =====================================================
+   BOOT
+===================================================== */
+
+function boot(){
+
+  document
+    .getElementById(
+      'loginView'
+    )
+    .classList.toggle(
+      'hidden',
+      !!auth
+    );
+
+
+
+  document
+    .getElementById(
+      'appView'
+    )
+    .classList.toggle(
+      'hidden',
+      !auth
+    );
+
+
+
+  if(auth){
+
+    document.getElementById(
+      'userChip'
+    ).textContent =
+      auth.email;
+
+
+
+    document.getElementById(
+      'movementMonth'
+    ).value =
+      monthNow();
+
+
+
+    document.getElementById(
+      'takeMonth'
+    ).value =
+      monthNow();
+
+
+
+    document.getElementById(
+      'sheetsUrl'
+    ).value =
+      settings.sheetsUrl
+      ||
+      '';
+
+
+
+    renderAll();
+
+
+
+    setSync(
+      settings.sheetsUrl
+        ? 'online'
+        : '',
+      ''
+    );
+
+  }
+
+}
+
+
+
+/* =====================================================
+   PWA SERVICE WORKER
+===================================================== */
+
+if(
+  'serviceWorker'
+  in navigator
+){
+
+  window.addEventListener(
+    'load',
+    () => {
+
+      navigator.serviceWorker
+        .register(
+          'sw.js'
+        )
+        .catch(
+          () => {}
+        );
+
+    }
+  );
+
+}
+
+
+
+/* =====================================================
+   START
+===================================================== */
+
+boot();
 
 </script>
 
