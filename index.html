@@ -13,7 +13,10 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 
 <title>RenoCal Stock Take</title>
-
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#101828">
+<link rel="apple-touch-icon" href="./icon-192.png">
+  
 <style>
 
 :root{
@@ -4965,6 +4968,37 @@ function boot(){
 
 
     renderAll();
+
+
+/* =========================================
+   PWA SERVICE WORKER
+========================================= */
+
+if ("serviceWorker" in navigator) {
+
+  window.addEventListener("load", () => {
+
+    navigator.serviceWorker
+      .register("./sw.js")
+      .then(() => {
+
+        console.log(
+          "RenoCal Service Worker registered."
+        );
+
+      })
+      .catch(error => {
+
+        console.error(
+          "Service Worker registration failed:",
+          error
+        );
+
+      });
+
+  });
+
+}
 
 
 
