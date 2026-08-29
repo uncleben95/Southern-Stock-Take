@@ -1,0 +1,3348 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>RenoCal Stock Take</title>
+
+<style>
+:root{
+  --bg:#f5f7fb;
+  --card:#fff;
+  --text:#172033;
+  --muted:#667085;
+  --line:#e4e7ec;
+  --primary:#1f4ed8;
+  --primary2:#163aa5;
+  --danger:#d92d20;
+  --success:#079455;
+  --warning:#dc6803;
+  --shadow:0 8px 30px rgba(16,24,40,.07);
+  --radius:16px;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+  border:0;
+}
+
+.topbar{
+  background:#101828;
+  color:#fff;
+  padding:18px 24px;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.topbar-inner{
+  max-width:1450px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  background:#fff;
+  color:#101828;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+}
+
+.brand h1{
+  font-size:18px;
+  margin:0;
+}
+
+.brand small{
+  color:#98a2b3;
+}
+
+.container{
+  max-width:1450px;
+  margin:24px auto;
+  padding:0 18px;
+}
+
+.tabs{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  margin-bottom:20px;
+}
+
+.tab{
+  background:#fff;
+  border:1px solid var(--line);
+  padding:11px 16px;
+  border-radius:10px;
+  color:#475467;
+  white-space:nowrap;
+}
+
+.tab.active{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:#fff;
+}
+
+.panel{
+  display:none;
+}
+
+.panel.active{
+  display:block;
+}
+
+.grid{
+  display:grid;
+  gap:16px;
+}
+
+.cards{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px;
+}
+
+.stat-label{
+  font-size:13px;
+  color:var(--muted);
+}
+
+.stat{
+  font-size:28px;
+  font-weight:800;
+  margin-top:7px;
+}
+
+.stat-note{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.section-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:24px 0 12px;
+}
+
+.section-head h2{
+  font-size:18px;
+  margin:0;
+}
+
+.btn{
+  padding:10px 14px;
+  border-radius:10px;
+  background:#eef2f6;
+  color:#344054;
+  font-weight:700;
+}
+
+.btn.primary{
+  background:var(--primary);
+  color:#fff;
+}
+
+.btn.primary:hover{
+  background:var(--primary2);
+}
+
+.btn.danger{
+  background:#fff0ee;
+  color:var(--danger);
+}
+
+.btn.small{
+  padding:7px 10px;
+  font-size:12px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+
+.field label{
+  display:block;
+  font-size:12px;
+  color:#475467;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  border:1px solid #d0d5dd;
+  border-radius:9px;
+  padding:10px 11px;
+  background:#fff;
+  outline:none;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(31,78,216,.1);
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  align-items:end;
+}
+
+.table-wrap{
+  overflow:auto;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+}
+
+table{
+  border-collapse:collapse;
+  width:100%;
+  min-width:850px;
+}
+
+th,
+td{
+  padding:11px 12px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+  font-size:13px;
+  white-space:nowrap;
+}
+
+th{
+  background:#f8fafc;
+  color:#475467;
+  font-size:12px;
+  position:sticky;
+  top:0;
+  z-index:1;
+}
+
+tr:last-child td{
+  border-bottom:0;
+}
+
+.badge{
+  display:inline-flex;
+  padding:4px 8px;
+  border-radius:99px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.good{
+  background:#ecfdf3;
+  color:#027a48;
+}
+
+.bad{
+  background:#fef3f2;
+  color:#b42318;
+}
+
+.neutral{
+  background:#f2f4f7;
+  color:#475467;
+}
+
+.empty{
+  text-align:center;
+  padding:35px;
+  color:var(--muted);
+}
+
+.toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.toolbar .field{
+  min-width:160px;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(16,24,40,.55);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:50;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  background:#fff;
+  width:min(700px,100%);
+  border-radius:18px;
+  padding:22px;
+  max-height:90vh;
+  overflow:auto;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.modal-head h3{
+  margin:0;
+}
+
+.close{
+  background:#f2f4f7;
+  border-radius:8px;
+  width:34px;
+  height:34px;
+}
+
+.notice{
+  padding:12px 14px;
+  border-radius:10px;
+  background:#eff8ff;
+  color:#175cd3;
+  font-size:13px;
+  margin-bottom:14px;
+}
+
+.danger-text{
+  color:var(--danger);
+  font-weight:700;
+}
+
+.success-text{
+  color:var(--success);
+  font-weight:700;
+}
+
+@media(max-width:900px){
+
+  .cards{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .form-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+}
+
+@media(max-width:600px){
+
+  .topbar{
+    padding:14px;
+  }
+
+  .container{
+    padding:0 10px;
+  }
+
+  .cards{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    padding:14px;
+  }
+
+  .stat{
+    font-size:22px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="topbar-inner">
+
+    <div class="brand">
+
+      <div class="logo">
+        ST
+      </div>
+
+      <div>
+        <h1>Stock Take Manager</h1>
+        <small>Daily movement → monthly stock balance</small>
+      </div>
+
+    </div>
+
+    <button class="btn" onclick="openProductModal()">
+      ＋ Product
+    </button>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+  <!-- TABS -->
+
+  <div class="tabs">
+
+    <button
+      class="tab active"
+      onclick="showTab('dashboard',this)">
+      Dashboard
+    </button>
+
+    <button
+      class="tab"
+      onclick="showTab('products',this)">
+      Products
+    </button>
+
+    <button
+      class="tab"
+      onclick="showTab('movement',this)">
+      Daily Movement
+    </button>
+
+    <button
+      class="tab"
+      onclick="showTab('stocktake',this)">
+      Monthly Stock Take
+    </button>
+
+    <button
+      class="tab"
+      onclick="showTab('export',this)">
+      Google Sheets
+    </button>
+
+  </div>
+
+
+  <!-- DASHBOARD -->
+
+  <section id="dashboard" class="panel active">
+
+    <div class="grid cards">
+
+      <div class="card">
+
+        <div class="stat-label">
+          Total Products
+        </div>
+
+        <div class="stat" id="dProducts">
+          0
+        </div>
+
+        <div class="stat-note">
+          Items registered
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="stat-label">
+          Current Stock
+        </div>
+
+        <div class="stat" id="dStock">
+          0
+        </div>
+
+        <div class="stat-note">
+          System balance
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="stat-label">
+          Sold This Month
+        </div>
+
+        <div class="stat" id="dSold">
+          0
+        </div>
+
+        <div class="stat-note" id="dMonth"></div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="stat-label">
+          Stock Variance
+        </div>
+
+        <div class="stat" id="dVariance">
+          0
+        </div>
+
+        <div class="stat-note">
+          Latest physical count
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="section-head">
+
+      <h2>
+        Low / Negative Stock
+      </h2>
+
+      <button
+        class="btn small"
+        onclick="renderDashboard()">
+        Refresh
+      </button>
+
+    </div>
+
+
+    <div
+      class="card table-wrap"
+      id="lowStock">
+    </div>
+
+
+    <div class="section-head">
+
+      <h2>
+        Recent Movement
+      </h2>
+
+    </div>
+
+
+    <div
+      class="card table-wrap"
+      id="recentMovement">
+    </div>
+
+  </section>
+
+
+  <!-- PRODUCTS -->
+
+  <section id="products" class="panel">
+
+    <div class="section-head">
+
+      <h2>
+        Product Master
+      </h2>
+
+      <button
+        class="btn primary"
+        onclick="openProductModal()">
+        ＋ Add Product
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="toolbar">
+
+        <div class="field">
+
+          <label>
+            Search
+          </label>
+
+          <input
+            id="productSearch"
+            oninput="renderProducts()"
+            placeholder="SKU / product name...">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Category
+          </label>
+
+          <select
+            id="productCategory"
+            onchange="renderProducts()">
+
+            <option value="">
+              All categories
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="card table-wrap"
+      style="margin-top:16px"
+      id="productsTable">
+    </div>
+
+  </section>
+
+
+  <!-- DAILY MOVEMENT -->
+
+  <section id="movement" class="panel">
+
+    <div class="section-head">
+
+      <h2>
+        Daily Stock Movement
+      </h2>
+
+      <button
+        class="btn primary"
+        onclick="openMovementModal()">
+        ＋ Record Movement
+      </button>
+
+    </div>
+
+
+    <div class="notice">
+
+      <b>Formula:</b>
+
+      Current Balance = Opening Stock + Stock In − Stock Out.
+
+      Every daily sale should be recorded as
+      <b>Stock Out</b>.
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="toolbar">
+
+        <div class="field">
+
+          <label>
+            Month
+          </label>
+
+          <input
+            type="month"
+            id="movementMonth"
+            onchange="renderMovement()">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Product
+          </label>
+
+          <select
+            id="movementProductFilter"
+            onchange="renderMovement()">
+
+            <option value="">
+              All products
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="card table-wrap"
+      style="margin-top:16px"
+      id="movementTable">
+    </div>
+
+  </section>
+
+
+  <!-- MONTHLY STOCK TAKE -->
+
+  <section id="stocktake" class="panel">
+
+    <div class="section-head">
+
+      <h2>
+        Monthly Physical Stock Take
+      </h2>
+
+      <button
+        class="btn primary"
+        onclick="openStockTakeModal()">
+        ＋ Enter Count
+      </button>
+
+    </div>
+
+
+    <div class="notice">
+
+      Masukkan jumlah fizikal yang betul-betul
+      dikira di warehouse.
+
+      Sistem akan bandingkan dengan
+      <b>System Balance</b> dan kira
+      <b>Variance</b>.
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="toolbar">
+
+        <div class="field">
+
+          <label>
+            Stock Take Month
+          </label>
+
+          <input
+            type="month"
+            id="takeMonth"
+            onchange="renderStockTake()">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="card table-wrap"
+      style="margin-top:16px"
+      id="stockTakeTable">
+    </div>
+
+  </section>
+
+
+  <!-- EXPORT -->
+
+  <section id="export" class="panel">
+
+    <div class="section-head">
+
+      <h2>
+        Google Sheets / Export
+      </h2>
+
+    </div>
+
+
+    <div
+      class="grid"
+      style="grid-template-columns:repeat(2,minmax(0,1fr))">
+
+
+      <div class="card">
+
+        <h3>
+          1. Export CSV
+        </h3>
+
+        <p style="color:var(--muted);font-size:13px">
+
+          CSV boleh terus upload ke Google Sheets.
+
+          Setiap jenis data akan jadi fail
+          berasingan.
+
+        </p>
+
+
+        <div class="toolbar">
+
+          <button
+            class="btn primary"
+            onclick="exportCSV('products')">
+            Products CSV
+          </button>
+
+          <button
+            class="btn primary"
+            onclick="exportCSV('movement')">
+            Movement CSV
+          </button>
+
+          <button
+            class="btn primary"
+            onclick="exportCSV('stocktake')">
+            Stock Take CSV
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>
+          2. Backup / Restore
+        </h3>
+
+        <p style="color:var(--muted);font-size:13px">
+
+          Backup semua data browser sebelum
+          tukar phone atau clear browser data.
+
+        </p>
+
+
+        <div class="toolbar">
+
+          <button
+            class="btn"
+            onclick="backupJSON()">
+            Download Backup
+          </button>
+
+
+          <label
+            class="btn"
+            for="restoreFile">
+            Restore Backup
+          </label>
+
+
+          <input
+            id="restoreFile"
+            type="file"
+            accept=".json"
+            hidden
+            onchange="restoreJSON(event)">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="card"
+      style="margin-top:16px">
+
+      <h3>
+        Struktur Google Sheets yang dicadangkan
+      </h3>
+
+      <p style="color:var(--muted);font-size:13px">
+
+        Buat 3 tab:
+
+        <b>Products</b>,
+
+        <b>Daily Movement</b>,
+
+        dan
+
+        <b>Monthly Stock Take</b>.
+
+        CSV di atas boleh dimasukkan ke setiap tab.
+
+      </p>
+
+
+      <div class="table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Tab
+              </th>
+
+              <th>
+                Kegunaan
+              </th>
+
+              <th>
+                Data utama
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <tr>
+
+              <td>
+                Products
+              </td>
+
+              <td>
+                Master barang
+              </td>
+
+              <td>
+                SKU, Product, Category, Unit,
+                Opening Stock
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td>
+                Daily Movement
+              </td>
+
+              <td>
+                Rekod harian
+              </td>
+
+              <td>
+                Date, SKU, Stock In, Stock Out,
+                Note
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td>
+                Monthly Stock Take
+              </td>
+
+              <td>
+                Kiraan fizikal
+              </td>
+
+              <td>
+                Month, SKU, System Balance,
+                Physical Count, Variance
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- MODAL -->
+
+<div
+  class="modal"
+  id="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+
+      <h3 id="modalTitle"></h3>
+
+      <button
+        class="close"
+        onclick="closeModal()">
+        ×
+      </button>
+
+    </div>
+
+
+    <div id="modalBody"></div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   DATABASE
+========================================= */
+
+const KEY = 'reno_stock_take_v1';
+
+let db = JSON.parse(
+  localStorage.getItem(KEY) ||
+  '{"products":[],"movements":[],"stocktakes":[]}'
+);
+
+
+/* =========================================
+   BASIC FUNCTIONS
+========================================= */
+
+function save(){
+
+  localStorage.setItem(
+    KEY,
+    JSON.stringify(db)
+  );
+
+  renderAll();
+
+}
+
+
+function esc(v){
+
+  return String(v ?? '').replace(
+    /[&<>"']/g,
+
+    m => ({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#039;'
+    }[m])
+  );
+
+}
+
+
+function today(){
+
+  return new Date()
+    .toISOString()
+    .slice(0,10);
+
+}
+
+
+function monthNow(){
+
+  return new Date()
+    .toISOString()
+    .slice(0,7);
+
+}
+
+
+function uid(){
+
+  return Date.now().toString(36)
+    +
+    Math.random()
+      .toString(36)
+      .slice(2,7);
+
+}
+
+
+function money(v){
+
+  return Number(v || 0)
+    .toLocaleString(
+      'en-MY',
+      {
+        maximumFractionDigits:2
+      }
+    );
+
+}
+
+
+/* =========================================
+   TAB
+========================================= */
+
+function showTab(id,btn){
+
+  document
+    .querySelectorAll('.panel')
+    .forEach(
+      x => x.classList.remove('active')
+    );
+
+  document
+    .querySelectorAll('.tab')
+    .forEach(
+      x => x.classList.remove('active')
+    );
+
+  document
+    .getElementById(id)
+    .classList.add('active');
+
+  btn.classList.add('active');
+
+  renderAll();
+
+}
+
+
+/* =========================================
+   STOCK BALANCE
+========================================= */
+
+function balance(pid,upto=null){
+
+  const p =
+    db.products.find(
+      x => x.id === pid
+    );
+
+  if(!p) return 0;
+
+  let b =
+    Number(p.opening || 0);
+
+
+  db.movements.forEach(m => {
+
+    if(
+      m.productId === pid &&
+      (!upto || m.date <= upto)
+    ){
+
+      b += Number(m.in || 0);
+      b -= Number(m.out || 0);
+
+    }
+
+  });
+
+
+  return b;
+
+}
+
+
+function monthRange(m){
+
+  return [
+    m + '-01',
+    m + '-31'
+  ];
+
+}
+
+
+function productName(id){
+
+  const p =
+    db.products.find(
+      x => x.id === id
+    );
+
+  return p
+    ? p.name
+    : 'Unknown';
+
+}
+
+
+function productSku(id){
+
+  const p =
+    db.products.find(
+      x => x.id === id
+    );
+
+  return p
+    ? p.sku
+    : '-';
+
+}
+
+
+/* =========================================
+   RENDER ALL
+========================================= */
+
+function renderAll(){
+
+  renderDashboard();
+
+  renderProducts();
+
+  fillFilters();
+
+  renderMovement();
+
+  renderStockTake();
+
+}
+
+
+/* =========================================
+   DASHBOARD
+========================================= */
+
+function renderDashboard(){
+
+  document.getElementById(
+    'dProducts'
+  ).textContent =
+    db.products.length;
+
+
+  document.getElementById(
+    'dStock'
+  ).textContent =
+    money(
+      db.products.reduce(
+        (s,p) =>
+          s + balance(p.id),
+        0
+      )
+    );
+
+
+  const m = monthNow();
+
+  const [
+    a,
+    b
+  ] = monthRange(m);
+
+
+  const sold =
+    db.movements
+      .filter(
+        x =>
+          x.date >= a &&
+          x.date <= b
+      )
+      .reduce(
+        (s,x) =>
+          s + Number(x.out || 0),
+        0
+      );
+
+
+  document.getElementById(
+    'dSold'
+  ).textContent =
+    money(sold);
+
+
+  document.getElementById(
+    'dMonth'
+  ).textContent =
+    m;
+
+
+  const latest =
+    db.stocktakes
+      .slice()
+      .sort(
+        (a,b) =>
+          b.month.localeCompare(a.month)
+          ||
+          b.created.localeCompare(a.created)
+      )[0];
+
+
+  document.getElementById(
+    'dVariance'
+  ).textContent =
+    latest
+      ? money(latest.variance)
+      : '0';
+
+
+  /* LOW STOCK */
+
+  const lows =
+    db.products
+      .map(
+        p => ({
+          p,
+          b:balance(p.id)
+        })
+      )
+      .filter(
+        x => x.b <= 0
+      )
+      .sort(
+        (a,b) =>
+          a.b - b.b
+      );
+
+
+  document.getElementById(
+    'lowStock'
+  ).innerHTML =
+    lows.length
+
+    ?
+
+    `<table>
+
+      <thead>
+
+        <tr>
+
+          <th>SKU</th>
+
+          <th>Product</th>
+
+          <th>Balance</th>
+
+          <th>Status</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        ${
+          lows.map(
+            x => `
+
+              <tr>
+
+                <td>
+                  ${esc(x.p.sku)}
+                </td>
+
+                <td>
+                  ${esc(x.p.name)}
+                </td>
+
+                <td
+                  class="${
+                    x.b < 0
+                      ? 'danger-text'
+                      : ''
+                  }">
+
+                  ${money(x.b)}
+                  ${esc(x.p.unit)}
+
+                </td>
+
+                <td>
+
+                  <span
+                    class="badge bad">
+
+                    ${
+                      x.b < 0
+                        ? 'NEGATIVE'
+                        : 'OUT OF STOCK'
+                    }
+
+                  </span>
+
+                </td>
+
+              </tr>
+
+            `
+          ).join('')
+        }
+
+      </tbody>
+
+    </table>`
+
+    :
+
+    `<div class="empty">
+
+      Tiada stock kosong / negative.
+
+    </div>`;
+
+
+  /* RECENT MOVEMENT */
+
+  const recent =
+    db.movements
+      .slice()
+      .sort(
+        (a,b) =>
+          b.date.localeCompare(a.date)
+          ||
+          b.created.localeCompare(a.created)
+      )
+      .slice(0,10);
+
+
+  document.getElementById(
+    'recentMovement'
+  ).innerHTML =
+
+    recent.length
+
+    ?
+
+    `<table>
+
+      <thead>
+
+        <tr>
+
+          <th>Date</th>
+          <th>SKU</th>
+          <th>Product</th>
+          <th>In</th>
+          <th>Out</th>
+          <th>Note</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        ${
+          recent.map(
+            m => `
+
+              <tr>
+
+                <td>
+                  ${m.date}
+                </td>
+
+                <td>
+                  ${esc(
+                    productSku(
+                      m.productId
+                    )
+                  )}
+                </td>
+
+                <td>
+                  ${esc(
+                    productName(
+                      m.productId
+                    )
+                  )}
+                </td>
+
+                <td class="success-text">
+                  ${money(m.in)}
+                </td>
+
+                <td class="danger-text">
+                  ${money(m.out)}
+                </td>
+
+                <td>
+                  ${esc(m.note)}
+                </td>
+
+              </tr>
+
+            `
+          ).join('')
+        }
+
+      </tbody>
+
+    </table>`
+
+    :
+
+    `<div class="empty">
+
+      Belum ada movement.
+
+    </div>`;
+
+}
+
+
+/* =========================================
+   PRODUCTS
+========================================= */
+
+function renderProducts(){
+
+  const q =
+    (
+      document.getElementById(
+        'productSearch'
+      )?.value || ''
+    ).toLowerCase();
+
+
+  const c =
+    document.getElementById(
+      'productCategory'
+    )?.value || '';
+
+
+  const rows =
+    db.products.filter(
+      p =>
+
+        (
+          !q ||
+          (
+            p.sku +
+            ' ' +
+            p.name
+          )
+          .toLowerCase()
+          .includes(q)
+        )
+
+        &&
+
+        (
+          !c ||
+          p.category === c
+        )
+    );
+
+
+  document.getElementById(
+    'productsTable'
+  ).innerHTML =
+
+    rows.length
+
+    ?
+
+    `<table>
+
+      <thead>
+
+        <tr>
+
+          <th>SKU</th>
+          <th>Product</th>
+          <th>Category</th>
+          <th>Unit</th>
+          <th>Opening</th>
+          <th>Balance</th>
+          <th>Rack</th>
+          <th>Action</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        ${
+          rows.map(
+            p => `
+
+              <tr>
+
+                <td>
+                  <b>
+                    ${esc(p.sku)}
+                  </b>
+                </td>
+
+                <td>
+                  ${esc(p.name)}
+                </td>
+
+                <td>
+                  ${esc(p.category)}
+                </td>
+
+                <td>
+                  ${esc(p.unit)}
+                </td>
+
+                <td>
+                  ${money(p.opening)}
+                </td>
+
+                <td>
+                  <b>
+                    ${money(
+                      balance(p.id)
+                    )}
+                  </b>
+                </td>
+
+                <td>
+                  ${esc(
+                    p.rack || '-'
+                  )}
+                </td>
+
+                <td>
+
+                  <button
+                    class="btn small"
+                    onclick="openProductModal('${p.id}')">
+
+                    Edit
+
+                  </button>
+
+                  <button
+                    class="btn small danger"
+                    onclick="deleteProduct('${p.id}')">
+
+                    Delete
+
+                  </button>
+
+                </td>
+
+              </tr>
+
+            `
+          ).join('')
+        }
+
+      </tbody>
+
+    </table>`
+
+    :
+
+    `<div class="empty">
+
+      Belum ada product.
+
+      Klik “Add Product”.
+
+    </div>`;
+
+}
+
+
+/* =========================================
+   FILTER
+========================================= */
+
+function fillFilters(){
+
+  const cats =
+    [
+      ...new Set(
+        db.products
+          .map(p => p.category)
+          .filter(Boolean)
+      )
+    ].sort();
+
+
+  const cat =
+    document.getElementById(
+      'productCategory'
+    );
+
+
+  const old =
+    cat.value;
+
+
+  cat.innerHTML =
+    '<option value="">All categories</option>'
+    +
+    cats
+      .map(
+        x =>
+          `<option>${esc(x)}</option>`
+      )
+      .join('');
+
+
+  cat.value = old;
+
+
+  const sel =
+    document.getElementById(
+      'movementProductFilter'
+    );
+
+
+  const old2 =
+    sel.value;
+
+
+  sel.innerHTML =
+    '<option value="">All products</option>'
+    +
+    db.products
+      .map(
+        p => `
+
+          <option value="${p.id}">
+
+            ${esc(p.sku)}
+            —
+            ${esc(p.name)}
+
+          </option>
+
+        `
+      )
+      .join('');
+
+
+  sel.value = old2;
+
+}
+
+
+/* =========================================
+   DAILY MOVEMENT
+========================================= */
+
+function renderMovement(){
+
+  const m =
+    document.getElementById(
+      'movementMonth'
+    )?.value || monthNow();
+
+
+  const pid =
+    document.getElementById(
+      'movementProductFilter'
+    )?.value || '';
+
+
+  if(
+    document.getElementById(
+      'movementMonth'
+    )
+    &&
+    !document.getElementById(
+      'movementMonth'
+    ).value
+  ){
+
+    document.getElementById(
+      'movementMonth'
+    ).value = m;
+
+  }
+
+
+  const [
+    a,
+    b
+  ] = monthRange(m);
+
+
+  const rows =
+    db.movements
+      .filter(
+        x =>
+          x.date >= a &&
+          x.date <= b &&
+          (!pid ||
+           x.productId === pid)
+      )
+      .sort(
+        (a,b) =>
+          b.date.localeCompare(a.date)
+      );
+
+
+  document.getElementById(
+    'movementTable'
+  ).innerHTML =
+
+    rows.length
+
+    ?
+
+    `<table>
+
+      <thead>
+
+        <tr>
+
+          <th>Date</th>
+          <th>SKU</th>
+          <th>Product</th>
+          <th>Stock In</th>
+          <th>Stock Out / Sold</th>
+          <th>Note</th>
+          <th></th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        ${
+          rows.map(
+            x => `
+
+              <tr>
+
+                <td>
+                  ${x.date}
+                </td>
+
+                <td>
+                  ${esc(
+                    productSku(
+                      x.productId
+                    )
+                  )}
+                </td>
+
+                <td>
+                  ${esc(
+                    productName(
+                      x.productId
+                    )
+                  )}
+                </td>
+
+                <td class="success-text">
+                  ${money(x.in)}
+                </td>
+
+                <td class="danger-text">
+                  ${money(x.out)}
+                </td>
+
+                <td>
+                  ${esc(x.note)}
+                </td>
+
+                <td>
+
+                  <button
+                    class="btn small danger"
+                    onclick="deleteMovement('${x.id}')">
+
+                    Delete
+
+                  </button>
+
+                </td>
+
+              </tr>
+
+            `
+          ).join('')
+        }
+
+      </tbody>
+
+    </table>`
+
+    :
+
+    `<div class="empty">
+
+      Tiada movement untuk ${m}.
+
+    </div>`;
+
+}
+
+
+/* =========================================
+   STOCK TAKE
+========================================= */
+
+function renderStockTake(){
+
+  const m =
+    document.getElementById(
+      'takeMonth'
+    )?.value || monthNow();
+
+
+  if(
+    document.getElementById(
+      'takeMonth'
+    )
+    &&
+    !document.getElementById(
+      'takeMonth'
+    ).value
+  ){
+
+    document.getElementById(
+      'takeMonth'
+    ).value = m;
+
+  }
+
+
+  const rows =
+    db.stocktakes.filter(
+      x => x.month === m
+    );
+
+
+  document.getElementById(
+    'stockTakeTable'
+  ).innerHTML =
+
+    rows.length
+
+    ?
+
+    `<table>
+
+      <thead>
+
+        <tr>
+
+          <th>Month</th>
+          <th>SKU</th>
+          <th>Product</th>
+          <th>System Balance</th>
+          <th>Physical Count</th>
+          <th>Variance</th>
+          <th>Note</th>
+          <th></th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        ${
+          rows.map(
+            x => `
+
+              <tr>
+
+                <td>
+                  ${x.month}
+                </td>
+
+                <td>
+                  ${esc(
+                    productSku(
+                      x.productId
+                    )
+                  )}
+                </td>
+
+                <td>
+                  ${esc(
+                    productName(
+                      x.productId
+                    )
+                  )}
+                </td>
+
+                <td>
+                  ${money(x.system)}
+                </td>
+
+                <td>
+                  <b>
+                    ${money(x.physical)}
+                  </b>
+                </td>
+
+                <td
+                  class="${
+                    x.variance < 0
+                      ? 'danger-text'
+                      :
+                      x.variance > 0
+                        ? 'success-text'
+                        : ''
+                  }">
+
+                  <b>
+
+                    ${
+                      x.variance > 0
+                        ? '+'
+                        : ''
+                    }
+
+                    ${money(x.variance)}
+
+                  </b>
+
+                </td>
+
+                <td>
+                  ${esc(x.note)}
+                </td>
+
+                <td>
+
+                  <button
+                    class="btn small danger"
+                    onclick="deleteStockTake('${x.id}')">
+
+                    Delete
+
+                  </button>
+
+                </td>
+
+              </tr>
+
+            `
+          ).join('')
+        }
+
+      </tbody>
+
+    </table>`
+
+    :
+
+    `<div class="empty">
+
+      Belum ada kiraan fizikal untuk ${m}.
+
+    </div>`;
+
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+function openModal(
+  title,
+  body
+){
+
+  document.getElementById(
+    'modalTitle'
+  ).textContent = title;
+
+
+  document.getElementById(
+    'modalBody'
+  ).innerHTML = body;
+
+
+  document.getElementById(
+    'modal'
+  ).classList.add('show');
+
+}
+
+
+function closeModal(){
+
+  document.getElementById(
+    'modal'
+  ).classList.remove('show');
+
+}
+
+
+/* =========================================
+   PRODUCT MODAL
+========================================= */
+
+function openProductModal(id=''){
+
+  const p =
+    db.products.find(
+      x => x.id === id
+    )
+    ||
+    {
+      sku:'',
+      name:'',
+      category:'',
+      unit:'pcs',
+      opening:0,
+      rack:''
+    };
+
+
+  openModal(
+
+    id
+      ? 'Edit Product'
+      : 'Add Product',
+
+    `
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label>
+            SKU / Code *
+          </label>
+
+          <input
+            id="fSku"
+            value="${esc(p.sku)}">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Product Name *
+          </label>
+
+          <input
+            id="fName"
+            value="${esc(p.name)}">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Category
+          </label>
+
+          <input
+            id="fCat"
+            value="${esc(p.category)}"
+            placeholder="SPC / Fluted / Ceiling...">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Unit
+          </label>
+
+          <select id="fUnit">
+
+            <option
+              ${p.unit==='pcs'?'selected':''}>
+              pcs
+            </option>
+
+            <option
+              ${p.unit==='box'?'selected':''}>
+              box
+            </option>
+
+            <option
+              ${p.unit==='roll'?'selected':''}>
+              roll
+            </option>
+
+            <option
+              ${p.unit==='sheet'?'selected':''}>
+              sheet
+            </option>
+
+            <option
+              ${p.unit==='set'?'selected':''}>
+              set
+            </option>
+
+            <option
+              ${p.unit==='unit'?'selected':''}>
+              unit
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Opening Stock
+          </label>
+
+          <input
+            id="fOpening"
+            type="number"
+            step="0.01"
+            value="${p.opening}">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Rack / Location
+          </label>
+
+          <input
+            id="fRack"
+            value="${esc(p.rack)}"
+            placeholder="A1">
+
+        </div>
+
+      </div>
+
+
+      <div
+        style="
+          margin-top:18px;
+          display:flex;
+          justify-content:flex-end;
+          gap:8px
+        ">
+
+        <button
+          class="btn"
+          onclick="closeModal()">
+
+          Cancel
+
+        </button>
+
+
+        <button
+          class="btn primary"
+          onclick="saveProduct('${id}')">
+
+          Save Product
+
+        </button>
+
+      </div>
+
+    `
+  );
+
+}
+
+
+/* =========================================
+   SAVE PRODUCT
+========================================= */
+
+function saveProduct(id){
+
+  const sku =
+    document.getElementById(
+      'fSku'
+    ).value.trim();
+
+
+  const name =
+    document.getElementById(
+      'fName'
+    ).value.trim();
+
+
+  if(!sku || !name){
+
+    return alert(
+      'SKU dan Product Name wajib diisi.'
+    );
+
+  }
+
+
+  const duplicate =
+    db.products.find(
+      p =>
+        p.sku.toLowerCase()
+        ===
+        sku.toLowerCase()
+        &&
+        p.id !== id
+    );
+
+
+  if(duplicate){
+
+    return alert(
+      'SKU sudah digunakan.'
+    );
+
+  }
+
+
+  const data = {
+
+    sku,
+
+    name,
+
+    category:
+      document.getElementById(
+        'fCat'
+      ).value.trim(),
+
+    unit:
+      document.getElementById(
+        'fUnit'
+      ).value,
+
+    opening:
+      Number(
+        document.getElementById(
+          'fOpening'
+        ).value || 0
+      ),
+
+    rack:
+      document.getElementById(
+        'fRack'
+      ).value.trim()
+
+  };
+
+
+  if(id){
+
+    Object.assign(
+      db.products.find(
+        p => p.id === id
+      ),
+      data
+    );
+
+  }
+
+  else{
+
+    db.products.push({
+
+      id:uid(),
+
+      ...data
+
+    });
+
+  }
+
+
+  closeModal();
+
+  save();
+
+}
+
+
+/* =========================================
+   DELETE PRODUCT
+========================================= */
+
+function deleteProduct(id){
+
+  if(
+    db.movements.some(
+      x => x.productId === id
+    )
+    ||
+    db.stocktakes.some(
+      x => x.productId === id
+    )
+  ){
+
+    return alert(
+      'Product ini sudah ada dalam rekod. Jangan delete; edit sahaja.'
+    );
+
+  }
+
+
+  if(
+    confirm(
+      'Delete product ini?'
+    )
+  ){
+
+    db.products =
+      db.products.filter(
+        x => x.id !== id
+      );
+
+    save();
+
+  }
+
+}
+
+
+/* =========================================
+   MOVEMENT MODAL
+========================================= */
+
+function openMovementModal(){
+
+  if(!db.products.length){
+
+    return alert(
+      'Tambah product dahulu.'
+    );
+
+  }
+
+
+  openModal(
+
+    'Record Daily Movement',
+
+    `
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label>
+            Date *
+          </label>
+
+          <input
+            id="mDate"
+            type="date"
+            value="${today()}">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Product *
+          </label>
+
+          <select id="mProduct">
+
+            ${
+              db.products.map(
+                p => `
+
+                  <option value="${p.id}">
+
+                    ${esc(p.sku)}
+                    —
+                    ${esc(p.name)}
+
+                  </option>
+
+                `
+              ).join('')
+            }
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Stock In / Received
+          </label>
+
+          <input
+            id="mIn"
+            type="number"
+            min="0"
+            step="0.01"
+            value="0">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Stock Out / Sold
+          </label>
+
+          <input
+            id="mOut"
+            type="number"
+            min="0"
+            step="0.01"
+            value="0">
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="field"
+        style="margin-top:12px">
+
+        <label>
+          Note
+        </label>
+
+        <input
+          id="mNote"
+          placeholder="Contoh: Sale INV-1023 / Receive supplier">
+
+      </div>
+
+
+      <div
+        style="
+          margin-top:18px;
+          display:flex;
+          justify-content:flex-end;
+          gap:8px
+        ">
+
+        <button
+          class="btn"
+          onclick="closeModal()">
+
+          Cancel
+
+        </button>
+
+
+        <button
+          class="btn primary"
+          onclick="saveMovement()">
+
+          Save Movement
+
+        </button>
+
+      </div>
+
+    `
+  );
+
+}
+
+
+/* =========================================
+   SAVE MOVEMENT
+========================================= */
+
+function saveMovement(){
+
+  const inn =
+    Number(
+      document.getElementById(
+        'mIn'
+      ).value || 0
+    );
+
+
+  const out =
+    Number(
+      document.getElementById(
+        'mOut'
+      ).value || 0
+    );
+
+
+  if(
+    inn === 0 &&
+    out === 0
+  ){
+
+    return alert(
+      'Masukkan Stock In atau Stock Out.'
+    );
+
+  }
+
+
+  db.movements.push({
+
+    id:uid(),
+
+    date:
+      document.getElementById(
+        'mDate'
+      ).value,
+
+    productId:
+      document.getElementById(
+        'mProduct'
+      ).value,
+
+    in:inn,
+
+    out:out,
+
+    note:
+      document.getElementById(
+        'mNote'
+      ).value.trim(),
+
+    created:
+      new Date().toISOString()
+
+  });
+
+
+  closeModal();
+
+  save();
+
+}
+
+
+/* =========================================
+   DELETE MOVEMENT
+========================================= */
+
+function deleteMovement(id){
+
+  if(
+    confirm(
+      'Delete movement ini?'
+    )
+  ){
+
+    db.movements =
+      db.movements.filter(
+        x => x.id !== id
+      );
+
+    save();
+
+  }
+
+}
+
+
+/* =========================================
+   STOCK TAKE MODAL
+========================================= */
+
+function openStockTakeModal(){
+
+  if(!db.products.length){
+
+    return alert(
+      'Tambah product dahulu.'
+    );
+
+  }
+
+
+  const m =
+    document.getElementById(
+      'takeMonth'
+    ).value
+    ||
+    monthNow();
+
+
+  openModal(
+
+    'Monthly Physical Stock Take',
+
+    `
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label>
+            Month *
+          </label>
+
+          <input
+            id="sMonth"
+            type="month"
+            value="${m}">
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Product *
+          </label>
+
+          <select id="sProduct">
+
+            ${
+              db.products.map(
+                p => `
+
+                  <option value="${p.id}">
+
+                    ${esc(p.sku)}
+                    —
+                    ${esc(p.name)}
+
+                  </option>
+
+                `
+              ).join('')
+            }
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            System Balance
+          </label>
+
+          <input
+            id="sSystem"
+            readonly>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Physical Count *
+          </label>
+
+          <input
+            id="sPhysical"
+            type="number"
+            step="0.01"
+            min="0"
+            value="0">
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="field"
+        style="margin-top:12px">
+
+        <label>
+          Note
+        </label>
+
+        <input
+          id="sNote"
+          placeholder="Contoh: Damaged / missing / recount">
+
+      </div>
+
+
+      <div
+        style="
+          margin-top:18px;
+          display:flex;
+          justify-content:flex-end;
+          gap:8px
+        ">
+
+        <button
+          class="btn"
+          onclick="closeModal()">
+
+          Cancel
+
+        </button>
+
+
+        <button
+          class="btn primary"
+          onclick="saveStockTake()">
+
+          Save Count
+
+        </button>
+
+      </div>
+
+    `
+  );
+
+
+  const upd = () => {
+
+    document.getElementById(
+      'sSystem'
+    ).value =
+
+      balance(
+
+        document.getElementById(
+          'sProduct'
+        ).value,
+
+        document.getElementById(
+          'sMonth'
+        ).value + '-31'
+
+      );
+
+  };
+
+
+  document.getElementById(
+    'sProduct'
+  ).onchange = upd;
+
+
+  document.getElementById(
+    'sMonth'
+  ).onchange = upd;
+
+
+  upd();
+
+}
+
+
+/* =========================================
+   SAVE STOCK TAKE
+========================================= */
+
+function saveStockTake(){
+
+  const m =
+    document.getElementById(
+      'sMonth'
+    ).value;
+
+
+  const pid =
+    document.getElementById(
+      'sProduct'
+    ).value;
+
+
+  const physical =
+    Number(
+      document.getElementById(
+        'sPhysical'
+      ).value || 0
+    );
+
+
+  const system =
+    balance(
+      pid,
+      m + '-31'
+    );
+
+
+  const variance =
+    physical - system;
+
+
+  const old =
+    db.stocktakes.find(
+      x =>
+        x.month === m &&
+        x.productId === pid
+    );
+
+
+  const data = {
+
+    month:m,
+
+    productId:pid,
+
+    system,
+
+    physical,
+
+    variance,
+
+    note:
+      document.getElementById(
+        'sNote'
+      ).value.trim(),
+
+    created:
+      new Date().toISOString()
+
+  };
+
+
+  if(old){
+
+    Object.assign(
+      old,
+      data
+    );
+
+  }
+
+  else{
+
+    db.stocktakes.push({
+
+      id:uid(),
+
+      ...data
+
+    });
+
+  }
+
+
+  closeModal();
+
+  save();
+
+}
+
+
+/* =========================================
+   DELETE STOCK TAKE
+========================================= */
+
+function deleteStockTake(id){
+
+  if(
+    confirm(
+      'Delete stock take record ini?'
+    )
+  ){
+
+    db.stocktakes =
+      db.stocktakes.filter(
+        x => x.id !== id
+      );
+
+    save();
+
+  }
+
+}
+
+
+/* =========================================
+   CSV EXPORT
+========================================= */
+
+function csv(
+  rows,
+  filename
+){
+
+  if(!rows.length){
+
+    return alert(
+      'Tiada data untuk export.'
+    );
+
+  }
+
+
+  const headers =
+    Object.keys(rows[0]);
+
+
+  const quote =
+    v =>
+      `"${String(v ?? '')
+        .replace(/"/g,'""')}"`;
+
+
+  const text =
+    '\ufeff'
+    +
+    [
+      headers,
+      ...rows.map(
+        r =>
+          headers.map(
+            h => r[h]
+          )
+      )
+    ]
+    .map(
+      r =>
+        r.map(quote).join(',')
+    )
+    .join('\n');
+
+
+  const blob =
+    new Blob(
+      [text],
+      {
+        type:
+          'text/csv;charset=utf-8;'
+      }
+    );
+
+
+  const a =
+    document.createElement(
+      'a'
+    );
+
+
+  a.href =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  a.download =
+    filename;
+
+
+  a.click();
+
+
+  URL.revokeObjectURL(
+    a.href
+  );
+
+}
+
+
+/* =========================================
+   EXPORT TYPES
+========================================= */
+
+function exportCSV(type){
+
+  if(type === 'products'){
+
+    csv(
+
+      db.products.map(
+        p => ({
+
+          SKU:p.sku,
+
+          Product:p.name,
+
+          Category:p.category,
+
+          Unit:p.unit,
+
+          Opening_Stock:p.opening,
+
+          Rack:p.rack,
+
+          System_Balance:
+            balance(p.id)
+
+        })
+      ),
+
+      'products.csv'
+
+    );
+
+  }
+
+
+  if(type === 'movement'){
+
+    csv(
+
+      db.movements.map(
+        m => ({
+
+          Date:m.date,
+
+          SKU:
+            productSku(
+              m.productId
+            ),
+
+          Product:
+            productName(
+              m.productId
+            ),
+
+          Stock_In:m.in,
+
+          Stock_Out:m.out,
+
+          Note:m.note
+
+        })
+      ),
+
+      'daily_movement.csv'
+
+    );
+
+  }
+
+
+  if(type === 'stocktake'){
+
+    csv(
+
+      db.stocktakes.map(
+        s => ({
+
+          Month:s.month,
+
+          SKU:
+            productSku(
+              s.productId
+            ),
+
+          Product:
+            productName(
+              s.productId
+            ),
+
+          System_Balance:
+            s.system,
+
+          Physical_Count:
+            s.physical,
+
+          Variance:
+            s.variance,
+
+          Note:s.note
+
+        })
+      ),
+
+      'monthly_stock_take.csv'
+
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   BACKUP
+========================================= */
+
+function backupJSON(){
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          db,
+          null,
+          2
+        )
+      ],
+      {
+        type:
+          'application/json'
+      }
+    );
+
+
+  const a =
+    document.createElement(
+      'a'
+    );
+
+
+  a.href =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  a.download =
+    'stock_take_backup.json';
+
+
+  a.click();
+
+
+  URL.revokeObjectURL(
+    a.href
+  );
+
+}
+
+
+/* =========================================
+   RESTORE
+========================================= */
+
+function restoreJSON(e){
+
+  const file =
+    e.target.files[0];
+
+
+  if(!file) return;
+
+
+  const r =
+    new FileReader();
+
+
+  r.onload = () => {
+
+    try{
+
+      const x =
+        JSON.parse(
+          r.result
+        );
+
+
+      if(
+        !x.products ||
+        !x.movements ||
+        !x.stocktakes
+      ){
+
+        throw 0;
+
+      }
+
+
+      db = x;
+
+      save();
+
+
+      alert(
+        'Backup berjaya dipulihkan.'
+      );
+
+    }
+
+    catch{
+
+      alert(
+        'Fail backup tidak sah.'
+      );
+
+    }
+
+  };
+
+
+  r.readAsText(file);
+
+}
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+document.getElementById(
+  'movementMonth'
+).value = monthNow();
+
+
+document.getElementById(
+  'takeMonth'
+).value = monthNow();
+
+
+renderAll();
+
+</script>
+
+</body>
+</html>
