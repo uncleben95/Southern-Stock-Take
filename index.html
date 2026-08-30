@@ -4999,13 +4999,34 @@ if(
 boot();
 
 <script type="module">
-
 import {
-  auth as firebaseAuth,
+  auth as firebaseAuthInstance,
+  db as dbFirebase,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  signOut
+  signOut,
+  doc,
+  setDoc,
+  getDoc,
+  onSnapshot,
+  serverTimestamp
 } from './firebase.js';
+
+window.firebaseAuthInstance = firebaseAuthInstance;
+window.dbFirebase = dbFirebase;
+window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+window.signOut = signOut;
+window.doc = doc;
+window.setDoc = setDoc;
+window.getDoc = getDoc;
+window.onSnapshot = onSnapshot;
+window.serverTimestamp = serverTimestamp;
+</script>
+
+<script>
+boot();
+</script>
   
 </body>
 </html>
