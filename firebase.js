@@ -35,15 +35,38 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const firebaseAuthInstance = getAuth(app);
 
-const db = getFirestore(app);
+const dbFirebase = getFirestore(app);
 
+
+// =====================================================
+// GLOBAL VARIABLES FOR index.html
+// =====================================================
+
+window.firebaseAuthInstance = firebaseAuthInstance;
+window.dbFirebase = dbFirebase;
+
+window.onAuthStateChanged = onAuthStateChanged;
+window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+window.signOut = signOut;
+
+window.doc = doc;
+window.getDoc = getDoc;
+window.setDoc = setDoc;
+window.onSnapshot = onSnapshot;
+window.serverTimestamp = serverTimestamp;
+
+
+// =====================================================
+// EXPORTS
+// =====================================================
 
 export {
   app,
-  auth,
-  db,
+  firebaseAuthInstance,
+  dbFirebase,
 
   onAuthStateChanged,
   signInWithEmailAndPassword,
