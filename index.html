@@ -1207,7 +1207,7 @@ Month
 <input
   type="month"
   id="movementMonth"
-  onchange="renderMovement()">
+  onchange="renderMovement">
 
 </div>
 
@@ -1623,7 +1623,7 @@ let settings =
    BASIC
 ===================================================== */
 
-async function save(){
+function save(){
 
   localStorage.setItem(
     KEY,
@@ -1632,37 +1632,8 @@ async function save(){
 
   renderAll();
 
-  if(firebaseAuthInstance.currentUser){
-
-    try{
-
-      await setDoc(
-        doc(
-          dbFirebase,
-          'users',
-          firebaseAuthInstance.currentUser.uid
-        ),
-        {
-          products: db.products || [],
-          movements: db.movements || [],
-          stocktakes: db.stocktakes || [],
-          updatedAt: serverTimestamp()
-        },
-        { merge:true }
-      );
-
-      console.log('Firestore sync OK');
-
-    }catch(error){
-
-      console.error(
-        'Firestore sync failed:',
-        error
-      );
-
-    }
-  }
 }
+
 
 
 function esc(v){
@@ -5009,9 +4980,10 @@ if(
 boot();
 
 <script type="module">
+
 import {
-  firebaseAuthInstance,
-  dbFirebase,
+  auth as firebaseAuthInstance,
+  db as dbFirebase,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
@@ -5021,22 +4993,6 @@ import {
   onSnapshot,
   serverTimestamp
 } from './firebase.js';
-
-window.firebaseAuthInstance = firebaseAuthInstance;
-window.dbFirebase = dbFirebase;
-window.signInWithEmailAndPassword = signInWithEmailAndPassword;
-window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
-window.signOut = signOut;
-window.doc = doc;
-window.setDoc = setDoc;
-window.getDoc = getDoc;
-window.onSnapshot = onSnapshot;
-window.serverTimestamp = serverTimestamp;
-
-window.addEventListener('load', () => {
-  boot();
-});
-</script>
   
 </body>
 </html>
