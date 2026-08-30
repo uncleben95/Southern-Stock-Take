@@ -4996,7 +4996,7 @@ if(
    START
 ===================================================== */
 
-boot();
+</script>
 
 <script type="module">
 import {
@@ -5022,7 +5022,14 @@ window.setDoc = setDoc;
 window.getDoc = getDoc;
 window.onSnapshot = onSnapshot;
 window.serverTimestamp = serverTimestamp;
+
+window.addEventListener('load', () => {
+  boot();
+});
 </script>
+
+</body>
+</html>
 
 <script>
 boot();
