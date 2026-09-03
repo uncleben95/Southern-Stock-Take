@@ -66,3 +66,35 @@ export {
   onSnapshot,
   serverTimestamp
 };
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+const googleProvider = new GoogleAuthProvider();
+
+// Fungsi login guna Google
+function signInWithGoogle() {
+  return signInWithPopup(auth, googleProvider);
+}
+
+
+export {
+  app,
+  auth,
+  db,
+
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  signInWithGoogle,
+
+  doc,
+  getDoc,
+  setDoc,
+  onSnapshot,
+  serverTimestamp
+};
