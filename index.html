@@ -13,10 +13,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 
 <title>RenoCal Stock Take</title>
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#101828">
-<link rel="apple-touch-icon" href="./icon-192.png">
-  
+
 <style>
 
 :root{
@@ -35,9 +32,7 @@
   --radius:16px;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{ box-sizing:border-box; }
 
 body{
   margin:0;
@@ -46,25 +41,9 @@ body{
   font-family:Inter,Arial,sans-serif;
 }
 
-button,
-input,
-select,
-textarea{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-  border:0;
-}
-
-.hidden{
-  display:none!important;
-}
-
-/* =========================
-   TOPBAR
-========================= */
+button, input, select, textarea{ font:inherit; }
+button{ cursor:pointer; border:0; }
+.hidden{ display:none!important; }
 
 .topbar{
   background:var(--dark);
@@ -78,625 +57,168 @@ button{
 .topbar-inner{
   max-width:1450px;
   margin:auto;
-
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   gap:12px;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+.brand{ display:flex; align-items:center; gap:12px; }
 
 .logo{
-  width:42px;
-  height:42px;
-
+  width:42px; height:42px;
   border-radius:12px;
-
-  background:#fff;
-  color:#101828;
-
-  display:grid;
-  place-items:center;
-
+  background:#fff; color:#101828;
+  display:grid; place-items:center;
   font-weight:900;
 }
 
-.brand h1{
-  font-size:18px;
-  margin:0;
-}
+.brand h1{ font-size:18px; margin:0; }
+.brand small{ color:#98a2b3; }
 
-.brand small{
-  color:#98a2b3;
-}
+.top-actions{ display:flex; align-items:center; gap:8px; }
+.user-chip{ font-size:12px; color:#d0d5dd; display:flex; align-items:center; gap:6px; }
+.user-avatar{ width:22px; height:22px; border-radius:50%; }
 
-.top-actions{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
+.sync-dot{ width:9px; height:9px; border-radius:50%; display:inline-block; background:#98a2b3; }
+.sync-dot.online{ background:#12b76a; }
+.sync-dot.error{ background:#f04438; }
 
-.user-chip{
-  font-size:12px;
-  color:#d0d5dd;
-}
+.container{ max-width:1450px; margin:20px auto; padding:0 14px; }
 
-.sync-dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  display:inline-block;
-  background:#98a2b3;
-}
-
-.sync-dot.online{
-  background:#12b76a;
-}
-
-.sync-dot.error{
-  background:#f04438;
-}
-
-/* =========================
-   CONTAINER
-========================= */
-
-.container{
-  max-width:1450px;
-  margin:20px auto;
-  padding:0 14px;
-}
-
-/* =========================
-   TABS
-========================= */
-
-.tabs{
-  display:flex;
-  gap:8px;
-  overflow:auto;
-  margin-bottom:18px;
-}
+.tabs{ display:flex; gap:8px; overflow:auto; margin-bottom:18px; }
 
 .tab{
   background:#fff;
   border:1px solid var(--line);
-
   padding:10px 14px;
-
   border-radius:10px;
-
   color:#475467;
-
   white-space:nowrap;
 }
 
-.tab.active{
-  background:var(--primary);
-  border-color:var(--primary);
-  color:#fff;
-}
+.tab.active{ background:var(--primary); border-color:var(--primary); color:#fff; }
 
-/* =========================
-   PANELS
-========================= */
+.panel{ display:none; }
+.panel.active{ display:block; }
 
-.panel{
-  display:none;
-}
-
-.panel.active{
-  display:block;
-}
-
-/* =========================
-   GRID
-========================= */
-
-.grid{
-  display:grid;
-  gap:16px;
-}
-
-.cards{
-  grid-template-columns:
-    repeat(4,minmax(0,1fr));
-}
-
-/* =========================
-   CARD
-========================= */
+.grid{ display:grid; gap:16px; }
+.cards{ grid-template-columns:repeat(4,minmax(0,1fr)); }
 
 .card{
   background:var(--card);
-
   border:1px solid var(--line);
-
   border-radius:var(--radius);
-
   box-shadow:var(--shadow);
-
   padding:18px;
 }
 
-/* =========================
-   STATS
-========================= */
-
-.stat-label{
-  font-size:13px;
-  color:var(--muted);
-}
-
-.stat{
-  font-size:28px;
-  font-weight:800;
-
-  margin-top:7px;
-}
-
-.stat-note{
-  font-size:12px;
-  color:var(--muted);
-
-  margin-top:4px;
-}
-
-/* =========================
-   SECTION
-========================= */
+.stat-label{ font-size:13px; color:var(--muted); }
+.stat{ font-size:28px; font-weight:800; margin-top:7px; }
+.stat-note{ font-size:12px; color:var(--muted); margin-top:4px; }
 
 .section-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin:22px 0 12px;
+}
+.section-head h2{ font-size:18px; margin:0; }
 
-  gap:12px;
+.btn{ padding:10px 14px; border-radius:10px; background:#eef2f6; color:#344054; font-weight:700; }
+.btn.primary{ background:var(--primary); color:#fff; }
+.btn.primary:hover{ background:var(--primary2); }
+.btn.danger{ background:#fff0ee; color:var(--danger); }
+.btn.success{ background:#ecfdf3; color:#027a48; }
+.btn.warning{ background:#fffaeb; color:#b54708; }
+.btn.small{ padding:7px 10px; font-size:12px; }
+.btn.google{ background:#fff; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; gap:8px; }
 
-  margin:22px 0 12px;
+.form-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+
+.field label{ display:block; font-size:12px; color:#475467; font-weight:700; margin-bottom:6px; }
+
+.field input, .field select, .field textarea{
+  width:100%; border:1px solid #d0d5dd; border-radius:9px;
+  padding:10px 11px; background:#fff; outline:none;
 }
 
-.section-head h2{
-  font-size:18px;
-  margin:0;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-.btn{
-  padding:10px 14px;
-
-  border-radius:10px;
-
-  background:#eef2f6;
-  color:#344054;
-
-  font-weight:700;
-}
-
-.btn.primary{
-  background:var(--primary);
-  color:#fff;
-}
-
-.btn.primary:hover{
-  background:var(--primary2);
-}
-
-.btn.danger{
-  background:#fff0ee;
-  color:var(--danger);
-}
-
-.btn.success{
-  background:#ecfdf3;
-  color:#027a48;
-}
-
-.btn.warning{
-  background:#fffaeb;
-  color:#b54708;
-}
-
-.btn.small{
-  padding:7px 10px;
-  font-size:12px;
-}
-
-/* =========================
-   FORM
-========================= */
-
-.form-grid{
-  display:grid;
-
-  grid-template-columns:
-    repeat(4,minmax(0,1fr));
-
-  gap:12px;
-}
-
-.field label{
-  display:block;
-
-  font-size:12px;
-
-  color:#475467;
-
-  font-weight:700;
-
-  margin-bottom:6px;
-}
-
-.field input,
-.field select,
-.field textarea{
-  width:100%;
-
-  border:1px solid #d0d5dd;
-
-  border-radius:9px;
-
-  padding:10px 11px;
-
-  background:#fff;
-
-  outline:none;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
+.field input:focus, .field select:focus, .field textarea:focus{
   border-color:var(--primary);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(31,78,216,.1);
+  box-shadow:0 0 0 3px rgba(31,78,216,.1);
 }
 
-/* =========================
-   TOOLBAR
-========================= */
+.toolbar{ display:flex; gap:10px; flex-wrap:wrap; align-items:end; }
+.toolbar .field{ min-width:160px; }
 
-.toolbar{
-  display:flex;
+.table-wrap{ overflow:auto; border:1px solid var(--line); border-radius:12px; background:#fff; }
 
-  gap:10px;
+table{ border-collapse:collapse; width:100%; min-width:850px; }
 
-  flex-wrap:wrap;
-
-  align-items:end;
+th, td{
+  padding:11px 12px; border-bottom:1px solid var(--line);
+  text-align:left; font-size:13px; white-space:nowrap;
 }
 
-.toolbar .field{
-  min-width:160px;
-}
+th{ background:#f8fafc; color:#475467; font-size:12px; position:sticky; top:0; z-index:1; }
+tr:last-child td{ border-bottom:0; }
 
-/* =========================
-   TABLE
-========================= */
+.badge{ display:inline-flex; padding:4px 8px; border-radius:99px; font-size:11px; font-weight:800; }
+.good{ background:#ecfdf3; color:#027a48; }
+.bad{ background:#fef3f2; color:#b42318; }
+.neutral{ background:#f2f4f7; color:#475467; }
 
-.table-wrap{
-  overflow:auto;
+.empty{ text-align:center; padding:35px; color:var(--muted); }
+.danger-text{ color:var(--danger); font-weight:700; }
+.success-text{ color:var(--success); font-weight:700; }
+.warning-text{ color:var(--warning); font-weight:700; }
 
-  border:1px solid var(--line);
-
-  border-radius:12px;
-
-  background:#fff;
-}
-
-table{
-  border-collapse:collapse;
-
-  width:100%;
-
-  min-width:850px;
-}
-
-th,
-td{
-  padding:11px 12px;
-
-  border-bottom:
-    1px solid var(--line);
-
-  text-align:left;
-
-  font-size:13px;
-
-  white-space:nowrap;
-}
-
-th{
-  background:#f8fafc;
-
-  color:#475467;
-
-  font-size:12px;
-
-  position:sticky;
-
-  top:0;
-
-  z-index:1;
-}
-
-tr:last-child td{
-  border-bottom:0;
-}
-
-/* =========================
-   BADGES
-========================= */
-
-.badge{
-  display:inline-flex;
-
-  padding:4px 8px;
-
-  border-radius:99px;
-
-  font-size:11px;
-
-  font-weight:800;
-}
-
-.good{
-  background:#ecfdf3;
-  color:#027a48;
-}
-
-.bad{
-  background:#fef3f2;
-  color:#b42318;
-}
-
-.neutral{
-  background:#f2f4f7;
-  color:#475467;
-}
-
-/* =========================
-   TEXT
-========================= */
-
-.empty{
-  text-align:center;
-
-  padding:35px;
-
-  color:var(--muted);
-}
-
-.danger-text{
-  color:var(--danger);
-  font-weight:700;
-}
-
-.success-text{
-  color:var(--success);
-  font-weight:700;
-}
-
-.warning-text{
-  color:var(--warning);
-  font-weight:700;
-}
-
-/* =========================
-   NOTICE
-========================= */
-
-.notice{
-  padding:12px 14px;
-
-  border-radius:10px;
-
-  background:#eff8ff;
-
-  color:#175cd3;
-
-  font-size:13px;
-
-  margin-bottom:14px;
-}
-
-/* =========================
-   MODAL
-========================= */
+.notice{ padding:12px 14px; border-radius:10px; background:#eff8ff; color:#175cd3; font-size:13px; margin-bottom:14px; }
 
 .modal{
-  position:fixed;
-
-  inset:0;
-
-  background:
-    rgba(16,24,40,.55);
-
-  display:none;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:20px;
-
-  z-index:50;
+  position:fixed; inset:0; background:rgba(16,24,40,.55);
+  display:none; align-items:center; justify-content:center;
+  padding:20px; z-index:50;
 }
+.modal.show{ display:flex; }
 
-.modal.show{
-  display:flex;
-}
+.modal-box{ background:#fff; width:min(760px,100%); border-radius:18px; padding:22px; max-height:90vh; overflow:auto; }
+.modal-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+.modal-head h3{ margin:0; }
+.close{ background:#f2f4f7; border-radius:8px; width:34px; height:34px; }
 
-.modal-box{
-  background:#fff;
-
-  width:min(760px,100%);
-
-  border-radius:18px;
-
-  padding:22px;
-
-  max-height:90vh;
-
-  overflow:auto;
-}
-
-.modal-head{
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  margin-bottom:18px;
-}
-
-.modal-head h3{
-  margin:0;
-}
-
-.close{
-  background:#f2f4f7;
-
-  border-radius:8px;
-
-  width:34px;
-  height:34px;
-}
-
-/* =========================
-   LOGIN
-========================= */
-
-.login{
-  min-height:100vh;
-
-  display:grid;
-
-  place-items:center;
-
-  padding:20px;
-
-  background:var(--bg);
-}
+.login{ min-height:100vh; display:grid; place-items:center; padding:20px; background:var(--bg); }
 
 .login-box{
-  width:min(430px,100%);
-
-  background:#fff;
-
-  border:1px solid var(--line);
-
-  border-radius:20px;
-
-  padding:28px;
-
-  box-shadow:var(--shadow);
+  width:min(430px,100%); background:#fff; border:1px solid var(--line);
+  border-radius:20px; padding:28px; box-shadow:var(--shadow);
 }
 
 .login-logo{
-  width:58px;
-  height:58px;
-
-  border-radius:16px;
-
-  background:var(--dark);
-
-  color:#fff;
-
-  display:grid;
-
-  place-items:center;
-
-  font-weight:900;
-
-  margin-bottom:16px;
+  width:58px; height:58px; border-radius:16px; background:var(--dark);
+  color:#fff; display:grid; place-items:center; font-weight:900; margin-bottom:16px;
 }
 
-.login h2{
-  margin:0 0 6px;
-}
+.login h2{ margin:0 0 6px; }
+.login p{ color:var(--muted); font-size:13px; }
+.login .field{ margin:12px 0; }
+.login-actions{ display:grid; gap:8px; margin-top:16px; }
 
-.login p{
-  color:var(--muted);
-
-  font-size:13px;
-}
-
-.login .field{
-  margin:12px 0;
-}
-
-.login-actions{
-  display:grid;
-
-  gap:8px;
-
-  margin-top:16px;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
+.divider{ display:flex; align-items:center; gap:10px; color:var(--muted); font-size:12px; margin:14px 0; }
+.divider::before, .divider::after{ content:''; flex:1; height:1px; background:var(--line); }
 
 @media(max-width:900px){
-
-  .cards{
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
-  }
-
-  .form-grid{
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
-  }
-
+  .cards{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .form-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
 
 @media(max-width:600px){
-
-  .topbar{
-    padding:12px;
-  }
-
-  .container{
-    padding:0 9px;
-  }
-
-  .cards{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .card{
-    padding:14px;
-  }
-
-  .stat{
-    font-size:22px;
-  }
-
-  .brand small{
-    display:none;
-  }
-
-  .top-actions .user-chip{
-    display:none;
-  }
-
+  .topbar{ padding:12px; }
+  .container{ padding:0 9px; }
+  .cards{ grid-template-columns:1fr 1fr; }
+  .form-grid{ grid-template-columns:1fr; }
+  .card{ padding:14px; }
+  .stat{ font-size:22px; }
+  .brand small{ display:none; }
+  .top-actions .user-chip{ display:none; }
 }
 
 </style>
@@ -709,83 +231,45 @@ tr:last-child td{
      LOGIN
 ===================================================== -->
 
-<div id="loginView" class="login hidden">
+<div id="loginView" class="login">
 
   <div class="login-box">
 
-    <div class="login-logo">
-      RC
-    </div>
+    <div class="login-logo">RC</div>
 
-    <h2>
-      RenoCal Stock Take
-    </h2>
+    <h2>RenoCal Stock Take</h2>
 
-    <p>
-      Login untuk akses stock database.
-    </p>
-
-
-    <div class="field">
-
-      <label>
-        Email
-      </label>
-
-      <input
-        id="loginEmail"
-        type="email"
-        autocomplete="username"
-        placeholder="email@example.com">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        Password
-      </label>
-
-      <input
-        id="loginPassword"
-        type="password"
-        autocomplete="current-password"
-        placeholder="Minimum 6 aksara">
-
-    </div>
-
+    <p>Login untuk akses stock database. Guna Google supaya data sync automatik antara semua phone.</p>
 
     <div class="login-actions">
-
-      <button
-        class="btn primary"
-        onclick="login()">
-
-        Login
-
+      <button class="btn google" onclick="loginWithGoogle()">
+        <svg width="18" height="18" viewBox="0 0 48 48">
+          <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.4 29.3 35 24 35c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.6 4.9 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.7-.4-3.5z"/>
+          <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.6 4.9 29.6 3 24 3 16 3 9 7.6 6.3 14.7z"/>
+          <path fill="#4CAF50" d="M24 45c5.5 0 10.4-1.9 14.2-5.1l-6.6-5.4C29.5 36.2 26.9 37 24 37c-5.2 0-9.6-3.5-11.2-8.2l-6.5 5C9 41.4 15.9 45 24 45z"/>
+          <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.6l6.6 5.4C41.6 35.8 45 30.4 45 24c0-1.4-.1-2.7-.4-3.5z"/>
+        </svg>
+        Sign in with Google
       </button>
-
-
-      <button
-        class="btn"
-        onclick="registerUser()">
-
-        Create Account
-
-      </button>
-
-
-      <button
-        class="btn"
-        onclick="demoLogin()">
-
-        Use Local Demo
-
-      </button>
-
     </div>
 
+    <div class="divider">atau guna email</div>
+
+    <div class="field">
+      <label>Email</label>
+      <input id="loginEmail" type="email" autocomplete="username" placeholder="email@example.com">
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Minimum 6 aksara">
+    </div>
+
+    <div class="login-actions">
+      <button class="btn primary" onclick="login()">Login</button>
+      <button class="btn" onclick="registerUser()">Create Account</button>
+      <button class="btn" onclick="demoLogin()">Use Local Demo (tiada sync)</button>
+    </div>
 
     <p id="loginMsg"></p>
 
@@ -799,824 +283,253 @@ tr:last-child td{
      APP
 ===================================================== -->
 
-<div
-  id="appView"
-  class="hidden">
+<div id="appView" class="hidden">
 
 
 <header class="topbar">
-
   <div class="topbar-inner">
 
-
     <div class="brand">
-
-      <div class="logo">
-        RC
-      </div>
-
-
+      <div class="logo">RC</div>
       <div>
-
-        <h1>
-          RenoCal Stock Take
-        </h1>
-
-        <small>
-          Daily movement → monthly stock balance
-        </small>
-
+        <h1>RenoCal Stock Take</h1>
+        <small>Daily movement → monthly stock balance</small>
       </div>
-
     </div>
 
-
     <div class="top-actions">
-
-      <span
-        class="user-chip"
-        id="userChip">
-      </span>
-
-
-      <span
-        class="sync-dot"
-        id="syncDot">
-      </span>
-
-
-      <button
-        class="btn"
-        onclick="openProductModal()">
-
-        ＋ Product
-
-      </button>
-
-
-      <button
-        class="btn"
-        onclick="logout()">
-
-        Logout
-
-      </button>
-
+      <span class="user-chip" id="userChip"></span>
+      <span class="sync-dot" id="syncDot"></span>
+      <button class="btn" onclick="openProductModal()">＋ Product</button>
+      <button class="btn" onclick="logout()">Logout</button>
     </div>
 
   </div>
-
 </header>
-
 
 
 <main class="container">
 
-
-<!-- =====================================================
-     TABS
-===================================================== -->
-
 <div class="tabs">
-
-
-<button
-  class="tab active"
-  onclick="showTab('dashboard',this)">
-
-  Dashboard
-
-</button>
-
-
-<button
-  class="tab"
-  onclick="showTab('products',this)">
-
-  Products
-
-</button>
-
-
-<button
-  class="tab"
-  onclick="showTab('movement',this)">
-
-  Daily Movement
-
-</button>
-
-
-<button
-  class="tab"
-  onclick="showTab('stocktake',this)">
-
-  Monthly Stock Take
-
-</button>
-
-
-<button
-  class="tab"
-  onclick="showTab('export',this)">
-
-  Google Sheets / Backup
-
-</button>
-
-
+<button class="tab active" onclick="showTab('dashboard',this)">Dashboard</button>
+<button class="tab" onclick="showTab('products',this)">Products</button>
+<button class="tab" onclick="showTab('movement',this)">Daily Movement</button>
+<button class="tab" onclick="showTab('stocktake',this)">Monthly Stock Take</button>
+<button class="tab" onclick="showTab('export',this)">Google Sheets / Backup</button>
 </div>
 
 
-
-<!-- =====================================================
-     DASHBOARD
-===================================================== -->
-
-<section
-  id="dashboard"
-  class="panel active">
-
+<!-- DASHBOARD -->
+<section id="dashboard" class="panel active">
 
 <div class="grid cards">
 
+<div class="card">
+  <div class="stat-label">Total Products</div>
+  <div class="stat" id="dProducts">0</div>
+  <div class="stat-note">Items registered</div>
+</div>
 
 <div class="card">
-
-  <div class="stat-label">
-    Total Products
-  </div>
-
-  <div
-    class="stat"
-    id="dProducts">
-    0
-  </div>
-
-  <div class="stat-note">
-    Items registered
-  </div>
-
+  <div class="stat-label">Current Stock</div>
+  <div class="stat" id="dStock">0</div>
+  <div class="stat-note">System balance</div>
 </div>
-
 
 <div class="card">
-
-  <div class="stat-label">
-    Current Stock
-  </div>
-
-  <div
-    class="stat"
-    id="dStock">
-    0
-  </div>
-
-  <div class="stat-note">
-    System balance
-  </div>
-
+  <div class="stat-label">Sold This Month</div>
+  <div class="stat" id="dSold">0</div>
+  <div class="stat-note" id="dMonth"></div>
 </div>
-
 
 <div class="card">
-
-  <div class="stat-label">
-    Sold This Month
-  </div>
-
-  <div
-    class="stat"
-    id="dSold">
-    0
-  </div>
-
-  <div
-    class="stat-note"
-    id="dMonth">
-  </div>
-
+  <div class="stat-label">Stock Variance</div>
+  <div class="stat" id="dVariance">0</div>
+  <div class="stat-note">Latest physical count</div>
 </div>
 
-
-<div class="card">
-
-  <div class="stat-label">
-    Stock Variance
-  </div>
-
-  <div
-    class="stat"
-    id="dVariance">
-    0
-  </div>
-
-  <div class="stat-note">
-    Latest physical count
-  </div>
-
 </div>
-
-
-</div>
-
-
 
 <div class="section-head">
-
-  <h2>
-    Low / Negative Stock
-  </h2>
-
-  <button
-    class="btn small"
-    onclick="renderDashboard()">
-
-    Refresh
-
-  </button>
-
+  <h2>Low / Negative Stock</h2>
+  <button class="btn small" onclick="renderDashboard()">Refresh</button>
 </div>
+<div class="card table-wrap" id="lowStock"></div>
 
-
-<div
-  class="card table-wrap"
-  id="lowStock">
-</div>
-
-
-
-<div class="section-head">
-
-  <h2>
-    Recent Movement
-  </h2>
-
-</div>
-
-
-<div
-  class="card table-wrap"
-  id="recentMovement">
-</div>
-
+<div class="section-head"><h2>Recent Movement</h2></div>
+<div class="card table-wrap" id="recentMovement"></div>
 
 </section>
 
 
-
-<!-- =====================================================
-     PRODUCTS
-===================================================== -->
-
-<section
-  id="products"
-  class="panel">
-
+<!-- PRODUCTS -->
+<section id="products" class="panel">
 
 <div class="section-head">
-
-  <h2>
-    Product Master
-  </h2>
-
-
-  <button
-    class="btn primary"
-    onclick="openProductModal()">
-
-    ＋ Add Product
-
-  </button>
-
+  <h2>Product Master</h2>
+  <button class="btn primary" onclick="openProductModal()">＋ Add Product</button>
 </div>
 
-
-
 <div class="card">
-
 <div class="toolbar">
-
-
 <div class="field">
-
-<label>
-Search
-</label>
-
-<input
-  id="productSearch"
-  oninput="renderProducts()"
-  placeholder="SKU / product name...">
-
+<label>Search</label>
+<input id="productSearch" oninput="renderProducts()" placeholder="SKU / product name...">
 </div>
-
-
-
 <div class="field">
-
-<label>
-Category
-</label>
-
-<select
-  id="productCategory"
-  onchange="renderProducts()">
-
-<option value="">
-All categories
-</option>
-
+<label>Category</label>
+<select id="productCategory" onchange="renderProducts()">
+<option value="">All categories</option>
 </select>
-
+</div>
+</div>
 </div>
 
-
-</div>
-
-</div>
-
-
-
-<div
-  class="card table-wrap"
-  style="margin-top:16px"
-  id="productsTable">
-</div>
-
+<div class="card table-wrap" style="margin-top:16px" id="productsTable"></div>
 
 </section>
 
 
-
-<!-- =====================================================
-     DAILY MOVEMENT
-===================================================== -->
-
-<section
-  id="movement"
-  class="panel">
-
+<!-- DAILY MOVEMENT -->
+<section id="movement" class="panel">
 
 <div class="section-head">
-
-<h2>
-Daily Stock Movement
-</h2>
-
-
-<button
-  class="btn primary"
-  onclick="openMovementModal()">
-
-＋ Record Movement
-
-</button>
-
+<h2>Daily Stock Movement</h2>
+<button class="btn primary" onclick="openMovementModal()">＋ Record Movement</button>
 </div>
-
-
 
 <div class="notice">
-
-<b>Formula:</b>
-
-Current Balance =
-Opening Stock +
-Stock In −
-Stock Out.
-
-Every sale should be recorded as
-<b>Stock Out</b>.
-
+<b>Formula:</b> Current Balance = Opening Stock + Stock In − Stock Out.
+Every sale should be recorded as <b>Stock Out</b>.
 </div>
-
-
 
 <div class="card">
-
 <div class="toolbar">
-
-
 <div class="field">
-
-<label>
-Month
-</label>
-
-<input
-  type="month"
-  id="movementMonth"
-  onchange="renderMovement">
-
+<label>Month</label>
+<input type="month" id="movementMonth" onchange="renderMovement()">
 </div>
-
-
 <div class="field">
-
-<label>
-Product
-</label>
-
-<select
-  id="movementProductFilter"
-  onchange="renderMovement()">
-
-<option value="">
-All products
-</option>
-
+<label>Product</label>
+<select id="movementProductFilter" onchange="renderMovement()">
+<option value="">All products</option>
 </select>
-
+</div>
+</div>
 </div>
 
-
-</div>
-
-</div>
-
-
-
-<div
-  class="card table-wrap"
-  style="margin-top:16px"
-  id="movementTable">
-</div>
-
+<div class="card table-wrap" style="margin-top:16px" id="movementTable"></div>
 
 </section>
 
 
-
-<!-- =====================================================
-     STOCK TAKE
-===================================================== -->
-
-<section
-  id="stocktake"
-  class="panel">
-
+<!-- STOCK TAKE -->
+<section id="stocktake" class="panel">
 
 <div class="section-head">
-
-<h2>
-Monthly Physical Stock Take
-</h2>
-
-
-<button
-  class="btn primary"
-  onclick="openStockTakeModal()">
-
-＋ Enter Count
-
-</button>
-
+<h2>Monthly Physical Stock Take</h2>
+<button class="btn primary" onclick="openStockTakeModal()">＋ Enter Count</button>
 </div>
-
-
 
 <div class="notice">
-
-Masukkan jumlah fizikal sebenar.
-
-Sistem akan bandingkan dengan
-<b>System Balance</b>
-dan kira
-<b>Variance</b>.
-
+Masukkan jumlah fizikal sebenar. Sistem akan bandingkan dengan <b>System Balance</b> dan kira <b>Variance</b>.
 </div>
-
-
 
 <div class="card">
-
 <div class="toolbar">
-
 <div class="field">
-
-<label>
-Stock Take Month
-</label>
-
-<input
-  type="month"
-  id="takeMonth"
-  onchange="renderStockTake()">
-
+<label>Stock Take Month</label>
+<input type="month" id="takeMonth" onchange="renderStockTake()">
+</div>
+</div>
 </div>
 
-</div>
-
-</div>
-
-
-
-<div
-  class="card table-wrap"
-  style="margin-top:16px"
-  id="stockTakeTable">
-</div>
-
+<div class="card table-wrap" style="margin-top:16px" id="stockTakeTable"></div>
 
 </section>
 
 
+<!-- EXPORT -->
+<section id="export" class="panel">
 
-<!-- =====================================================
-     EXPORT
-===================================================== -->
+<div class="section-head"><h2>Google Sheets / Export / Backup</h2></div>
 
-<section
-  id="export"
-  class="panel">
-
-
-<div class="section-head">
-
-<h2>
-Google Sheets / Export / Backup
-</h2>
-
-</div>
-
-
-
-<div
-  class="grid"
-  style="grid-template-columns:repeat(2,minmax(0,1fr))">
-
-
-<!-- CSV -->
+<div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
 
 <div class="card">
-
-<h3>
-CSV Export
-</h3>
-
-<p style="color:var(--muted);font-size:13px">
-
-CSV boleh upload terus ke
-Google Sheets.
-
-</p>
-
-
+<h3>CSV Export</h3>
+<p style="color:var(--muted);font-size:13px">CSV boleh upload terus ke Google Sheets.</p>
 <div class="toolbar">
-
-<button
-  class="btn primary"
-  onclick="exportCSV('products')">
-
-Products CSV
-
-</button>
-
-
-<button
-  class="btn primary"
-  onclick="exportCSV('movement')">
-
-Movement CSV
-
-</button>
-
-
-<button
-  class="btn primary"
-  onclick="exportCSV('stocktake')">
-
-Stock Take CSV
-
-</button>
-
+<button class="btn primary" onclick="exportCSV('products')">Products CSV</button>
+<button class="btn primary" onclick="exportCSV('movement')">Movement CSV</button>
+<button class="btn primary" onclick="exportCSV('stocktake')">Stock Take CSV</button>
 </div>
-
 </div>
-
-
-
-<!-- BACKUP -->
 
 <div class="card">
-
-<h3>
-Backup / Restore
-</h3>
-
-<p style="color:var(--muted);font-size:13px">
-
-Backup semua data sebelum
-tukar phone atau clear browser.
-
-</p>
-
-
+<h3>Backup / Restore</h3>
+<p style="color:var(--muted);font-size:13px">Backup semua data sebelum tukar phone atau clear browser.</p>
 <div class="toolbar">
-
-
-<button
-  class="btn"
-  onclick="backupJSON()">
-
-Download Backup
-
-</button>
-
-
-<label
-  class="btn"
-  for="restoreFile">
-
-Restore Backup
-
-</label>
-
-
-<input
-  id="restoreFile"
-  type="file"
-  accept=".json"
-  hidden
-  onchange="restoreJSON(event)">
-
-
+<button class="btn" onclick="backupJSON()">Download Backup</button>
+<label class="btn" for="restoreFile">Restore Backup</label>
+<input id="restoreFile" type="file" accept=".json" hidden onchange="restoreJSON(event)">
+</div>
 </div>
 
 </div>
 
-
-</div>
-
-
-
-<!-- GOOGLE SHEETS -->
-
-<div
-  class="card"
-  style="margin-top:16px">
-
-
-<h3>
-Cloud Google Sheets Sync
-</h3>
-
-
-<p
-  style="color:var(--muted);font-size:13px">
-
-Masukkan URL Google Apps Script
-Web App.
-
-</p>
-
-
+<div class="card" style="margin-top:16px">
+<h3>Cloud Google Sheets Sync (pilihan tambahan)</h3>
+<p style="color:var(--muted);font-size:13px">Masukkan URL Google Apps Script Web App jika nak backup ke Google Sheets sekali.</p>
 <div class="field">
-
-<label>
-Google Apps Script Web App URL
-</label>
-
-<input
-  id="sheetsUrl"
-  placeholder="https://script.google.com/macros/s/.../exec">
-
+<label>Google Apps Script Web App URL</label>
+<input id="sheetsUrl" placeholder="https://script.google.com/macros/s/.../exec">
 </div>
-
-
-
-<div
-  class="toolbar"
-  style="margin-top:10px">
-
-
-<button
-  class="btn primary"
-  onclick="saveSheetsUrl()">
-
-Save URL
-
-</button>
-
-
-<button
-  class="btn success"
-  onclick="syncToSheets()">
-
-Sync Now
-
-</button>
-
-
-<button
-  class="btn"
-  onclick="loadFromSheets()">
-
-Pull From Sheets
-
-</button>
-
-
+<div class="toolbar" style="margin-top:10px">
+<button class="btn primary" onclick="saveSheetsUrl()">Save URL</button>
+<button class="btn success" onclick="syncToSheets()">Sync Now</button>
+<button class="btn" onclick="loadFromSheets()">Pull From Sheets</button>
 </div>
-
-
-<p
-  id="syncMsg"
-  style="font-size:12px;color:var(--muted)">
-</p>
-
-
+<p id="syncMsg" style="font-size:12px;color:var(--muted)"></p>
 </div>
-
 
 </section>
-
 
 </main>
 
 </div>
 
 
-
-<!-- =====================================================
-     MODAL
-===================================================== -->
-
-<div
-  class="modal"
-  id="modal">
-
-
+<!-- MODAL -->
+<div class="modal" id="modal">
 <div class="modal-box">
-
-
 <div class="modal-head">
-
-
 <h3 id="modalTitle"></h3>
-
-
-<button
-  class="close"
-  onclick="closeModal()">
-
-×
-
-</button>
-
-
+<button class="close" onclick="closeModal()">×</button>
 </div>
-
-
 <div id="modalBody"></div>
-
-
 </div>
-
 </div>
-
 
 
 <script>
 
 /* =====================================================
-   DATABASE
+   DATABASE (local fallback / demo mode only)
 ===================================================== */
 
-const KEY =
-  'reno_stock_take_v2';
+const KEY = 'reno_stock_take_v2';
+const SETTINGS_KEY = 'reno_settings_v1';
 
+let db = { products:[], movements:[], stocktakes:[] };
 
-const AUTH_KEY =
-  'reno_auth_v1';
+// currentUser: { uid, email, isDemo } — replaces old localStorage "auth"
+let currentUser = null;
 
+// Firestore unsubscribe handle for the live listener
+let unsubscribeSnapshot = null;
 
-const SETTINGS_KEY =
-  'reno_settings_v1';
-
-
-
-let db =
-  JSON.parse(
-    localStorage.getItem(KEY)
-    ||
-    '{"products":[],"movements":[],"stocktakes":[]}'
-  );
-
-
-
-let auth = null;
-
-
-
-let settings =
-  JSON.parse(
-    localStorage.getItem(SETTINGS_KEY)
-    ||
-    '{}'
-  );
-
+let settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
 
 
 /* =====================================================
@@ -1624,225 +537,75 @@ let settings =
 ===================================================== */
 
 function save(){
-
-  localStorage.setItem(
-    KEY,
-    JSON.stringify(db)
-  );
-
-  renderAll();
-
+  if(currentUser && !currentUser.isDemo){
+    // Cloud user: write to Firestore. onSnapshot listener below will
+    // pick this up (including on the OTHER device) and call renderAll().
+    const ref = window.doc(window.dbFirebase, 'users', currentUser.uid);
+    window.setDoc(ref, {
+      store: db,
+      updatedAt: window.serverTimestamp()
+    }).catch(err => {
+      setSync('error', 'Gagal simpan ke cloud: ' + err.message);
+    });
+  } else {
+    // Demo/local-only user: old localStorage behaviour
+    localStorage.setItem(KEY, JSON.stringify(db));
+    renderAll();
+  }
 }
-
-
 
 function esc(v){
-
-  return String(v ?? '')
-    .replace(
-      /[&<>"']/g,
-
-      m => ({
-        '&':'&amp;',
-        '<':'&lt;',
-        '>':'&gt;',
-        '"':'&quot;',
-        "'":'&#039;'
-      }[m])
-    );
-
+  return String(v ?? '').replace(/[&<>"']/g, m => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
+  }[m]));
 }
 
-
-
-function today(){
-
-  return new Date()
-    .toISOString()
-    .slice(0,10);
-
-}
-
-
-
-function monthNow(){
-
-  return new Date()
-    .toISOString()
-    .slice(0,7);
-
-}
-
-
-
-function uid(){
-
-  return Date.now()
-    .toString(36)
-    +
-    Math.random()
-      .toString(36)
-      .slice(2,7);
-
-}
-
-
-
-function money(v){
-
-  return Number(v || 0)
-    .toLocaleString(
-      'en-MY',
-      {
-        maximumFractionDigits:2
-      }
-    );
-
-}
-
+function today(){ return new Date().toISOString().slice(0,10); }
+function monthNow(){ return new Date().toISOString().slice(0,7); }
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function money(v){ return Number(v || 0).toLocaleString('en-MY', { maximumFractionDigits:2 }); }
 
 
 /* =====================================================
    PRODUCT
 ===================================================== */
 
-function product(id){
-
-  return db.products.find(
-    x => x.id === id
-  );
-
-}
-
-
-
-function productName(id){
-
-  const p =
-    product(id);
-
-  return p
-    ? p.name
-    : 'Unknown';
-
-}
-
-
-
-function productSku(id){
-
-  const p =
-    product(id);
-
-  return p
-    ? p.sku
-    : '-';
-
-}
-
+function product(id){ return db.products.find(x => x.id === id); }
+function productName(id){ const p = product(id); return p ? p.name : 'Unknown'; }
+function productSku(id){ const p = product(id); return p ? p.sku : '-'; }
 
 
 /* =====================================================
    BALANCE
 ===================================================== */
 
-function balance(
-  pid,
-  upto=null
-){
-
-  const p =
-    product(pid);
-
-  if(!p)
-    return 0;
-
-
-  let b =
-    Number(
-      p.opening || 0
-    );
-
-
-  db.movements.forEach(
-    m => {
-
-      if(
-        m.productId === pid
-        &&
-        (
-          !upto
-          ||
-          m.date <= upto
-        )
-      ){
-
-        b +=
-          Number(m.in || 0);
-
-        b -=
-          Number(m.out || 0);
-
-      }
-
+function balance(pid, upto=null){
+  const p = product(pid);
+  if(!p) return 0;
+  let b = Number(p.opening || 0);
+  db.movements.forEach(m => {
+    if(m.productId === pid && (!upto || m.date <= upto)){
+      b += Number(m.in || 0);
+      b -= Number(m.out || 0);
     }
-  );
-
-
+  });
   return b;
-
 }
 
-
-
-function monthRange(m){
-
-  return [
-    m + '-01',
-    m + '-31'
-  ];
-
-}
-
+function monthRange(m){ return [m + '-01', m + '-31']; }
 
 
 /* =====================================================
    TABS
 ===================================================== */
 
-function showTab(
-  id,
-  btn
-){
-
-  document
-    .querySelectorAll('.panel')
-    .forEach(
-      x =>
-        x.classList.remove('active')
-    );
-
-
-  document
-    .querySelectorAll('.tab')
-    .forEach(
-      x =>
-        x.classList.remove('active')
-    );
-
-
-  document
-    .getElementById(id)
-    .classList.add('active');
-
-
+function showTab(id, btn){
+  document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
   btn.classList.add('active');
-
-
   renderAll();
-
 }
-
 
 
 /* =====================================================
@@ -1850,23 +613,13 @@ function showTab(
 ===================================================== */
 
 function renderAll(){
-
-  if(!auth)
-    return;
-
-
+  if(!currentUser) return;
   renderDashboard();
-
   renderProducts();
-
   fillFilters();
-
   renderMovement();
-
   renderStockTake();
-
 }
-
 
 
 /* =====================================================
@@ -1875,309 +628,61 @@ function renderAll(){
 
 function renderDashboard(){
 
-  document.getElementById(
-    'dProducts'
-  ).textContent =
-    db.products.length;
+  document.getElementById('dProducts').textContent = db.products.length;
 
+  document.getElementById('dStock').textContent =
+    money(db.products.reduce((s,p) => s + balance(p.id), 0));
 
+  const m = monthNow();
+  const [a,b] = monthRange(m);
 
-  document.getElementById(
-    'dStock'
-  ).textContent =
-    money(
-      db.products.reduce(
-        (s,p) =>
-          s + balance(p.id),
-        0
-      )
-    );
+  const sold = db.movements
+    .filter(x => x.date >= a && x.date <= b)
+    .reduce((s,x) => s + Number(x.out || 0), 0);
 
+  document.getElementById('dSold').textContent = money(sold);
+  document.getElementById('dMonth').textContent = m;
 
+  const latest = db.stocktakes.slice().sort((a,b) => b.created.localeCompare(a.created))[0];
+  document.getElementById('dVariance').textContent = latest ? money(latest.variance) : '0';
 
-  const m =
-    monthNow();
+  const lows = db.products
+    .map(p => ({ p, b:balance(p.id) }))
+    .filter(x => x.b <= 0)
+    .sort((a,b) => a.b - b.b);
 
-
-  const [
-    a,
-    b
-  ] =
-    monthRange(m);
-
-
-
-  const sold =
-    db.movements
-      .filter(
-        x =>
-          x.date >= a
-          &&
-          x.date <= b
-      )
-      .reduce(
-        (s,x) =>
-          s + Number(x.out || 0),
-        0
-      );
-
-
-
-  document.getElementById(
-    'dSold'
-  ).textContent =
-    money(sold);
-
-
-
-  document.getElementById(
-    'dMonth'
-  ).textContent =
-    m;
-
-
-
-  const latest =
-    db.stocktakes
-      .slice()
-      .sort(
-        (a,b) =>
-          b.created.localeCompare(
-            a.created
-          )
-      )[0];
-
-
-
-  document.getElementById(
-    'dVariance'
-  ).textContent =
-    latest
-      ? money(latest.variance)
-      : '0';
-
-
-
-  /* LOW STOCK */
-
-  const lows =
-    db.products
-      .map(
-        p => ({
-          p,
-          b:balance(p.id)
-        })
-      )
-      .filter(
-        x =>
-          x.b <= 0
-      )
-      .sort(
-        (a,b) =>
-          a.b - b.b
-      );
-
-
-
-  document.getElementById(
-    'lowStock'
-  ).innerHTML =
-
-    lows.length
-
-    ?
-
-    `<table>
-
-      <thead>
-
-        <tr>
-
-          <th>SKU</th>
-
-          <th>Product</th>
-
-          <th>Balance</th>
-
-          <th>Status</th>
-
-        </tr>
-
-      </thead>
-
-
+  document.getElementById('lowStock').innerHTML = lows.length ? `<table>
+      <thead><tr><th>SKU</th><th>Product</th><th>Balance</th><th>Status</th></tr></thead>
       <tbody>
-
-        ${
-          lows.map(
-            x => `
-
-              <tr>
-
-                <td>
-                  ${esc(x.p.sku)}
-                </td>
-
-                <td>
-                  ${esc(x.p.name)}
-                </td>
-
-                <td class="${
-                  x.b < 0
-                    ? 'danger-text'
-                    : ''
-                }">
-
-                  ${money(x.b)}
-                  ${esc(x.p.unit)}
-
-                </td>
-
-                <td>
-
-                  <span
-                    class="badge bad">
-
-                    ${
-                      x.b < 0
-                        ? 'NEGATIVE'
-                        : 'OUT OF STOCK'
-                    }
-
-                  </span>
-
-                </td>
-
-              </tr>
-
-            `
-          ).join('')
-        }
-
+        ${lows.map(x => `
+          <tr>
+            <td>${esc(x.p.sku)}</td>
+            <td>${esc(x.p.name)}</td>
+            <td class="${x.b < 0 ? 'danger-text' : ''}">${money(x.b)} ${esc(x.p.unit)}</td>
+            <td><span class="badge bad">${x.b < 0 ? 'NEGATIVE' : 'OUT OF STOCK'}</span></td>
+          </tr>`).join('')}
       </tbody>
+    </table>` : `<div class="empty">Tiada stock kosong / negative.</div>`;
 
-    </table>`
+  const recent = db.movements.slice()
+    .sort((a,b) => b.date.localeCompare(a.date) || b.created.localeCompare(a.created))
+    .slice(0,10);
 
-    :
-
-    `<div class="empty">
-
-      Tiada stock kosong / negative.
-
-    </div>`;
-
-
-
-  /* RECENT */
-
-  const recent =
-    db.movements
-      .slice()
-      .sort(
-        (a,b) =>
-          b.date.localeCompare(
-            a.date
-          )
-          ||
-          b.created.localeCompare(
-            a.created
-          )
-      )
-      .slice(0,10);
-
-
-
-  document.getElementById(
-    'recentMovement'
-  ).innerHTML =
-
-    recent.length
-
-    ?
-
-    `<table>
-
-      <thead>
-
-        <tr>
-
-          <th>Date</th>
-
-          <th>SKU</th>
-
-          <th>Product</th>
-
-          <th>In</th>
-
-          <th>Out</th>
-
-          <th>Note</th>
-
-        </tr>
-
-      </thead>
-
-
+  document.getElementById('recentMovement').innerHTML = recent.length ? `<table>
+      <thead><tr><th>Date</th><th>SKU</th><th>Product</th><th>In</th><th>Out</th><th>Note</th></tr></thead>
       <tbody>
-
-        ${
-          recent.map(
-            m => `
-
-              <tr>
-
-                <td>
-                  ${m.date}
-                </td>
-
-                <td>
-                  ${esc(
-                    productSku(
-                      m.productId
-                    )
-                  )}
-                </td>
-
-                <td>
-                  ${esc(
-                    productName(
-                      m.productId
-                    )
-                  )}
-                </td>
-
-                <td class="success-text">
-                  ${money(m.in)}
-                </td>
-
-                <td class="danger-text">
-                  ${money(m.out)}
-                </td>
-
-                <td>
-                  ${esc(m.note)}
-                </td>
-
-              </tr>
-
-            `
-          ).join('')
-        }
-
+        ${recent.map(m => `
+          <tr>
+            <td>${m.date}</td>
+            <td>${esc(productSku(m.productId))}</td>
+            <td>${esc(productName(m.productId))}</td>
+            <td class="success-text">${money(m.in)}</td>
+            <td class="danger-text">${money(m.out)}</td>
+            <td>${esc(m.note)}</td>
+          </tr>`).join('')}
       </tbody>
-
-    </table>`
-
-    :
-
-    `<div class="empty">
-
-      Belum ada movement.
-
-    </div>`;
-
+    </table>` : `<div class="empty">Belum ada movement.</div>`;
 }
-
 
 
 /* =====================================================
@@ -2186,177 +691,34 @@ function renderDashboard(){
 
 function renderProducts(){
 
-  const q =
-    (
-      document.getElementById(
-        'productSearch'
-      )?.value
-      ||
-      ''
-    ).toLowerCase();
+  const q = (document.getElementById('productSearch')?.value || '').toLowerCase();
+  const c = document.getElementById('productCategory')?.value || '';
 
+  const rows = db.products.filter(p =>
+    (!q || (p.sku + ' ' + p.name).toLowerCase().includes(q)) &&
+    (!c || p.category === c)
+  );
 
-
-  const c =
-    document.getElementById(
-      'productCategory'
-    )?.value
-    ||
-    '';
-
-
-
-  const rows =
-    db.products.filter(
-      p =>
-
-        (
-          !q
-          ||
-          (
-            p.sku
-            +
-            ' '
-            +
-            p.name
-          )
-          .toLowerCase()
-          .includes(q)
-        )
-
-        &&
-
-        (
-          !c
-          ||
-          p.category === c
-        )
-    );
-
-
-
-  document.getElementById(
-    'productsTable'
-  ).innerHTML =
-
-    rows.length
-
-    ?
-
-    `<table>
-
-      <thead>
-
-        <tr>
-
-          <th>SKU</th>
-
-          <th>Product</th>
-
-          <th>Category</th>
-
-          <th>Unit</th>
-
-          <th>Opening</th>
-
-          <th>Balance</th>
-
-          <th>Rack</th>
-
-          <th>Action</th>
-
-        </tr>
-
-      </thead>
-
-
+  document.getElementById('productsTable').innerHTML = rows.length ? `<table>
+      <thead><tr><th>SKU</th><th>Product</th><th>Category</th><th>Unit</th><th>Opening</th><th>Balance</th><th>Rack</th><th>Action</th></tr></thead>
       <tbody>
-
-        ${
-          rows.map(
-            p => `
-
-              <tr>
-
-                <td>
-                  <b>
-                    ${esc(p.sku)}
-                  </b>
-                </td>
-
-                <td>
-                  ${esc(p.name)}
-                </td>
-
-                <td>
-                  ${esc(p.category)}
-                </td>
-
-                <td>
-                  ${esc(p.unit)}
-                </td>
-
-                <td>
-                  ${money(p.opening)}
-                </td>
-
-                <td>
-                  <b>
-                    ${money(
-                      balance(p.id)
-                    )}
-                  </b>
-                </td>
-
-                <td>
-                  ${esc(
-                    p.rack || '-'
-                  )}
-                </td>
-
-                <td>
-
-                  <button
-                    class="btn small"
-                    onclick="openProductModal('${p.id}')">
-
-                    Edit
-
-                  </button>
-
-
-                  <button
-                    class="btn small danger"
-                    onclick="deleteProduct('${p.id}')">
-
-                    Delete
-
-                  </button>
-
-                </td>
-
-              </tr>
-
-            `
-          ).join('')
-        }
-
+        ${rows.map(p => `
+          <tr>
+            <td><b>${esc(p.sku)}</b></td>
+            <td>${esc(p.name)}</td>
+            <td>${esc(p.category)}</td>
+            <td>${esc(p.unit)}</td>
+            <td>${money(p.opening)}</td>
+            <td><b>${money(balance(p.id))}</b></td>
+            <td>${esc(p.rack || '-')}</td>
+            <td>
+              <button class="btn small" onclick="openProductModal('${p.id}')">Edit</button>
+              <button class="btn small danger" onclick="deleteProduct('${p.id}')">Delete</button>
+            </td>
+          </tr>`).join('')}
       </tbody>
-
-    </table>`
-
-    :
-
-    `<div class="empty">
-
-      Belum ada product.
-
-      Klik “Add Product”.
-
-    </div>`;
-
+    </table>` : `<div class="empty">Belum ada product. Klik "Add Product".</div>`;
 }
-
 
 
 /* =====================================================
@@ -2365,80 +727,21 @@ function renderProducts(){
 
 function fillFilters(){
 
-  const cats =
-    [
-      ...new Set(
-        db.products
-          .map(
-            p => p.category
-          )
-          .filter(Boolean)
-      )
-    ]
-    .sort();
+  const cats = [...new Set(db.products.map(p => p.category).filter(Boolean))].sort();
+  const cat = document.getElementById('productCategory');
+  const old = cat.value;
 
+  cat.innerHTML = '<option value="">All categories</option>' +
+    cats.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join('');
+  cat.value = old;
 
+  const sel = document.getElementById('movementProductFilter');
+  const old2 = sel.value;
 
-  const cat =
-    document.getElementById(
-      'productCategory'
-    );
-
-
-  const old =
-    cat.value;
-
-
-
-  cat.innerHTML =
-    '<option value="">All categories</option>'
-    +
-    cats
-      .map(
-        x =>
-          `<option value="${esc(x)}">
-            ${esc(x)}
-          </option>`
-      )
-      .join('');
-
-
-  cat.value =
-    old;
-
-
-
-  const sel =
-    document.getElementById(
-      'movementProductFilter'
-    );
-
-
-  const old2 =
-    sel.value;
-
-
-
-  sel.innerHTML =
-    '<option value="">All products</option>'
-    +
-    db.products
-      .map(
-        p =>
-          `<option value="${p.id}">
-            ${esc(p.sku)}
-            —
-            ${esc(p.name)}
-          </option>`
-      )
-      .join('');
-
-
-  sel.value =
-    old2;
-
+  sel.innerHTML = '<option value="">All products</option>' +
+    db.products.map(p => `<option value="${p.id}">${esc(p.sku)} — ${esc(p.name)}</option>`).join('');
+  sel.value = old2;
 }
-
 
 
 /* =====================================================
@@ -2447,190 +750,36 @@ function fillFilters(){
 
 function renderMovement(){
 
-  const el =
-    document.getElementById(
-      'movementMonth'
-    );
+  const el = document.getElementById('movementMonth');
+  const m = el?.value || monthNow();
+  if(el && !el.value) el.value = m;
 
+  const pid = document.getElementById('movementProductFilter')?.value || '';
+  const [a,b] = monthRange(m);
 
-  const m =
-    el?.value
-    ||
-    monthNow();
+  const rows = db.movements
+    .filter(x => x.date >= a && x.date <= b && (!pid || x.productId === pid))
+    .sort((a,b) => b.date.localeCompare(a.date) || b.created.localeCompare(a.created));
 
-
-
-  if(
-    el
-    &&
-    !el.value
-  ){
-
-    el.value =
-      m;
-
-  }
-
-
-
-  const pid =
-    document.getElementById(
-      'movementProductFilter'
-    )?.value
-    ||
-    '';
-
-
-
-  const [
-    a,
-    b
-  ] =
-    monthRange(m);
-
-
-
-  const rows =
-    db.movements
-      .filter(
-        x =>
-          x.date >= a
-          &&
-          x.date <= b
-          &&
-          (
-            !pid
-            ||
-            x.productId === pid
-          )
-      )
-      .sort(
-        (a,b) =>
-          b.date.localeCompare(
-            a.date
-          )
-          ||
-          b.created.localeCompare(
-            a.created
-          )
-      );
-
-
-
-  document.getElementById(
-    'movementTable'
-  ).innerHTML =
-
-    rows.length
-
-    ?
-
-    `<table>
-
-      <thead>
-
-        <tr>
-
-          <th>Date</th>
-
-          <th>SKU</th>
-
-          <th>Product</th>
-
-          <th>Stock In</th>
-
-          <th>Stock Out / Sold</th>
-
-          <th>Note</th>
-
-          <th></th>
-
-        </tr>
-
-      </thead>
-
-
+  document.getElementById('movementTable').innerHTML = rows.length ? `<table>
+      <thead><tr><th>Date</th><th>SKU</th><th>Product</th><th>Stock In</th><th>Stock Out / Sold</th><th>Note</th><th></th></tr></thead>
       <tbody>
-
-        ${
-          rows.map(
-            x => `
-
-              <tr>
-
-                <td>
-                  ${x.date}
-                </td>
-
-                <td>
-                  ${esc(
-                    productSku(
-                      x.productId
-                    )
-                  )}
-                </td>
-
-                <td>
-                  ${esc(
-                    productName(
-                      x.productId
-                    )
-                  )}
-                </td>
-
-                <td class="success-text">
-                  ${money(x.in)}
-                </td>
-
-                <td class="danger-text">
-                  ${money(x.out)}
-                </td>
-
-                <td>
-                  ${esc(x.note)}
-                </td>
-
-                <td>
-
-                  <button
-                    class="btn small"
-                    onclick="editMovement('${x.id}')">
-
-                    Edit
-
-                  </button>
-
-
-                  <button
-                    class="btn small danger"
-                    onclick="deleteMovement('${x.id}')">
-
-                    Delete
-
-                  </button>
-
-                </td>
-
-              </tr>
-
-            `
-          ).join('')
-        }
-
+        ${rows.map(x => `
+          <tr>
+            <td>${x.date}</td>
+            <td>${esc(productSku(x.productId))}</td>
+            <td>${esc(productName(x.productId))}</td>
+            <td class="success-text">${money(x.in)}</td>
+            <td class="danger-text">${money(x.out)}</td>
+            <td>${esc(x.note)}</td>
+            <td>
+              <button class="btn small" onclick="editMovement('${x.id}')">Edit</button>
+              <button class="btn small danger" onclick="deleteMovement('${x.id}')">Delete</button>
+            </td>
+          </tr>`).join('')}
       </tbody>
-
-    </table>`
-
-    :
-
-    `<div class="empty">
-
-      Tiada movement untuk ${m}.
-
-    </div>`;
-
+    </table>` : `<div class="empty">Tiada movement untuk ${m}.</div>`;
 }
-
 
 
 /* =====================================================
@@ -2639,412 +788,79 @@ function renderMovement(){
 
 function renderStockTake(){
 
-  const el =
-    document.getElementById(
-      'takeMonth'
-    );
+  const el = document.getElementById('takeMonth');
+  const m = el?.value || monthNow();
+  if(el && !el.value) el.value = m;
 
+  const rows = db.stocktakes.filter(x => x.month === m);
 
-  const m =
-    el?.value
-    ||
-    monthNow();
-
-
-
-  if(
-    el
-    &&
-    !el.value
-  ){
-
-    el.value =
-      m;
-
-  }
-
-
-
-  const rows =
-    db.stocktakes
-      .filter(
-        x =>
-          x.month === m
-      );
-
-
-
-  document.getElementById(
-    'stockTakeTable'
-  ).innerHTML =
-
-    rows.length
-
-    ?
-
-    `<table>
-
-      <thead>
-
-        <tr>
-
-          <th>Month</th>
-
-          <th>SKU</th>
-
-          <th>Product</th>
-
-          <th>System Balance</th>
-
-          <th>Physical Count</th>
-
-          <th>Variance</th>
-
-          <th>Note</th>
-
-          <th></th>
-
-        </tr>
-
-      </thead>
-
-
+  document.getElementById('stockTakeTable').innerHTML = rows.length ? `<table>
+      <thead><tr><th>Month</th><th>SKU</th><th>Product</th><th>System Balance</th><th>Physical Count</th><th>Variance</th><th>Note</th><th></th></tr></thead>
       <tbody>
-
-        ${
-          rows.map(
-            x => `
-
-              <tr>
-
-                <td>
-                  ${x.month}
-                </td>
-
-                <td>
-                  ${esc(
-                    productSku(
-                      x.productId
-                    )
-                  )}
-                </td>
-
-                <td>
-                  ${esc(
-                    productName(
-                      x.productId
-                    )
-                  )}
-                </td>
-
-                <td>
-                  ${money(x.system)}
-                </td>
-
-                <td>
-                  <b>
-                    ${money(x.physical)}
-                  </b>
-                </td>
-
-                <td class="${
-                  x.variance < 0
-                    ? 'danger-text'
-                    :
-                    x.variance > 0
-                      ? 'success-text'
-                      : ''
-                }">
-
-                  <b>
-
-                    ${
-                      x.variance > 0
-                        ? '+'
-                        : ''
-                    }
-
-                    ${money(
-                      x.variance
-                    )}
-
-                  </b>
-
-                </td>
-
-                <td>
-                  ${esc(x.note)}
-                </td>
-
-                <td>
-
-                  <button
-                    class="btn small"
-                    onclick="editStockTake('${x.id}')">
-
-                    Edit
-
-                  </button>
-
-
-                  <button
-                    class="btn small danger"
-                    onclick="deleteStockTake('${x.id}')">
-
-                    Delete
-
-                  </button>
-
-                </td>
-
-              </tr>
-
-            `
-          ).join('')
-        }
-
+        ${rows.map(x => `
+          <tr>
+            <td>${x.month}</td>
+            <td>${esc(productSku(x.productId))}</td>
+            <td>${esc(productName(x.productId))}</td>
+            <td>${money(x.system)}</td>
+            <td><b>${money(x.physical)}</b></td>
+            <td class="${x.variance < 0 ? 'danger-text' : x.variance > 0 ? 'success-text' : ''}">
+              <b>${x.variance > 0 ? '+' : ''}${money(x.variance)}</b>
+            </td>
+            <td>${esc(x.note)}</td>
+            <td>
+              <button class="btn small" onclick="editStockTake('${x.id}')">Edit</button>
+              <button class="btn small danger" onclick="deleteStockTake('${x.id}')">Delete</button>
+            </td>
+          </tr>`).join('')}
       </tbody>
-
-    </table>`
-
-    :
-
-    `<div class="empty">
-
-      Belum ada kiraan fizikal
-      untuk ${m}.
-
-    </div>`;
-
+    </table>` : `<div class="empty">Belum ada kiraan fizikal untuk ${m}.</div>`;
 }
-
 
 
 /* =====================================================
    MODAL
 ===================================================== */
 
-function openModal(
-  title,
-  body
-){
-
-  document.getElementById(
-    'modalTitle'
-  ).textContent =
-    title;
-
-
-
-  document.getElementById(
-    'modalBody'
-  ).innerHTML =
-    body;
-
-
-
-  document.getElementById(
-    'modal'
-  ).classList.add('show');
-
+function openModal(title, body){
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').innerHTML = body;
+  document.getElementById('modal').classList.add('show');
 }
-
-
 
 function closeModal(){
-
-  document.getElementById(
-    'modal'
-  ).classList.remove('show');
-
+  document.getElementById('modal').classList.remove('show');
 }
-
 
 
 /* =====================================================
    PRODUCT MODAL
 ===================================================== */
 
-function openProductModal(
-  id=''
-){
+function openProductModal(id=''){
 
-  const p =
-    product(id)
-    ||
-    {
-      sku:'',
-      name:'',
-      category:'',
-      unit:'pcs',
-      opening:0,
-      rack:''
-    };
+  const p = product(id) || { sku:'', name:'', category:'', unit:'pcs', opening:0, rack:'' };
 
-
-
-  openModal(
-
-    id
-      ? 'Edit Product'
-      : 'Add Product',
-
-
-    `
-
+  openModal(id ? 'Edit Product' : 'Add Product', `
       <div class="form-grid">
-
-
+        <div class="field"><label>SKU / Code *</label><input id="fSku" value="${esc(p.sku)}"></div>
+        <div class="field"><label>Product Name *</label><input id="fName" value="${esc(p.name)}"></div>
+        <div class="field"><label>Category</label><input id="fCat" value="${esc(p.category)}" placeholder="SPC / Fluted / Ceiling..."></div>
         <div class="field">
-
-          <label>
-            SKU / Code *
-          </label>
-
-          <input
-            id="fSku"
-            value="${esc(p.sku)}">
-
-        </div>
-
-
-
-        <div class="field">
-
-          <label>
-            Product Name *
-          </label>
-
-          <input
-            id="fName"
-            value="${esc(p.name)}">
-
-        </div>
-
-
-
-        <div class="field">
-
-          <label>
-            Category
-          </label>
-
-          <input
-            id="fCat"
-            value="${esc(p.category)}"
-            placeholder="SPC / Fluted / Ceiling...">
-
-        </div>
-
-
-
-        <div class="field">
-
-          <label>
-            Unit
-          </label>
-
+          <label>Unit</label>
           <select id="fUnit">
-
-            ${
-              [
-                'pcs',
-                'box',
-                'roll',
-                'sheet',
-                'set',
-                'unit'
-              ]
-              .map(
-                u =>
-                  `
-                  <option
-                    ${p.unit === u
-                      ? 'selected'
-                      : ''}>
-                    ${u}
-                  </option>
-                  `
-              )
-              .join('')
-            }
-
+            ${['pcs','box','roll','sheet','set','unit'].map(u => `<option ${p.unit === u ? 'selected' : ''}>${u}</option>`).join('')}
           </select>
-
         </div>
-
-
-
-        <div class="field">
-
-          <label>
-            Opening Stock
-          </label>
-
-          <input
-            id="fOpening"
-            type="number"
-            step="0.01"
-            value="${p.opening}">
-
-        </div>
-
-
-
-        <div class="field">
-
-          <label>
-            Rack / Location
-          </label>
-
-          <input
-            id="fRack"
-            value="${esc(p.rack)}"
-            placeholder="A1">
-
-        </div>
-
-
+        <div class="field"><label>Opening Stock</label><input id="fOpening" type="number" step="0.01" value="${p.opening}"></div>
+        <div class="field"><label>Rack / Location</label><input id="fRack" value="${esc(p.rack)}" placeholder="A1"></div>
       </div>
-
-
-
-      <div
-        style="
-          margin-top:18px;
-          display:flex;
-          justify-content:flex-end;
-          gap:8px
-        ">
-
-
-        <button
-          class="btn"
-          onclick="closeModal()">
-
-          Cancel
-
-        </button>
-
-
-
-        <button
-          class="btn primary"
-          onclick="saveProduct('${id}')">
-
-          Save Product
-
-        </button>
-
-
+      <div style="margin-top:18px;display:flex;justify-content:flex-end;gap:8px">
+        <button class="btn" onclick="closeModal()">Cancel</button>
+        <button class="btn primary" onclick="saveProduct('${id}')">Save Product</button>
       </div>
-
-    `
-
-  );
-
+  `);
 }
-
 
 
 /* =====================================================
@@ -3053,119 +869,31 @@ function openProductModal(
 
 function saveProduct(id){
 
-  const sku =
-    document.getElementById(
-      'fSku'
-    ).value.trim();
+  const sku = document.getElementById('fSku').value.trim();
+  const name = document.getElementById('fName').value.trim();
 
+  if(!sku || !name) return alert('SKU dan Product Name wajib diisi.');
 
-
-  const name =
-    document.getElementById(
-      'fName'
-    ).value.trim();
-
-
-
-  if(
-    !sku
-    ||
-    !name
-  ){
-
-    return alert(
-      'SKU dan Product Name wajib diisi.'
-    );
-
-  }
-
-
-
-  const duplicate =
-    db.products.find(
-      p =>
-        p.sku.toLowerCase()
-        ===
-        sku.toLowerCase()
-        &&
-        p.id !== id
-    );
-
-
-
-  if(duplicate){
-
-    return alert(
-      'SKU sudah digunakan.'
-    );
-
-  }
-
-
+  const duplicate = db.products.find(p => p.sku.toLowerCase() === sku.toLowerCase() && p.id !== id);
+  if(duplicate) return alert('SKU sudah digunakan.');
 
   const data = {
-
-    sku,
-
-    name,
-
-    category:
-      document.getElementById(
-        'fCat'
-      ).value.trim(),
-
-    unit:
-      document.getElementById(
-        'fUnit'
-      ).value,
-
-    opening:
-      Number(
-        document.getElementById(
-          'fOpening'
-        ).value
-        ||
-        0
-      ),
-
-    rack:
-      document.getElementById(
-        'fRack'
-      ).value.trim()
-
+    sku, name,
+    category: document.getElementById('fCat').value.trim(),
+    unit: document.getElementById('fUnit').value,
+    opening: Number(document.getElementById('fOpening').value || 0),
+    rack: document.getElementById('fRack').value.trim()
   };
 
-
-
   if(id){
-
-    Object.assign(
-      product(id),
-      data
-    );
-
+    Object.assign(product(id), data);
+  } else {
+    db.products.push({ id:uid(), ...data });
   }
-
-  else{
-
-    db.products.push({
-
-      id:uid(),
-
-      ...data
-
-    });
-
-  }
-
-
 
   closeModal();
-
   save();
-
 }
-
 
 
 /* =====================================================
@@ -3173,1687 +901,439 @@ function saveProduct(id){
 ===================================================== */
 
 function deleteProduct(id){
-
-  if(
-    db.movements.some(
-      x =>
-        x.productId === id
-    )
-    ||
-    db.stocktakes.some(
-      x =>
-        x.productId === id
-    )
-  ){
-
-    return alert(
-      'Product ini sudah ada dalam rekod. Edit sahaja.'
-    );
-
+  if(db.movements.some(x => x.productId === id) || db.stocktakes.some(x => x.productId === id)){
+    return alert('Product ini sudah ada dalam rekod. Edit sahaja.');
   }
-
-
-
-  if(
-    confirm(
-      'Delete product ini?'
-    )
-  ){
-
-    db.products =
-      db.products.filter(
-        x =>
-          x.id !== id
-      );
-
+  if(confirm('Delete product ini?')){
+    db.products = db.products.filter(x => x.id !== id);
     save();
-
   }
-
 }
-
 
 
 /* =====================================================
    MOVEMENT FORM
 ===================================================== */
 
-function movementForm(
-  x={}
-){
-
+function movementForm(x={}){
   return `
-
     <div class="form-grid">
-
-
+      <div class="field"><label>Date *</label><input id="mDate" type="date" value="${x.date || today()}"></div>
       <div class="field">
-
-        <label>
-          Date *
-        </label>
-
-        <input
-          id="mDate"
-          type="date"
-          value="${x.date || today()}">
-
-      </div>
-
-
-
-      <div class="field">
-
-        <label>
-          Product *
-        </label>
-
+        <label>Product *</label>
         <select id="mProduct">
-
-          ${
-            db.products
-              .map(
-                p => `
-
-                  <option
-                    value="${p.id}"
-                    ${
-                      p.id === x.productId
-                        ? 'selected'
-                        : ''
-                    }>
-
-                    ${esc(p.sku)}
-                    —
-                    ${esc(p.name)}
-
-                  </option>
-
-                `
-              )
-              .join('')
-          }
-
+          ${db.products.map(p => `<option value="${p.id}" ${p.id === x.productId ? 'selected' : ''}>${esc(p.sku)} — ${esc(p.name)}</option>`).join('')}
         </select>
-
       </div>
-
-
-
-      <div class="field">
-
-        <label>
-          Stock In / Received
-        </label>
-
-        <input
-          id="mIn"
-          type="number"
-          min="0"
-          step="0.01"
-          value="${x.in || 0}">
-
-      </div>
-
-
-
-      <div class="field">
-
-        <label>
-          Stock Out / Sold
-        </label>
-
-        <input
-          id="mOut"
-          type="number"
-          min="0"
-          step="0.01"
-          value="${x.out || 0}">
-
-      </div>
-
-
+      <div class="field"><label>Stock In / Received</label><input id="mIn" type="number" min="0" step="0.01" value="${x.in || 0}"></div>
+      <div class="field"><label>Stock Out / Sold</label><input id="mOut" type="number" min="0" step="0.01" value="${x.out || 0}"></div>
     </div>
-
-
-
-    <div
-      class="field"
-      style="margin-top:12px">
-
-      <label>
-        Note
-      </label>
-
-      <input
-        id="mNote"
-        value="${esc(x.note || '')}"
-        placeholder="Sale INV-1023 / Receive supplier">
-
+    <div class="field" style="margin-top:12px">
+      <label>Note</label>
+      <input id="mNote" value="${esc(x.note || '')}" placeholder="Sale INV-1023 / Receive supplier">
     </div>
-
-
-
-    <div
-      style="
-        margin-top:18px;
-        display:flex;
-        justify-content:flex-end;
-        gap:8px
-      ">
-
-
-      <button
-        class="btn"
-        onclick="closeModal()">
-
-        Cancel
-
-      </button>
-
-
-
-      <button
-        class="btn primary"
-        onclick="saveMovement('${x.id || ''}')">
-
-        Save Movement
-
-      </button>
-
-
+    <div style="margin-top:18px;display:flex;justify-content:flex-end;gap:8px">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn primary" onclick="saveMovement('${x.id || ''}')">Save Movement</button>
     </div>
-
   `;
-
 }
-
-
-
-/* =====================================================
-   OPEN MOVEMENT
-===================================================== */
 
 function openMovementModal(){
-
-  if(
-    !db.products.length
-  ){
-
-    return alert(
-      'Tambah product dahulu.'
-    );
-
-  }
-
-
-
-  openModal(
-    'Record Daily Movement',
-    movementForm()
-  );
-
+  if(!db.products.length) return alert('Tambah product dahulu.');
+  openModal('Record Daily Movement', movementForm());
 }
-
-
-
-/* =====================================================
-   EDIT MOVEMENT
-===================================================== */
 
 function editMovement(id){
-
-  const x =
-    db.movements.find(
-      m =>
-        m.id === id
-    );
-
-
-  if(x){
-
-    openModal(
-      'Edit Daily Movement',
-      movementForm(x)
-    );
-
-  }
-
+  const x = db.movements.find(m => m.id === id);
+  if(x) openModal('Edit Daily Movement', movementForm(x));
 }
-
-
-
-/* =====================================================
-   SAVE MOVEMENT
-===================================================== */
 
 function saveMovement(id){
 
-  const inn =
-    Number(
-      document.getElementById(
-        'mIn'
-      ).value
-      ||
-      0
-    );
+  const inn = Number(document.getElementById('mIn').value || 0);
+  const out = Number(document.getElementById('mOut').value || 0);
 
-
-
-  const out =
-    Number(
-      document.getElementById(
-        'mOut'
-      ).value
-      ||
-      0
-    );
-
-
-
-  if(
-    inn === 0
-    &&
-    out === 0
-  ){
-
-    return alert(
-      'Masukkan Stock In atau Stock Out.'
-    );
-
-  }
-
-
+  if(inn === 0 && out === 0) return alert('Masukkan Stock In atau Stock Out.');
 
   const data = {
-
-    date:
-      document.getElementById(
-        'mDate'
-      ).value,
-
-    productId:
-      document.getElementById(
-        'mProduct'
-      ).value,
-
-    in:inn,
-
-    out,
-
-    note:
-      document.getElementById(
-        'mNote'
-      ).value.trim(),
-
-    created:
-      new Date().toISOString()
-
+    date: document.getElementById('mDate').value,
+    productId: document.getElementById('mProduct').value,
+    in: inn, out,
+    note: document.getElementById('mNote').value.trim(),
+    created: new Date().toISOString()
   };
 
-
-
   if(id){
-
-    Object.assign(
-      db.movements.find(
-        x =>
-          x.id === id
-      ),
-      data
-    );
-
+    Object.assign(db.movements.find(x => x.id === id), data);
+  } else {
+    db.movements.push({ id:uid(), ...data });
   }
-
-  else{
-
-    db.movements.push({
-
-      id:uid(),
-
-      ...data
-
-    });
-
-  }
-
-
 
   closeModal();
-
   save();
-
 }
-
-
-
-/* =====================================================
-   DELETE MOVEMENT
-===================================================== */
 
 function deleteMovement(id){
-
-  if(
-    confirm(
-      'Delete movement ini?'
-    )
-  ){
-
-    db.movements =
-      db.movements.filter(
-        x =>
-          x.id !== id
-      );
-
+  if(confirm('Delete movement ini?')){
+    db.movements = db.movements.filter(x => x.id !== id);
     save();
-
   }
-
 }
-
 
 
 /* =====================================================
    STOCK TAKE FORM
 ===================================================== */
 
-function stockTakeForm(
-  x={}
-){
+function stockTakeForm(x={}){
 
-  const m =
-    x.month
-    ||
-    document.getElementById(
-      'takeMonth'
-    ).value
-    ||
-    monthNow();
-
-
+  const m = x.month || document.getElementById('takeMonth').value || monthNow();
 
   return `
-
     <div class="form-grid">
-
-
+      <div class="field"><label>Month *</label><input id="sMonth" type="month" value="${m}"></div>
       <div class="field">
-
-        <label>
-          Month *
-        </label>
-
-        <input
-          id="sMonth"
-          type="month"
-          value="${m}">
-
-      </div>
-
-
-
-      <div class="field">
-
-        <label>
-          Product *
-        </label>
-
+        <label>Product *</label>
         <select id="sProduct">
-
-          ${
-            db.products
-              .map(
-                p => `
-
-                  <option
-                    value="${p.id}"
-                    ${
-                      p.id === x.productId
-                        ? 'selected'
-                        : ''
-                    }>
-
-                    ${esc(p.sku)}
-                    —
-                    ${esc(p.name)}
-
-                  </option>
-
-                `
-              )
-              .join('')
-          }
-
+          ${db.products.map(p => `<option value="${p.id}" ${p.id === x.productId ? 'selected' : ''}>${esc(p.sku)} — ${esc(p.name)}</option>`).join('')}
         </select>
-
       </div>
-
-
-
-      <div class="field">
-
-        <label>
-          System Balance
-        </label>
-
-        <input
-          id="sSystem"
-          readonly>
-
-      </div>
-
-
-
-      <div class="field">
-
-        <label>
-          Physical Count *
-        </label>
-
-        <input
-          id="sPhysical"
-          type="number"
-          step="0.01"
-          min="0"
-          value="${x.physical ?? 0}">
-
-      </div>
-
-
+      <div class="field"><label>System Balance</label><input id="sSystem" readonly></div>
+      <div class="field"><label>Physical Count *</label><input id="sPhysical" type="number" step="0.01" min="0" value="${x.physical ?? 0}"></div>
     </div>
-
-
-
-    <div
-      class="field"
-      style="margin-top:12px">
-
-      <label>
-        Note
-      </label>
-
-      <input
-        id="sNote"
-        value="${esc(x.note || '')}"
-        placeholder="Damaged / missing / recount">
-
+    <div class="field" style="margin-top:12px">
+      <label>Note</label>
+      <input id="sNote" value="${esc(x.note || '')}" placeholder="Damaged / missing / recount">
     </div>
-
-
-
-    <div
-      style="
-        margin-top:18px;
-        display:flex;
-        justify-content:flex-end;
-        gap:8px
-      ">
-
-
-      <button
-        class="btn"
-        onclick="closeModal()">
-
-        Cancel
-
-      </button>
-
-
-
-      <button
-        class="btn primary"
-        onclick="saveStockTake('${x.id || ''}')">
-
-        Save Count
-
-      </button>
-
-
+    <div style="margin-top:18px;display:flex;justify-content:flex-end;gap:8px">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn primary" onclick="saveStockTake('${x.id || ''}')">Save Count</button>
     </div>
-
   `;
-
 }
-
-
-
-/* =====================================================
-   OPEN STOCK TAKE
-===================================================== */
 
 function openStockTakeModal(){
-
-  if(
-    !db.products.length
-  ){
-
-    return alert(
-      'Tambah product dahulu.'
-    );
-
-  }
-
-
-
-  openModal(
-    'Monthly Physical Stock Take',
-    stockTakeForm()
-  );
-
-
-
+  if(!db.products.length) return alert('Tambah product dahulu.');
+  openModal('Monthly Physical Stock Take', stockTakeForm());
   setupStockTakeCalculation();
-
 }
-
-
-
-/* =====================================================
-   EDIT STOCK TAKE
-===================================================== */
 
 function editStockTake(id){
-
-  const x =
-    db.stocktakes.find(
-      s =>
-        s.id === id
-    );
-
-
-  if(!x)
-    return;
-
-
-
-  openModal(
-    'Edit Monthly Stock Take',
-    stockTakeForm(x)
-  );
-
-
-
+  const x = db.stocktakes.find(s => s.id === id);
+  if(!x) return;
+  openModal('Edit Monthly Stock Take', stockTakeForm(x));
   setupStockTakeCalculation();
-
 }
-
-
-
-/* =====================================================
-   STOCK TAKE CALC
-===================================================== */
 
 function setupStockTakeCalculation(){
-
-  const upd =
-    () => {
-
-      const pid =
-        document.getElementById(
-          'sProduct'
-        ).value;
-
-
-
-      const month =
-        document.getElementById(
-          'sMonth'
-        ).value;
-
-
-
-      document.getElementById(
-        'sSystem'
-      ).value =
-
-        balance(
-          pid,
-          month + '-31'
-        );
-
-    };
-
-
-
-  document.getElementById(
-    'sProduct'
-  ).onchange =
-    upd;
-
-
-
-  document.getElementById(
-    'sMonth'
-  ).onchange =
-    upd;
-
-
-
+  const upd = () => {
+    const pid = document.getElementById('sProduct').value;
+    const month = document.getElementById('sMonth').value;
+    document.getElementById('sSystem').value = balance(pid, month + '-31');
+  };
+  document.getElementById('sProduct').onchange = upd;
+  document.getElementById('sMonth').onchange = upd;
   upd();
-
 }
-
-
-
-/* =====================================================
-   SAVE STOCK TAKE
-===================================================== */
 
 function saveStockTake(id){
 
-  const m =
-    document.getElementById(
-      'sMonth'
-    ).value;
-
-
-
-  const pid =
-    document.getElementById(
-      'sProduct'
-    ).value;
-
-
-
-  const physical =
-    Number(
-      document.getElementById(
-        'sPhysical'
-      ).value
-      ||
-      0
-    );
-
-
-
-  const system =
-    balance(
-      pid,
-      m + '-31'
-    );
-
-
-
-  const variance =
-    physical - system;
-
-
+  const m = document.getElementById('sMonth').value;
+  const pid = document.getElementById('sProduct').value;
+  const physical = Number(document.getElementById('sPhysical').value || 0);
+  const system = balance(pid, m + '-31');
+  const variance = physical - system;
 
   const data = {
-
-    month:m,
-
-    productId:pid,
-
-    system,
-
-    physical,
-
-    variance,
-
-    note:
-      document.getElementById(
-        'sNote'
-      ).value.trim(),
-
-    created:
-      new Date().toISOString()
-
+    month:m, productId:pid, system, physical, variance,
+    note: document.getElementById('sNote').value.trim(),
+    created: new Date().toISOString()
   };
 
-
-
   if(id){
-
-    Object.assign(
-      db.stocktakes.find(
-        x =>
-          x.id === id
-      ),
-      data
-    );
-
-  }
-
-  else{
-
-    const old =
-      db.stocktakes.find(
-        x =>
-          x.month === m
-          &&
-          x.productId === pid
-      );
-
-
-
+    Object.assign(db.stocktakes.find(x => x.id === id), data);
+  } else {
+    const old = db.stocktakes.find(x => x.month === m && x.productId === pid);
     if(old){
-
-      Object.assign(
-        old,
-        data
-      );
-
+      Object.assign(old, data);
+    } else {
+      db.stocktakes.push({ id:uid(), ...data });
     }
-
-    else{
-
-      db.stocktakes.push({
-
-        id:uid(),
-
-        ...data
-
-      });
-
-    }
-
   }
-
-
 
   closeModal();
-
   save();
-
 }
-
-
-
-/* =====================================================
-   DELETE STOCK TAKE
-===================================================== */
 
 function deleteStockTake(id){
-
-  if(
-    confirm(
-      'Delete stock take record ini?'
-    )
-  ){
-
-    db.stocktakes =
-      db.stocktakes.filter(
-        x =>
-          x.id !== id
-      );
-
+  if(confirm('Delete stock take record ini?')){
+    db.stocktakes = db.stocktakes.filter(x => x.id !== id);
     save();
-
   }
-
 }
-
 
 
 /* =====================================================
    CSV
 ===================================================== */
 
-function csv(
-  rows,
-  filename
-){
+function csv(rows, filename){
 
-  if(
-    !rows.length
-  ){
+  if(!rows.length) return alert('Tiada data untuk export.');
 
-    return alert(
-      'Tiada data untuk export.'
-    );
+  const headers = Object.keys(rows[0]);
+  const quote = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
 
-  }
+  const text = '\ufeff' + [headers, ...rows.map(r => headers.map(h => r[h]))]
+    .map(r => r.map(quote).join(',')).join('\n');
 
-
-
-  const headers =
-    Object.keys(
-      rows[0]
-    );
-
-
-
-  const quote =
-    v =>
-      `"${String(v ?? '')
-        .replace(
-          /"/g,
-          '""'
-        )}"`;
-
-
-
-  const text =
-    '\ufeff'
-    +
-    [
-      headers,
-
-      ...rows.map(
-        r =>
-          headers.map(
-            h =>
-              r[h]
-          )
-      )
-
-    ]
-
-    .map(
-      r =>
-        r.map(
-          quote
-        ).join(',')
-    )
-
-    .join('\n');
-
-
-
-  const blob =
-    new Blob(
-      [text],
-      {
-        type:
-          'text/csv;charset=utf-8;'
-      }
-    );
-
-
-
-  const a =
-    document.createElement(
-      'a'
-    );
-
-
-
-  a.href =
-    URL.createObjectURL(
-      blob
-    );
-
-
-
-  a.download =
-    filename;
-
-
-
+  const blob = new Blob([text], { type:'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
   a.click();
-
-
-
-  setTimeout(
-    () =>
-      URL.revokeObjectURL(
-        a.href
-      ),
-    1000
-  );
-
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
-
-
-
-/* =====================================================
-   EXPORT
-===================================================== */
 
 function exportCSV(type){
 
-  if(
-    type === 'products'
-  ){
-
-    csv(
-
-      db.products.map(
-        p => ({
-
-          SKU:p.sku,
-
-          Product:p.name,
-
-          Category:p.category,
-
-          Unit:p.unit,
-
-          Opening_Stock:
-            p.opening,
-
-          Rack:p.rack,
-
-          System_Balance:
-            balance(p.id)
-
-        })
-      ),
-
-      'products.csv'
-
-    );
-
+  if(type === 'products'){
+    csv(db.products.map(p => ({
+      SKU:p.sku, Product:p.name, Category:p.category, Unit:p.unit,
+      Opening_Stock:p.opening, Rack:p.rack, System_Balance:balance(p.id)
+    })), 'products.csv');
   }
 
-
-
-  if(
-    type === 'movement'
-  ){
-
-    csv(
-
-      db.movements.map(
-        m => ({
-
-          Date:m.date,
-
-          SKU:
-            productSku(
-              m.productId
-            ),
-
-          Product:
-            productName(
-              m.productId
-            ),
-
-          Stock_In:m.in,
-
-          Stock_Out:m.out,
-
-          Note:m.note
-
-        })
-      ),
-
-      'daily_movement.csv'
-
-    );
-
+  if(type === 'movement'){
+    csv(db.movements.map(m => ({
+      Date:m.date, SKU:productSku(m.productId), Product:productName(m.productId),
+      Stock_In:m.in, Stock_Out:m.out, Note:m.note
+    })), 'daily_movement.csv');
   }
 
-
-
-  if(
-    type === 'stocktake'
-  ){
-
-    csv(
-
-      db.stocktakes.map(
-        s => ({
-
-          Month:s.month,
-
-          SKU:
-            productSku(
-              s.productId
-            ),
-
-          Product:
-            productName(
-              s.productId
-            ),
-
-          System_Balance:
-            s.system,
-
-          Physical_Count:
-            s.physical,
-
-          Variance:
-            s.variance,
-
-          Note:s.note
-
-        })
-      ),
-
-      'monthly_stock_take.csv'
-
-    );
-
+  if(type === 'stocktake'){
+    csv(db.stocktakes.map(s => ({
+      Month:s.month, SKU:productSku(s.productId), Product:productName(s.productId),
+      System_Balance:s.system, Physical_Count:s.physical, Variance:s.variance, Note:s.note
+    })), 'monthly_stock_take.csv');
   }
-
 }
 
 
-
 /* =====================================================
-   BACKUP
+   BACKUP / RESTORE
 ===================================================== */
 
 function backupJSON(){
-
-  const blob =
-    new Blob(
-      [
-        JSON.stringify(
-          db,
-          null,
-          2
-        )
-      ],
-      {
-        type:
-          'application/json'
-      }
-    );
-
-
-
-  const a =
-    document.createElement(
-      'a'
-    );
-
-
-
-  a.href =
-    URL.createObjectURL(
-      blob
-    );
-
-
-
-  a.download =
-    'renocal_stock_take_backup.json';
-
-
-
+  const blob = new Blob([JSON.stringify(db, null, 2)], { type:'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'renocal_stock_take_backup.json';
   a.click();
-
-
-
-  setTimeout(
-    () =>
-      URL.revokeObjectURL(
-        a.href
-      ),
-    1000
-  );
-
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
-
-
-
-/* =====================================================
-   RESTORE
-===================================================== */
 
 function restoreJSON(e){
 
-  const file =
-    e.target.files[0];
+  const file = e.target.files[0];
+  if(!file) return;
 
+  const r = new FileReader();
 
-  if(!file)
-    return;
-
-
-
-  const r =
-    new FileReader();
-
-
-
-  r.onload =
-    () => {
-
-      try{
-
-        const x =
-          JSON.parse(
-            r.result
-          );
-
-
-
-        if(
-          !x.products
-          ||
-          !x.movements
-          ||
-          !x.stocktakes
-        ){
-
-          throw 0;
-
-        }
-
-
-
-        db =
-          x;
-
-
-
-        save();
-
-
-
-        alert(
-          'Backup berjaya dipulihkan.'
-        );
-
-      }
-
-      catch{
-
-        alert(
-          'Fail backup tidak sah.'
-        );
-
-      }
-
-    };
-
-
+  r.onload = () => {
+    try{
+      const x = JSON.parse(r.result);
+      if(!x.products || !x.movements || !x.stocktakes) throw 0;
+      db = x;
+      save();
+      alert('Backup berjaya dipulihkan.');
+    } catch {
+      alert('Fail backup tidak sah.');
+    }
+  };
 
   r.readAsText(file);
-
 }
 
 
-
 /* =====================================================
-   GOOGLE SHEETS SETTINGS
+   GOOGLE SHEETS (optional extra backup, unrelated to login sync)
 ===================================================== */
 
 function saveSheetsUrl(){
-
-  settings.sheetsUrl =
-    document.getElementById(
-      'sheetsUrl'
-    ).value.trim();
-
-
-
-  localStorage.setItem(
-    SETTINGS_KEY,
-    JSON.stringify(settings)
-  );
-
-
-
-  setSync(
-    'online',
-    'URL saved'
-  );
-
+  settings.sheetsUrl = document.getElementById('sheetsUrl').value.trim();
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  setSync('online', 'URL saved');
 }
 
-
-
-/* =====================================================
-   SYNC STATUS
-===================================================== */
-
-function setSync(
-  state,
-  msg=''
-){
-
-  const dot =
-    document.getElementById(
-      'syncDot'
-    );
-
-
-  dot.className =
-    'sync-dot '
-    +
-    (
-      state === 'online'
-        ? 'online'
-        :
-        state === 'error'
-          ? 'error'
-          : ''
-    );
-
-
-
-  const s =
-    document.getElementById(
-      'syncMsg'
-    );
-
-
-  if(s)
-    s.textContent =
-      msg;
-
+function setSync(state, msg=''){
+  const dot = document.getElementById('syncDot');
+  dot.className = 'sync-dot ' + (state === 'online' ? 'online' : state === 'error' ? 'error' : '');
+  const s = document.getElementById('syncMsg');
+  if(s) s.textContent = msg;
 }
-
-
-
-/* =====================================================
-   GOOGLE SHEETS PUSH
-===================================================== */
 
 async function syncToSheets(){
 
-  if(
-    !settings.sheetsUrl
-  ){
-
-    return alert(
-      'Masukkan Google Apps Script Web App URL dahulu.'
-    );
-
-  }
-
-
+  if(!settings.sheetsUrl) return alert('Masukkan Google Apps Script Web App URL dahulu.');
 
   try{
+    setSync('', 'Syncing...');
 
-    setSync(
-      '',
-      'Syncing...'
-    );
+    const response = await fetch(settings.sheetsUrl, {
+      method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action:'save', db:db })
+    });
 
+    const result = await response.json();
+    if(!result.ok) throw new Error(result.error || 'Sync failed');
 
+    setSync('online', 'Sync berjaya pada ' + new Date().toLocaleString('ms-MY'));
 
-    const response =
-      await fetch(
-        settings.sheetsUrl,
-        {
-          method:'POST',
-
-          headers:{
-            'Content-Type':
-              'text/plain;charset=utf-8'
-          },
-
-          body:
-            JSON.stringify({
-              action:'save',
-              db:db
-            })
-        }
-      );
-
-
-
-    const result =
-      await response.json();
-
-
-
-    if(
-      !result.ok
-    ){
-
-      throw new Error(
-        result.error
-        ||
-        'Sync failed'
-      );
-
-    }
-
-
-
-    setSync(
-      'online',
-      'Sync berjaya pada '
-      +
-      new Date()
-        .toLocaleString(
-          'ms-MY'
-        )
-    );
-
-
-
+  } catch(error){
+    setSync('error', 'Sync gagal: ' + error.message);
+    alert('Sync gagal. Semak URL dan deployment Google Apps Script.');
   }
-
-  catch(error){
-
-    setSync(
-      'error',
-      'Sync gagal: '
-      +
-      error.message
-    );
-
-
-
-    alert(
-      'Sync gagal. Semak URL dan deployment Google Apps Script.'
-    );
-
-  }
-
 }
-
-
-
-/* =====================================================
-   GOOGLE SHEETS PULL
-===================================================== */
 
 async function loadFromSheets(){
 
-  if(
-    !settings.sheetsUrl
-  ){
-
-    return alert(
-      'Masukkan Google Apps Script Web App URL dahulu.'
-    );
-
-  }
-
-
-
-  if(
-    !confirm(
-      'Pull akan menggantikan data local dengan data Google Sheets. Teruskan?'
-    )
-  ){
-
-    return;
-
-  }
-
-
+  if(!settings.sheetsUrl) return alert('Masukkan Google Apps Script Web App URL dahulu.');
+  if(!confirm('Pull akan menggantikan data local dengan data Google Sheets. Teruskan?')) return;
 
   try{
+    setSync('', 'Pulling...');
 
-    setSync(
-      '',
-      'Pulling...'
-    );
+    const response = await fetch(settings.sheetsUrl + '?action=load');
+    const result = await response.json();
 
+    if(!result.ok) throw new Error(result.error || 'Load failed');
+    if(!result.db) throw new Error('Database kosong');
 
+    db = result.db;
+    save();
 
-    const response =
-      await fetch(
-        settings.sheetsUrl
-        +
-        '?action=load'
-      );
+    setSync('online', 'Data berjaya dipull dari Google Sheets');
+    alert('Data cloud berjaya dimuatkan.');
 
-
-
-    const result =
-      await response.json();
-
-
-
-    if(
-      !result.ok
-    ){
-
-      throw new Error(
-        result.error
-        ||
-        'Load failed'
-      );
-
-    }
-
-
-
-    if(
-      !result.db
-    ){
-
-      throw new Error(
-        'Database kosong'
-      );
-
-    }
-
-
-
-    db =
-      result.db;
-
-
-
-    localStorage.setItem(
-      KEY,
-      JSON.stringify(db)
-    );
-
-
-
-    renderAll();
-
-
-
-    setSync(
-      'online',
-      'Data berjaya dipull dari Google Sheets'
-    );
-
-
-
-    alert(
-      'Data cloud berjaya dimuatkan.'
-    );
-
-
-
+  } catch(error){
+    setSync('error', 'Pull gagal: ' + error.message);
+    alert('Pull gagal: ' + error.message);
   }
-
-  catch(error){
-
-    setSync(
-      'error',
-      'Pull gagal: '
-      +
-      error.message
-    );
-
-
-
-    alert(
-      'Pull gagal: '
-      +
-      error.message
-    );
-
-  }
-
 }
 
 
-
 /* =====================================================
-   LOGIN
-===================================================== */
-
-function login(){
-
-  const email =
-    document.getElementById(
-      'loginEmail'
-    ).value
-    .trim()
-    .toLowerCase();
-
-
-
-  const pass =
-    document.getElementById(
-      'loginPassword'
-    ).value;
-
-
-
-  if(
-    !email
-    ||
-    !pass
-  ){
-
-    return loginMsg(
-      'Email dan password diperlukan.'
-    );
-
-  }
-
-
-
-/* =====================================================
-   REGISTER
-===================================================== */
-
-function registerUser(){
-
-  const email =
-    document.getElementById(
-      'loginEmail'
-    ).value
-    .trim()
-    .toLowerCase();
-
-
-
-  const pass =
-    document.getElementById(
-      'loginPassword'
-    ).value;
-
-
-
-  if(
-    !email
-    ||
-    pass.length < 6
-  ){
-
-    return loginMsg(
-      'Masukkan email dan password sekurang-kurangnya 6 aksara.'
-    );
-
-  }
-
-
-
-  const users =
-    JSON.parse(
-      localStorage.getItem(
-        'reno_users_v1'
-      )
-      ||
-      '{}'
-    );
-
-
-
-  if(
-    users[email]
-  ){
-
-    return loginMsg(
-      'Account sudah wujud.'
-    );
-
-  }
-
-
-
-  users[email] = {
-    password:pass
-  };
-
-
-
-  localStorage.setItem(
-    'reno_users_v1',
-    JSON.stringify(users)
-  );
-
-
-
-  auth = {
-    email
-  };
-
-
-
-  localStorage.setItem(
-    AUTH_KEY,
-    JSON.stringify(auth)
-  );
-
-
-
-  boot();
-
-}
-
-
-
-/* =====================================================
-   DEMO
-===================================================== */
-
-function demoLogin(){
-
-  auth = {
-    email:'local-demo'
-  };
-
-
-
-  localStorage.setItem(
-    AUTH_KEY,
-    JSON.stringify(auth)
-  );
-
-
-
-  boot();
-
-}
-
-
-
-/* =====================================================
-   LOGIN MESSAGE
+   AUTH — Google + Email, via Firebase (real cloud sync)
 ===================================================== */
 
 function loginMsg(x){
-
-  document.getElementById(
-    'loginMsg'
-  ).textContent =
-    x;
-
+  document.getElementById('loginMsg').textContent = x;
 }
 
+async function login(){
 
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('loginPassword').value;
 
-/* =====================================================
-   LOGOUT
-===================================================== */
+  if(!email || !pass) return loginMsg('Email dan password diperlukan.');
+
+  try{
+    await window.signInWithEmailAndPassword(window.firebaseAuthInstance, email, pass);
+    loginMsg('');
+  } catch(error){
+    loginMsg('Login gagal: ' + error.message);
+  }
+}
+
+async function registerUser(){
+
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('loginPassword').value;
+
+  if(!email || pass.length < 6){
+    return loginMsg('Masukkan email dan password sekurang-kurangnya 6 aksara.');
+  }
+
+  try{
+    await window.createUserWithEmailAndPassword(window.firebaseAuthInstance, email, pass);
+    loginMsg('');
+  } catch(error){
+    loginMsg('Register gagal: ' + error.message);
+  }
+}
+
+async function loginWithGoogle(){
+  try{
+    await window.signInWithGoogleFn();
+    loginMsg('');
+  } catch(error){
+    loginMsg('Google sign-in gagal: ' + error.message);
+  }
+}
+
+// Demo mode = tiada Firebase, tiada sync antara phone, data kekal dalam browser ini sahaja
+function demoLogin(){
+  currentUser = { uid:'local-demo', email:'Local Demo (no sync)', isDemo:true };
+  db = JSON.parse(localStorage.getItem(KEY) || '{"products":[],"movements":[],"stocktakes":[]}');
+  boot();
+}
 
 function logout(){
+  if(unsubscribeSnapshot){ unsubscribeSnapshot(); unsubscribeSnapshot = null; }
 
-  auth =
-    null;
-
-
-
-  localStorage.removeItem(
-    AUTH_KEY
-  );
-
-
-
-  boot();
-
+  if(currentUser && !currentUser.isDemo){
+    window.signOut(window.firebaseAuthInstance);
+    // handleFirebaseLogout() (below) will fire via onAuthStateChanged and call boot()
+  } else {
+    currentUser = null;
+    boot();
+  }
 }
 
+// Called by the module script below when Firebase confirms a logged-in user
+function handleFirebaseLogin(user){
+  currentUser = { uid:user.uid, email:user.email, photoURL:user.photoURL, isDemo:false };
+  subscribeToCloudData(user.uid);
+  boot();
+}
+
+// Called by the module script below when there is no logged-in Firebase user
+function handleFirebaseLogout(){
+  if(unsubscribeSnapshot){ unsubscribeSnapshot(); unsubscribeSnapshot = null; }
+  if(!currentUser || !currentUser.isDemo){
+    currentUser = null;
+  }
+  boot();
+}
+
+// Real-time listener: any device that writes to this same uid's document
+// triggers this callback on every other device that's logged in with it.
+function subscribeToCloudData(uid){
+
+  if(unsubscribeSnapshot) unsubscribeSnapshot();
+
+  const ref = window.doc(window.dbFirebase, 'users', uid);
+
+  unsubscribeSnapshot = window.onSnapshot(ref, (snap) => {
+
+    if(snap.exists() && snap.data().store){
+      db = snap.data().store;
+    } else {
+      db = { products:[], movements:[], stocktakes:[] };
+      window.setDoc(ref, { store: db, updatedAt: window.serverTimestamp() });
+    }
+
+    renderAll();
+    setSync('online', 'Data disync melalui akaun cloud.');
+
+  }, (error) => {
+    console.error('Firestore sync error:', error);
+    setSync('error', 'Sync error: ' + error.message);
+  });
+}
 
 
 /* =====================================================
@@ -4862,139 +1342,32 @@ function logout(){
 
 function boot(){
 
-  document
-    .getElementById(
-      'loginView'
-    )
-    .classList.toggle(
-      'hidden',
-      !!auth
-    );
+  document.getElementById('loginView').classList.toggle('hidden', !!currentUser);
+  document.getElementById('appView').classList.toggle('hidden', !currentUser);
 
+  if(currentUser){
 
+    document.getElementById('userChip').textContent = currentUser.email;
 
-  document
-    .getElementById(
-      'appView'
-    )
-    .classList.toggle(
-      'hidden',
-      !auth
-    );
+    document.getElementById('movementMonth').value = monthNow();
+    document.getElementById('takeMonth').value = monthNow();
+    document.getElementById('sheetsUrl').value = settings.sheetsUrl || '';
 
-
-
-  if(auth){
-
-    document.getElementById(
-      'userChip'
-    ).textContent =
-      auth.email;
-
-
-
-    document.getElementById(
-      'movementMonth'
-    ).value =
-      monthNow();
-
-
-
-    document.getElementById(
-      'takeMonth'
-    ).value =
-      monthNow();
-
-
-
-    document.getElementById(
-      'sheetsUrl'
-    ).value =
-      settings.sheetsUrl
-      ||
-      '';
-
-
-
-    renderAll();
-
-
-/* =========================================
-   PWA SERVICE WORKER
-========================================= */
-
-if ("serviceWorker" in navigator) {
-
-  window.addEventListener("load", () => {
-
-    navigator.serviceWorker
-      .register("./sw.js")
-      .then(() => {
-
-        console.log(
-          "RenoCal Service Worker registered."
-        );
-
-      })
-      .catch(error => {
-
-        console.error(
-          "Service Worker registration failed:",
-          error
-        );
-
-      });
-
-  });
-
-}
-
-
-
-    setSync(
-      settings.sheetsUrl
-        ? 'online'
-        : '',
-      ''
-    );
-
+    if(currentUser.isDemo) renderAll();
+    // Cloud users: renderAll() is triggered by the Firestore onSnapshot listener instead.
   }
-
 }
-
 
 
 /* =====================================================
    PWA SERVICE WORKER
 ===================================================== */
 
-if(
-  'serviceWorker'
-  in navigator
-){
-
-  window.addEventListener(
-    'load',
-    () => {
-
-      navigator.serviceWorker
-        .register(
-          'sw.js'
-        )
-        .catch(
-          () => {}
-        );
-
-    }
-  );
-
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
 }
-
-
-
-/* =====================================================
-   START
-===================================================== */
 
 </script>
 
@@ -5002,9 +1375,11 @@ if(
 import {
   auth as firebaseAuthInstance,
   db as dbFirebase,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  signInWithGoogle,
   doc,
   setDoc,
   getDoc,
@@ -5017,23 +1392,23 @@ window.dbFirebase = dbFirebase;
 window.signInWithEmailAndPassword = signInWithEmailAndPassword;
 window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
 window.signOut = signOut;
+window.signInWithGoogleFn = signInWithGoogle;
 window.doc = doc;
 window.setDoc = setDoc;
 window.getDoc = getDoc;
 window.onSnapshot = onSnapshot;
 window.serverTimestamp = serverTimestamp;
 
-window.addEventListener('load', () => {
-  boot();
+// This fires on page load AND whenever login/logout state changes,
+// on every device — this is what makes cross-device sync possible.
+onAuthStateChanged(firebaseAuthInstance, (user) => {
+  if(user){
+    window.handleFirebaseLogin(user);
+  } else {
+    window.handleFirebaseLogout();
+  }
 });
 </script>
 
-</body>
-</html>
-
-<script>
-boot();
-</script>
-  
 </body>
 </html>
