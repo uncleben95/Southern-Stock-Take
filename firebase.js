@@ -27,7 +27,7 @@ import {
 
 const firebaseConfig = {
   apiKey: "AIzaSyAG4zuUM6DtCNyk-eV3QSn7f9zNkDEx_pU",
-  authDomain: "southern-stock-take.vercel.com",
+  authDomain: "southern-stock-take.firebaseapp.com",
   projectId: "southern-stock-take",
   storageBucket: "southern-stock-take.firebasestorage.app",
   messagingSenderId: "491924589823",
