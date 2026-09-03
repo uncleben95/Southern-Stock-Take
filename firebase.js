@@ -10,7 +10,9 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  signOut
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
@@ -39,6 +41,13 @@ const auth = getAuth(app);
 
 const db = getFirestore(app);
 
+const googleProvider = new GoogleAuthProvider();
+
+// Fungsi login guna Google
+function signInWithGoogle() {
+  return signInWithPopup(auth, googleProvider);
+}
+
 
 export {
   app,
@@ -49,6 +58,7 @@ export {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  signInWithGoogle,
 
   doc,
   getDoc,
